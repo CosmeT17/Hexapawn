@@ -1,2 +1,2 @@
 # Hexapawn
-Demo of AI learning how to play Hexapawn.
+Demo of an AI learning how to play Hexapawn.
