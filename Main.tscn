@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfpeg1tf5kyhg"]
+
+[ext_resource type="PackedScene" uid="uid://dojuam60dx7ue" path="res://Scenes/3x3/Board.tscn" id="1_8e8tv"]
+[ext_resource type="PackedScene" uid="uid://cm25j6rpmj8we" path="res://Scenes/3x3/Pawn_Player.tscn" id="2_hdxro"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Board" parent="." instance=ExtResource("1_8e8tv")]
+position = Vector2(324, 324)
+
+[node name="Pawn_Player" parent="." instance=ExtResource("2_hdxro")]
+position = Vector2(317, 536)
