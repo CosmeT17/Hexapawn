@@ -8,7 +8,7 @@ class_name Pawn
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
 
-var movable: bool = true
+#var movable: bool = true
 var selected: bool = false
 
 var dropzones: Array = []
@@ -32,7 +32,7 @@ func _ready():
 	if is_AI:
 		direction = -1
 		#movable = false # TODO
-#
+
 # Do the dragging.
 func _physics_process(delta):
 	if selected:
@@ -43,7 +43,7 @@ func _physics_process(delta):
 #
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
-	if Input.is_action_just_pressed("Click") and movable:
+	if Input.is_action_just_pressed("Click") and entity.can_move:
 		z_index = 1
 		selected = true
 #
@@ -98,13 +98,8 @@ func update_zone():
 		current_zone = zone
 		
 		# Checking win condition.
-		var table_size: int = get_tree().get_first_node_in_group("Grid").size
-		
-		print(current_zone.coordinates.y)
-		print(table_size)
-		
-		#if current_zone.coordinates.y == table_size or enemy_destroyed:
-			#entity.end_game.emit()
+		if current_zone.coordinates.y == entity.winning_y or enemy_destroyed:
+			entity.end_game.emit()
 
 # Highlights the selected valid zone.
 func highlight_zone():

@@ -2,9 +2,9 @@ extends Node2D
 
 @export var testing: bool = false
 @onready var zones: Array = $Dropzones.get_children()
-@onready var size: int = int(sqrt(zones.size())) - 1
 
 func _ready():
+	var size: int = int(sqrt(zones.size())) - 1
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
@@ -19,6 +19,8 @@ func _ready():
 			coordinates.y += 1
 		
 		ID = char(ID.to_ascii_buffer()[0] + 1)
+	
+	$Entities/Player.winning_y = size
 
 # Prints information for testing purposes.
 func _input(_event):

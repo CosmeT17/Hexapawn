@@ -10,7 +10,7 @@
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 
-[node name="Grid" type="Node2D" parent="." groups=["Grid"]]
+[node name="Grid" type="Node2D" parent="."]
 script = ExtResource("1_cyrpp")
 
 [node name="Dropzones" type="Node2D" parent="Grid"]

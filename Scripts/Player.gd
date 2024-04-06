@@ -7,6 +7,12 @@ class_name Player
 signal end_game
 var num_wins: int = 0
 
+# From grandparent --> grandchild
+var winning_y: int
+
+# From parent --> child
+var can_move: bool = true
+
 # From child --> parent
 var is_AI: bool
 var is_white: bool
@@ -21,6 +27,7 @@ func _ready():
 
 func Game_Over():
 	entities.game_over = true
+	entities.Game_Over()
 	num_wins += 1
 	update_score()
 
