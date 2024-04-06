@@ -16,9 +16,8 @@ func _input(_event):
 		for pawn in get_tree().get_nodes_in_group("Pawn"):
 			
 			# Returning pawns back to initial positions for next game.
-			if pawn.current_zone != pawn.initial_zone:
-				pawn.current_zone = pawn.initial_zone
-				pawn.global_position = pawn.current_zone.global_position
+			pawn.current_zone = pawn.initial_zone
+			pawn.global_position = pawn.current_zone.global_position
 			
 			# Reviving lost pawns.
 			if not pawn.visible:

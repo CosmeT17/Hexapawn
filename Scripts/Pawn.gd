@@ -116,7 +116,7 @@ func highlight_zone():
 
 # Set zone to the current_zone and update the zone pawn values.
 func set_zone(zone: Dropzone):
-	if current_zone: 
+	if current_zone and current_zone.pawn == self: 
 		current_zone.pawn = null
 	current_zone = zone
 	current_zone.pawn = self
