@@ -13,8 +13,8 @@ var size: int
 var selected: bool = false
 var dropzones: Array = []
 
+var current_zone: Dropzone: set = set_zone
 var initial_zone: Dropzone
-var current_zone: Dropzone
 var selected_zone: Dropzone
 var previous_zone: Dropzone
 
@@ -27,9 +27,7 @@ func _ready():
 		if global_position.distance_to(zone.global_position) < zone_range:
 			initial_zone = zone
 			break
-			
 	current_zone = initial_zone
-	current_zone.pawn = self
 	
 	# Changing the move direction to down if the pawn belongs to AI.
 	if not is_player:
@@ -86,17 +84,13 @@ func update_zone():
 	selected_zone = null
 	previous_zone = null
 	
-	# Updating the zones' pawn value.
+	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
+		if zone.pawn: zone.pawn.visible = false # Pawn killer. (RIP)
+		current_zone = zone # Updating zone pawn values.
 		
-		# TODO: Properly kill pawns.
-		if zone.pawn: zone.pawn.queue_free()
-		
-		current_zone.pawn = null
-		current_zone = zone
-		current_zone.pawn = self
-	
-		# Win/Lose
+		# TODO: Detect Ties!
+		# Detecting Win/Lose state.
 		if current_zone.coordinates.y == size:
 			entity.end_game.emit()
 
@@ -119,3 +113,10 @@ func highlight_zone():
 	# Making the previously selected zone invisible when no valid zone is selected.
 	if zone == current_zone and selected_zone and selected_zone.visible:
 		selected_zone.visible = false
+
+# Set zone to the current_zone and update the zone pawn values.
+func set_zone(zone: Dropzone):
+	if current_zone: 
+		current_zone.pawn = null
+	current_zone = zone
+	current_zone.pawn = self

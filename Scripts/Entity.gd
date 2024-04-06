@@ -13,4 +13,16 @@ func Game_Over():
 
 func _input(_event):
 	if game_over and Input.is_action_just_pressed("New Game"):
-		print("Yes")
+		for pawn in get_tree().get_nodes_in_group("Pawn"):
+			
+			# Returning pawns back to initial positions for next game.
+			if pawn.current_zone != pawn.initial_zone:
+				pawn.current_zone = pawn.initial_zone
+				pawn.global_position = pawn.current_zone.global_position
+			
+			# Reviving lost pawns.
+			if not pawn.visible:
+				pawn.visible = true
+			
+			#if pawn.get_groups()[1] == "Player":
+			pawn.movable = true
