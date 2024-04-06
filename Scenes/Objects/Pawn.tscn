@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv3reh3y05eqf"]
+
+[ext_resource type="Script" path="res://Scripts/Pawn.gd" id="1_kgymo"]
+
+[node name="Pawn" type="Node2D"]
+script = ExtResource("1_kgymo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Area" type="Area2D" parent="Sprite"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite/Area"]
+
+[connection signal="input_event" from="Sprite/Area" to="." method="_on_area_input_event"]

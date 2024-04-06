@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://csb4c0v3ug7eu"]
+
+[ext_resource type="Script" path="res://Scripts/Grid.gd" id="1_cyrpp"]
+[ext_resource type="Script" path="res://Scripts/Pawns_Player.gd" id="2_62843"]
+
+[node name="Board" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("1_cyrpp")
+
+[node name="Pawns_Player" type="Node2D" parent="."]
+script = ExtResource("2_62843")
+
+[node name="AI_Player" type="Node2D" parent="."]

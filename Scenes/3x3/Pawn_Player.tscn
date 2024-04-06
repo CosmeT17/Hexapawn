@@ -1,19 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm25j6rpmj8we"]
+[gd_scene load_steps=3 format=3 uid="uid://cyijs6w32vbio"]
 
-[ext_resource type="Script" path="res://Scripts/Pawn.gd" id="1_fd0mi"]
+[ext_resource type="PackedScene" uid="uid://cv3reh3y05eqf" path="res://Scenes/Objects/Pawn.tscn" id="1_mxl1p"]
 [ext_resource type="Texture2D" uid="uid://b3howvivytcq3" path="res://Textures/3x3/Pawn_White_Player.png" id="2_7s2fn"]
 
-[node name="Pawn_Player" type="Node2D" groups=["Player"]]
-script = ExtResource("1_fd0mi")
+[node name="Pawn_Player" groups=["Player"] instance=ExtResource("1_mxl1p")]
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture_filter = 1
+[node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_7s2fn")
 
-[node name="Area" type="Area2D" parent="Sprite"]
-
-[node name="Collision" type="CollisionPolygon2D" parent="Sprite/Area"]
+[node name="CollisionPolygon2D" parent="Sprite/Area" index="0"]
 visible = false
 polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)
-
-[connection signal="input_event" from="Sprite/Area" to="." method="_on_area_input_event"]

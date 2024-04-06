@@ -17,6 +17,15 @@ func _ready():
 		
 		ID = char(ID.to_ascii_buffer()[0] + 1)
 
-	# For Testing
-	#for i in get_children():
-		#print(i.get_name() + ":\nCoordinates: " + str(i.coordinates) + "\nID: " + i.ID + "\n")
+# Prints information for testing purposes.
+func _input(_event):
+	if Input.is_action_just_pressed("Test"):
+		var out: String = ""
+		for zone in get_children():
+			out = str(zone.get_name()) + ": "
+			out += str(zone.coordinates) + "; "
+			out += zone.ID + "; "
+			if zone.pawn: out += zone.pawn.get_name()
+			else: out += "NULL"
+			print(out)
+		print()
