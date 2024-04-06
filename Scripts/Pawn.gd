@@ -7,28 +7,29 @@ class_name Pawn
 @onready var entity = get_parent()
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
-var range: int
+var zone_range: int
 var size: int
 
 var selected: bool = false
 var dropzones: Array = []
 
-var zone: Dropzone
 var initial_zone: Dropzone
+var current_zone: Dropzone
 var selected_zone: Dropzone
 var previous_zone: Dropzone
 
 func _ready():
 	dropzones = get_tree().get_nodes_in_group("Zone")
-	range = dropzones[0].radius
+	zone_range = dropzones[0].radius
 	
 	# Assigning the initial zone.
 	for zone in dropzones:
-		if global_position.distance_to(zone.global_position) < range:
-			self.zone = zone
+		if global_position.distance_to(zone.global_position) < zone_range:
+			initial_zone = zone
 			break
-	self.zone.pawn = self
-	initial_zone = self.zone
+			
+	current_zone = initial_zone
+	current_zone.pawn = self
 	
 	# Changing the move direction to down if the pawn belongs to AI.
 	if not is_player:
@@ -41,7 +42,7 @@ func _physics_process(delta):
 		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
 		if show_zone: highlight_zone()
 	else:
-		global_position = lerp(global_position, zone.global_position, 10 * delta)
+		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
@@ -60,10 +61,10 @@ func _input(_event):
 # Returns the closest valid dropzone to the selected pawn.
 func nearest_zone() -> Dropzone:
 	for zone in dropzones:
-		if global_position.distance_to(zone.global_position) < range and zone != self.zone:
+		if global_position.distance_to(zone.global_position) < zone_range and zone != current_zone:
 			
-			var diff_y: int = (zone.coordinates.y - self.zone.coordinates.y) * direction
-			var diff_x: int = abs(zone.coordinates.x - self.zone.coordinates.x)
+			var diff_y: int = (zone.coordinates.y - current_zone.coordinates.y) * direction
+			var diff_x: int = abs(zone.coordinates.x - current_zone.coordinates.x)
 			
 			# Move Forward
 			if diff_y == 1:
@@ -74,7 +75,7 @@ func nearest_zone() -> Dropzone:
 				elif diff_x != 0 and zone.pawn:
 					if get_groups()[1] != zone.pawn.get_groups()[1]:
 						return zone
-	return self.zone
+	return current_zone
 
 # Updates the pawn's current zone to the selected zone. 
 func update_zone():
@@ -86,27 +87,25 @@ func update_zone():
 	previous_zone = null
 	
 	# Updating the zones' pawn value.
-	if self.zone != zone:
+	if current_zone != zone:
 		
 		# TODO: Properly kill pawns.
 		if zone.pawn: zone.pawn.queue_free()
 		
-		self.zone.pawn = null
-		self.zone = zone
-		self.zone.pawn = self
+		current_zone.pawn = null
+		current_zone = zone
+		current_zone.pawn = self
 	
-	# TODO: Win/Lose
-		if zone.coordinates.y == size:
+		# Win/Lose
+		if current_zone.coordinates.y == size:
 			entity.end_game.emit()
-			#if is_player: print("Player Won")
-			#else: print("AI Won")
 
 # Highlights the selected valid zone.
 func highlight_zone():
 	var zone: Dropzone = nearest_zone()
 	
 	# Finding the selected and previously selected zones.
-	if zone != self.zone:
+	if zone != current_zone:
 		if zone != selected_zone:
 			previous_zone = selected_zone
 		selected_zone = zone
@@ -118,5 +117,5 @@ func highlight_zone():
 		previous_zone.visible = false
 	
 	# Making the previously selected zone invisible when no valid zone is selected.
-	if zone == self.zone and selected_zone and selected_zone.visible:
+	if zone == current_zone and selected_zone and selected_zone.visible:
 		selected_zone.visible = false

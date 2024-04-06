@@ -2,7 +2,7 @@ extends Node2D
 
 @export var testing: bool = false
 @onready var zones: Array = $Dropzones.get_children()
-@onready var size: int = sqrt(zones.size()) - 1
+@onready var size: int = int(sqrt(zones.size())) - 1
 
 func _ready():
 	var coordinates: Vector2 = Vector2.ZERO
