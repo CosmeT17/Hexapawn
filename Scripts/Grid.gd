@@ -1,11 +1,10 @@
 extends Node2D
 
-var zones: Array
-var size: int
+@export var testing: bool = false
+@onready var zones: Array = $Dropzones.get_children()
+@onready var size: int = sqrt(zones.size()) - 1
 
 func _ready():
-	zones = $Dropzones.get_children()
-	size = sqrt(zones.size()) - 1
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
@@ -20,10 +19,13 @@ func _ready():
 			coordinates.y += 1
 		
 		ID = char(ID.to_ascii_buffer()[0] + 1)
+	
+	for pawn in get_tree().get_nodes_in_group("Player"):
+		pawn.size = size
 
 # Prints information for testing purposes.
 func _input(_event):
-	if Input.is_action_just_pressed("Test"):
+	if testing and Input.is_action_just_pressed("Test"):
 		var out: String = ""
 		for zone in zones:
 			out = str(zone.get_name()) + ": "

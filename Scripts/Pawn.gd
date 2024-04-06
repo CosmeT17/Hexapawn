@@ -6,6 +6,7 @@ class_name Pawn
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var range: int
+var size: int
 var selected: bool = false
 
 var dropzones: Array = []
@@ -16,7 +17,6 @@ var previous_zone: Dropzone
 func _ready():
 	dropzones = get_tree().get_nodes_in_group("Zone")
 	range = dropzones[0].radius
-	#update_zone()
 	
 	# Assigning the initial zone.
 	for zone in dropzones:
@@ -59,24 +59,42 @@ func nearest_zone() -> Dropzone:
 			var diff_y: int = (zone.coordinates.y - self.zone.coordinates.y) * direction
 			var diff_x: int = abs(zone.coordinates.x - self.zone.coordinates.x)
 			
-			if diff_y == 1 and not zone.pawn:
-				return zone
+			# Move Forward
+			if diff_y == 1:
+				if diff_x == 0 and not zone.pawn:
+					return zone
 				
+				# Move Diagonally.
+				elif diff_x != 0 and zone.pawn:
+					if get_groups()[0] != zone.pawn.get_groups()[0]:
+						return zone
 	return self.zone
 
-# Moves the pawn to the selected valid zone. 
+# Updates the pawn's current zone to the selected zone. 
 func update_zone():
 	var zone: Dropzone = nearest_zone()
 	
+	# Hiding zone highlight.
 	if selected_zone: selected_zone.visible = false
 	selected_zone = null
 	previous_zone = null
 	
+	# Updating the zones' pawn value.
 	if self.zone != zone:
+		
+		# TODO: Properly kill pawns.
+		if zone.pawn: zone.pawn.queue_free()
+		
 		self.zone.pawn = null
 		self.zone = zone
 		self.zone.pawn = self
+	
+	# TODO: Win/Lose
+		if zone.coordinates.y == size:
+			if is_player: print("Player Won")
+			else: print("AI Won")
 
+# Highlights the selected valid zone.
 func highlight_zone():
 	var zone: Dropzone = nearest_zone()
 	
