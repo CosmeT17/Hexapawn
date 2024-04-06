@@ -20,15 +20,9 @@ func _input(_event):
 			AI.can_move = true
 			player.can_move = true
 			
-			# Figuring out who starts the game (White)
-			if player.is_white:
-				player.is_turn = true
-				AI.is_turn = false
-			else:
-				player.is_turn = false
-				AI.is_turn = true
-			
 			# Starting new game.
+			AI.reset()
+			player.reset()
 			game_over = false
 
 func turn_over(entity_name: String):

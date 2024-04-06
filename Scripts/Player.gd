@@ -9,18 +9,10 @@ var can_move: bool = true # From parent --> child
 var num_wins: int = 0
 
 # From child --> parent
-var is_white: bool
-var is_turn: bool
-#var is_AI: bool
-
-
-func _ready():
-	var pawn: Pawn = get_child(0)
-	is_white = pawn.is_white
-	is_turn = is_white
-	
-	#is_AI = pawn.is_AI
-	
+@onready var available_pawns: int = get_child_count()
+@onready var max_pawns: int = available_pawns
+@onready var is_white: bool = get_child(0).is_white
+@onready var is_turn: bool = is_white
 
 func turn_over():
 	is_turn = false
@@ -31,6 +23,10 @@ func Game_Over():
 	entities.Game_Over()
 	num_wins += 1
 	update_score()
+
+func reset():
+	is_turn = is_white
+	available_pawns = max_pawns
 
 func update_score():
 	print("Player Won: %d" % num_wins)

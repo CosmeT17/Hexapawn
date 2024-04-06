@@ -88,18 +88,17 @@ func update_zone():
 	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
 		entity.turn_over()
-		var enemy_destroyed: bool = false
 		
 		# Pawn killer. (RIP)
+		var game_won: bool = false
 		if zone.pawn: 
-			zone.pawn.visible = false
-			enemy_destroyed = is_enemy_destroyed()
+			if zone.pawn.capture() == 0: game_won = true
 		
 		# Updating zone pawn values.
 		current_zone = zone
 		
-		# Checking win condition.
-		if current_zone.coordinates.y == entity.winning_y or enemy_destroyed:
+		# Checking win conditions.
+		if current_zone.coordinates.y == entity.winning_y or game_won:
 			entity.Game_Over()
 
 # Highlights the selected valid zone.
@@ -128,12 +127,8 @@ func set_zone(zone: Dropzone):
 		current_zone.pawn = null
 	current_zone = zone
 	current_zone.pawn = self
-#
-## TODO: Can do better
-# Returns true if all of the enemy pawns kave been killed, false otherwise.
-func is_enemy_destroyed() -> bool:
-	var enemy: String = "Player" if is_AI else "AI"
-	
-	for pawn in get_tree().get_nodes_in_group(enemy):
-		if pawn.visible: return false
-	return true
+
+func capture() -> int:
+	visible = false
+	entity.available_pawns -= 1
+	return entity.available_pawns
