@@ -10,6 +10,9 @@ is_white = false
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_tbgqa")
 
+[node name="Area" parent="Sprite" index="0"]
+texture_filter = 1
+
 [node name="CollisionPolygon2D" parent="Sprite/Area" index="0"]
 visible = false
 polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)

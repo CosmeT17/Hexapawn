@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://csb4c0v3ug7eu"]
+[gd_scene load_steps=6 format=3 uid="uid://csb4c0v3ug7eu"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1_cyrpp"]
 [ext_resource type="Script" path="res://Scripts/AI.gd" id="2_6nqqp"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_d3m6j"]
+[ext_resource type="Script" path="res://Scenes/Objects/Grid_Placer.gd" id="2_mgufv"]
 [ext_resource type="Script" path="res://Scripts/Entities.gd" id="2_vlpmd"]
 
 [node name="Board" type="Node2D"]
@@ -14,6 +15,7 @@ texture_filter = 1
 script = ExtResource("1_cyrpp")
 
 [node name="Dropzones" type="Node2D" parent="Grid"]
+script = ExtResource("2_mgufv")
 
 [node name="Entities" type="Node2D" parent="Grid"]
 script = ExtResource("2_vlpmd")

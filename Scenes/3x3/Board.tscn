@@ -56,12 +56,15 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="B1" parent="Grid/Entities/AI" index="0" instance=ExtResource("4_5qyjy")]
+texture_filter = 1
 position = Vector2(-212, -212)
 
 [node name="B2" parent="Grid/Entities/AI" index="1" instance=ExtResource("4_5qyjy")]
+texture_filter = 1
 position = Vector2(0, -212)
 
 [node name="B3" parent="Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
+texture_filter = 1
 position = Vector2(212, -212)
 
 [node name="Player" parent="Grid/Entities" index="1"]
@@ -70,10 +73,13 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="W1" parent="Grid/Entities/Player" index="0" instance=ExtResource("4_lpwq2")]
+texture_filter = 1
 position = Vector2(-212, 212)
 
 [node name="W2" parent="Grid/Entities/Player" index="1" instance=ExtResource("4_lpwq2")]
+texture_filter = 1
 position = Vector2(0, 212)
 
 [node name="W3" parent="Grid/Entities/Player" index="2" instance=ExtResource("4_lpwq2")]
+texture_filter = 1
 position = Vector2(212, 212)

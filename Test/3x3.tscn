@@ -1,46 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8yw8x0vvxqp4"]
+[gd_scene load_steps=2 format=3 uid="uid://b8yw8x0vvxqp4"]
 
-[ext_resource type="Texture2D" uid="uid://dw077imufbywa" path="res://Textures/3x3/Board_3x3.png" id="1_e2o2i"]
-[ext_resource type="Texture2D" uid="uid://b3howvivytcq3" path="res://Textures/3x3/Pawn_White_Player.png" id="2_juqyx"]
-[ext_resource type="Texture2D" uid="uid://bk2s2jo26e1co" path="res://Textures/3x3/Pawn_Black_AI.png" id="3_y8abv"]
+[ext_resource type="PackedScene" uid="uid://dew0a8yl2exm1" path="res://Scenes/3x3/Board.tscn" id="1_y41rx"]
 
 [node name="Game" type="Node2D"]
 
-[node name="Board" type="Sprite2D" parent="."]
-texture_filter = 1
+[node name="Board" parent="." instance=ExtResource("1_y41rx")]
 position = Vector2(324, 324)
-texture = ExtResource("1_e2o2i")
-
-[node name="AI" type="Node2D" parent="."]
-
-[node name="B1" type="Sprite2D" parent="AI"]
-texture_filter = 1
-position = Vector2(104, 113)
-texture = ExtResource("3_y8abv")
-
-[node name="B2" type="Sprite2D" parent="AI"]
-texture_filter = 1
-position = Vector2(321, 113)
-texture = ExtResource("3_y8abv")
-
-[node name="B3" type="Sprite2D" parent="AI"]
-texture_filter = 1
-position = Vector2(535, 113)
-texture = ExtResource("3_y8abv")
-
-[node name="Player" type="Node2D" parent="."]
-
-[node name="W1" type="Sprite2D" parent="Player"]
-texture_filter = 1
-position = Vector2(104, 537)
-texture = ExtResource("2_juqyx")
-
-[node name="W2" type="Sprite2D" parent="Player"]
-texture_filter = 1
-position = Vector2(316, 537)
-texture = ExtResource("2_juqyx")
-
-[node name="W3" type="Sprite2D" parent="Player"]
-texture_filter = 1
-position = Vector2(532, 537)
-texture = ExtResource("2_juqyx")

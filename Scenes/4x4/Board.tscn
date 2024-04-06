@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8ym68lyvkhtw"]
+
+[ext_resource type="PackedScene" uid="uid://csb4c0v3ug7eu" path="res://Scenes/Objects/Board.tscn" id="1_s8ske"]
+[ext_resource type="Texture2D" uid="uid://ca46k40a6ycq5" path="res://Textures/4x4/Board_4x4.png" id="2_25mlu"]
+[ext_resource type="PackedScene" uid="uid://bgiqux1rga4r8" path="res://Scenes/Objects/Dropzone.tscn" id="3_k7uw3"]
+[ext_resource type="PackedScene" uid="uid://fqq4m2n6wn8r" path="res://Scenes/4x4/Pawn_AI.tscn" id="4_vnicx"]
+[ext_resource type="PackedScene" uid="uid://dd6x03p62friv" path="res://Scenes/4x4/Pawn_Player.tscn" id="5_81i3h"]
+
+[node name="Board" instance=ExtResource("1_s8ske")]
+metadata/_edit_lock_ = true
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_25mlu")
+metadata/_edit_lock_ = true
+
+[node name="Grid" parent="." index="1"]
+testing = true
+metadata/_edit_lock_ = true
+
+[node name="Dropzones" parent="Grid" index="0"]
+auto_organize = true
+show_zones = true
+
+[node name="Zone_0" parent="Grid/Dropzones" index="0" instance=ExtResource("3_k7uw3")]
+position = Vector2(-204, 290)
+radius = 73
+
+[node name="Zone_1" parent="Grid/Dropzones" index="1" instance=ExtResource("3_k7uw3")]
+position = Vector2(-73, 261)
+radius = 73
+
+[node name="Zone_2" parent="Grid/Dropzones" index="2" instance=ExtResource("3_k7uw3")]
+position = Vector2(82, 211)
+radius = 73
+
+[node name="Zone_3" parent="Grid/Dropzones" index="3" instance=ExtResource("3_k7uw3")]
+position = Vector2(234, 255)
+radius = 73
+
+[node name="Zone_4" parent="Grid/Dropzones" index="4" instance=ExtResource("3_k7uw3")]
+position = Vector2(-271, 116)
+radius = 73
+
+[node name="Zone_5" parent="Grid/Dropzones" index="5" instance=ExtResource("3_k7uw3")]
+position = Vector2(-119, 58)
+radius = 73
+
+[node name="Zone_6" parent="Grid/Dropzones" index="6" instance=ExtResource("3_k7uw3")]
+position = Vector2(95, 104)
+radius = 73
+
+[node name="Zone_7" parent="Grid/Dropzones" index="7" instance=ExtResource("3_k7uw3")]
+position = Vector2(239, 68)
+radius = 73
+
+[node name="Zone_8" parent="Grid/Dropzones" index="8" instance=ExtResource("3_k7uw3")]
+position = Vector2(-263, -102)
+radius = 73
+
+[node name="Zone_9" parent="Grid/Dropzones" index="9" instance=ExtResource("3_k7uw3")]
+position = Vector2(-86, -70)
+radius = 73
+
+[node name="Zone_10" parent="Grid/Dropzones" index="10" instance=ExtResource("3_k7uw3")]
+position = Vector2(75, -103)
+radius = 73
+
+[node name="Zone_11" parent="Grid/Dropzones" index="11" instance=ExtResource("3_k7uw3")]
+position = Vector2(240, -70)
+radius = 73
+
+[node name="Zone_12" parent="Grid/Dropzones" index="12" instance=ExtResource("3_k7uw3")]
+position = Vector2(-256, -252)
+radius = 73
+
+[node name="Zone_13" parent="Grid/Dropzones" index="13" instance=ExtResource("3_k7uw3")]
+position = Vector2(-82, -219)
+radius = 73
+
+[node name="Zone_14" parent="Grid/Dropzones" index="14" instance=ExtResource("3_k7uw3")]
+position = Vector2(76, -273)
+radius = 73
+
+[node name="Zone_15" parent="Grid/Dropzones" index="15" instance=ExtResource("3_k7uw3")]
+position = Vector2(244, -206)
+radius = 73
+
+[node name="Entities" parent="Grid" index="1"]
+visible = false
+
+[node name="W1" parent="Grid/Entities/AI" index="0" instance=ExtResource("4_vnicx")]
+position = Vector2(-240, -238)
+
+[node name="W2" parent="Grid/Entities/AI" index="1" instance=ExtResource("4_vnicx")]
+position = Vector2(-77, -238)
+
+[node name="W3" parent="Grid/Entities/AI" index="2" instance=ExtResource("4_vnicx")]
+position = Vector2(76, -239)
+
+[node name="W4" parent="Grid/Entities/AI" index="3" instance=ExtResource("4_vnicx")]
+position = Vector2(242, -237)
+
+[node name="B1" parent="Grid/Entities/Player" index="0" instance=ExtResource("5_81i3h")]
+position = Vector2(-240, 240)
+
+[node name="B2" parent="Grid/Entities/Player" index="1" instance=ExtResource("5_81i3h")]
+position = Vector2(-76, 234)
+
+[node name="B3" parent="Grid/Entities/Player" index="2" instance=ExtResource("5_81i3h")]
+position = Vector2(77, 235)
+
+[node name="B4" parent="Grid/Entities/Player" index="3" instance=ExtResource("5_81i3h")]
+position = Vector2(236, 235)

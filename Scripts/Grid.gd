@@ -1,10 +1,15 @@
 extends Node2D
 
+@export var grid_size: int = 0
 @export var testing: bool = false
 @onready var zones: Array = $Dropzones.get_children()
 
 func _ready():
-	var size: int = int(sqrt(zones.size())) - 1
+	# Calculating grid size if not given.
+	var size: int
+	if grid_size == 0: size = int(sqrt(zones.size())) - 1
+	else: size = grid_size
+	
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
