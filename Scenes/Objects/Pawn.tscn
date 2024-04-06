@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Pawn.gd" id="1_kgymo"]
 
-[node name="Pawn" type="Node2D"]
+[node name="Pawn" type="Node2D" groups=["Pawn"]]
 script = ExtResource("1_kgymo")
 
 [node name="Sprite" type="Sprite2D" parent="."]

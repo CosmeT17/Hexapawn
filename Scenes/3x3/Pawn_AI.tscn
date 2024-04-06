@@ -5,6 +5,7 @@
 
 [node name="Pawn_AI" groups=["AI"] instance=ExtResource("1_7gdm8")]
 is_player = false
+show_zone = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_tbgqa")

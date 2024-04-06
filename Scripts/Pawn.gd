@@ -3,14 +3,18 @@ class_name Pawn
 
 @export var is_player: bool = true
 @export var show_zone: bool = false
+@export var movable: bool = true
+@onready var entity = get_parent()
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var range: int
 var size: int
-var selected: bool = false
 
+var selected: bool = false
 var dropzones: Array = []
+
 var zone: Dropzone
+var initial_zone: Dropzone
 var selected_zone: Dropzone
 var previous_zone: Dropzone
 
@@ -24,10 +28,12 @@ func _ready():
 			self.zone = zone
 			break
 	self.zone.pawn = self
+	initial_zone = self.zone
 	
 	# Changing the move direction to down if the pawn belongs to AI.
 	if not is_player:
 		direction = -1
+		#movable = false
 
 # Do the dragging.
 func _physics_process(delta):
@@ -39,7 +45,7 @@ func _physics_process(delta):
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
-	if Input.is_action_just_pressed("Click"):
+	if Input.is_action_just_pressed("Click") and movable:
 		z_index = 1
 		selected = true
 
@@ -66,7 +72,7 @@ func nearest_zone() -> Dropzone:
 				
 				# Move Diagonally.
 				elif diff_x != 0 and zone.pawn:
-					if get_groups()[0] != zone.pawn.get_groups()[0]:
+					if get_groups()[1] != zone.pawn.get_groups()[1]:
 						return zone
 	return self.zone
 
@@ -91,8 +97,9 @@ func update_zone():
 	
 	# TODO: Win/Lose
 		if zone.coordinates.y == size:
-			if is_player: print("Player Won")
-			else: print("AI Won")
+			entity.end_game.emit()
+			#if is_player: print("Player Won")
+			#else: print("AI Won")
 
 # Highlights the selected valid zone.
 func highlight_zone():
