@@ -14,7 +14,6 @@ texture = ExtResource("1_a4iha")
 metadata/_edit_lock_ = true
 
 [node name="Grid" parent="." index="1"]
-testing = true
 metadata/_edit_lock_ = true
 
 [node name="Dropzones" parent="Grid" index="0"]
@@ -51,7 +50,6 @@ position = Vector2(212, -212)
 metadata/_edit_lock_ = true
 
 [node name="AI" parent="Grid/Entities" index="0"]
-show_zone = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -65,7 +63,6 @@ position = Vector2(0, -212)
 position = Vector2(212, -212)
 
 [node name="Player" parent="Grid/Entities" index="1"]
-show_zone = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 

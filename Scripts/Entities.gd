@@ -1,22 +1,11 @@
-extends Node
-class_name Entity
+extends Node2D
 
-signal end_game
 var game_over: bool = false
-
-var board_size: int
-
-func Game_Over():
-	# Change to get_tree().get_nodes_in_group("Player")
-	for pawn in get_tree().get_nodes_in_group("Pawn"):
-		pawn.movable = false
-		
-	game_over = true
+var white_turn: bool = true
 
 func _input(_event):
 	if game_over and Input.is_action_just_pressed("New Game"):
 		for pawn in get_tree().get_nodes_in_group("Pawn"):
-			game_over = false
 			
 			# Returning pawns back to initial positions for next game.
 			pawn.current_zone = pawn.initial_zone
@@ -26,5 +15,6 @@ func _input(_event):
 			if not pawn.visible:
 				pawn.visible = true
 			
-			#if pawn.get_groups()[1] == "Player":
-			pawn.movable = true
+			# Starting new game.
+			white_turn = true
+			game_over = false

@@ -18,8 +18,8 @@ testing = true
 metadata/_edit_lock_ = true
 
 [node name="Dropzones" parent="Grid" index="0"]
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Zone_0" parent="Grid/Dropzones" index="0" instance=ExtResource("3_wgq57")]
 position = Vector2(-212, 212)
@@ -47,33 +47,29 @@ position = Vector2(0, -212)
 [node name="Zone_8" parent="Grid/Dropzones" index="8" instance=ExtResource("3_wgq57")]
 position = Vector2(212, -212)
 
-[node name="Entities" parent="Grid" index="1"]
-metadata/_edit_lock_ = true
-
-[node name="AI" parent="Grid/Entities" index="0"]
-show_zone = true
+[node name="AI" parent="Grid" index="1"]
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="B1" parent="Grid/Entities/AI" index="0" instance=ExtResource("4_5qyjy")]
+[node name="B1" parent="Grid/AI" index="0" instance=ExtResource("4_5qyjy")]
 position = Vector2(-212, -212)
 
-[node name="B2" parent="Grid/Entities/AI" index="1" instance=ExtResource("4_5qyjy")]
+[node name="B2" parent="Grid/AI" index="1" instance=ExtResource("4_5qyjy")]
 position = Vector2(0, -212)
 
-[node name="B3" parent="Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
+[node name="B3" parent="Grid/AI" index="2" instance=ExtResource("4_5qyjy")]
 position = Vector2(212, -212)
 
-[node name="Player" parent="Grid/Entities" index="1"]
+[node name="Player" parent="Grid" index="2"]
 show_zone = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="W1" parent="Grid/Entities/Player" index="0" instance=ExtResource("4_lpwq2")]
+[node name="W1" parent="Grid/Player" index="0" instance=ExtResource("4_lpwq2")]
 position = Vector2(-212, 212)
 
-[node name="W2" parent="Grid/Entities/Player" index="1" instance=ExtResource("4_lpwq2")]
+[node name="W2" parent="Grid/Player" index="1" instance=ExtResource("4_lpwq2")]
 position = Vector2(0, 212)
 
-[node name="W3" parent="Grid/Entities/Player" index="2" instance=ExtResource("4_lpwq2")]
+[node name="W3" parent="Grid/Player" index="2" instance=ExtResource("4_lpwq2")]
 position = Vector2(212, 212)

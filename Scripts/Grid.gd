@@ -19,9 +19,6 @@ func _ready():
 			coordinates.y += 1
 		
 		ID = char(ID.to_ascii_buffer()[0] + 1)
-	
-	for pawn in get_tree().get_nodes_in_group("Player"):
-		pawn.size = size
 
 # Prints information for testing purposes.
 func _input(_event):

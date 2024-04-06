@@ -1,8 +1,8 @@
 extends Marker2D
 class_name Dropzone
 
-const ACTIVE_COLOR: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25)
 @export var radius: int = 100
+const ACTIVE_COLOR: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25)
 
 var coordinates: Vector2
 var ID: String

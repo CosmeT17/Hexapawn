@@ -1,8 +1,4 @@
-extends Entity
+extends Player
 
-func _ready():
-	end_game.connect(AI_won)
-
-func AI_won():
-	print("AI Won")
-	Game_Over()
+func update_score():
+	print("AI Won: %d" % num_wins)

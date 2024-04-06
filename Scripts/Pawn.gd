@@ -1,15 +1,14 @@
 extends Node2D
 class_name Pawn
 
-@export var is_player: bool = true
-@export var show_zone: bool = false
+@export var is_AI: bool = false
+@export var is_white: bool = true
 @onready var entity = get_parent()
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
-var size: int
 
-var movable: bool = true #TODO: FALSE
+var movable: bool = true
 var selected: bool = false
 
 var dropzones: Array = []
@@ -30,24 +29,24 @@ func _ready():
 	current_zone = initial_zone
 	
 	# Changing the move direction to down if the pawn belongs to AI.
-	if not is_player:
+	if is_AI:
 		direction = -1
-		#movable = false
-
+		#movable = false # TODO
+#
 # Do the dragging.
 func _physics_process(delta):
 	if selected:
 		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
-		if show_zone: highlight_zone()
+		if entity.show_zone: highlight_zone()
 	else:
 		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
-
+#
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
 	if Input.is_action_just_pressed("Click") and movable:
 		z_index = 1
 		selected = true
-
+#
 # Stop dragging.
 func _input(_event):
 	if Input.is_action_just_released("Click") and selected:
@@ -55,7 +54,7 @@ func _input(_event):
 		update_zone()
 		await get_tree().create_timer(0.15).timeout
 		z_index = 0
-
+#
 # Returns the closest valid dropzone to the selected pawn.
 func nearest_zone() -> Dropzone:
 	for zone in dropzones:
@@ -73,6 +72,7 @@ func nearest_zone() -> Dropzone:
 				elif diff_x != 0 and zone.pawn:
 					if get_groups()[1] != zone.pawn.get_groups()[1]:
 						return zone
+		
 	return current_zone
 
 # Updates the pawn's current zone to the selected zone. 
@@ -80,7 +80,7 @@ func update_zone():
 	var zone: Dropzone = nearest_zone()
 	
 	# Hiding zone highlight.
-	if show_zone:
+	if entity.show_zone:
 		if selected_zone: selected_zone.visible = false
 		selected_zone = null
 		previous_zone = null
@@ -97,10 +97,14 @@ func update_zone():
 		# Updating zone pawn values.
 		current_zone = zone
 		
-		# TODO: Checl for TIE condition
-		# Detecting Win/Lose state.
-		if current_zone.coordinates.y == size or enemy_destroyed:
-			entity.end_game.emit()
+		# Checking win condition.
+		var table_size: int = get_tree().get_first_node_in_group("Grid").size
+		
+		print(current_zone.coordinates.y)
+		print(table_size)
+		
+		#if current_zone.coordinates.y == table_size or enemy_destroyed:
+			#entity.end_game.emit()
 
 # Highlights the selected valid zone.
 func highlight_zone():
@@ -128,11 +132,11 @@ func set_zone(zone: Dropzone):
 		current_zone.pawn = null
 	current_zone = zone
 	current_zone.pawn = self
-
-# TODO: Can do better
+#
+## TODO: Can do better
 # Returns true if all of the enemy pawns kave been killed, false otherwise.
 func is_enemy_destroyed() -> bool:
-	var enemy: String = "AI" if is_player else "Player"
+	var enemy: String = "Player" if is_AI else "AI"
 	
 	for pawn in get_tree().get_nodes_in_group(enemy):
 		if pawn.visible: return false
