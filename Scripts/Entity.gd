@@ -4,6 +4,8 @@ class_name Entity
 signal end_game
 var game_over: bool = false
 
+var board_size: int
+
 func Game_Over():
 	# Change to get_tree().get_nodes_in_group("Player")
 	for pawn in get_tree().get_nodes_in_group("Pawn"):

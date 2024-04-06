@@ -3,16 +3,16 @@ class_name Pawn
 
 @export var is_player: bool = true
 @export var show_zone: bool = false
-@export var movable: bool = true
 @onready var entity = get_parent()
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
 var size: int
 
+var movable: bool = true #TODO: FALSE
 var selected: bool = false
-var dropzones: Array = []
 
+var dropzones: Array = []
 var current_zone: Dropzone: set = set_zone
 var initial_zone: Dropzone
 var selected_zone: Dropzone
@@ -97,6 +97,7 @@ func update_zone():
 		# Updating zone pawn values.
 		current_zone = zone
 		
+		# TODO: Checl for TIE condition
 		# Detecting Win/Lose state.
 		if current_zone.coordinates.y == size or enemy_destroyed:
 			entity.end_game.emit()
@@ -128,6 +129,7 @@ func set_zone(zone: Dropzone):
 	current_zone = zone
 	current_zone.pawn = self
 
+# TODO: Can do better
 # Returns true if all of the enemy pawns kave been killed, false otherwise.
 func is_enemy_destroyed() -> bool:
 	var enemy: String = "AI" if is_player else "Player"
