@@ -80,18 +80,25 @@ func update_zone():
 	var zone: Dropzone = nearest_zone()
 	
 	# Hiding zone highlight.
-	if selected_zone: selected_zone.visible = false
-	selected_zone = null
-	previous_zone = null
+	if show_zone:
+		if selected_zone: selected_zone.visible = false
+		selected_zone = null
+		previous_zone = null
 	
 	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
-		if zone.pawn: zone.pawn.visible = false # Pawn killer. (RIP)
-		current_zone = zone # Updating zone pawn values.
+		var enemy_destroyed: bool = false
 		
-		# TODO: Detect Ties!
+		# Pawn killer. (RIP)
+		if zone.pawn: 
+			zone.pawn.visible = false
+			enemy_destroyed = is_enemy_destroyed()
+		
+		# Updating zone pawn values.
+		current_zone = zone
+		
 		# Detecting Win/Lose state.
-		if current_zone.coordinates.y == size:
+		if current_zone.coordinates.y == size or enemy_destroyed:
 			entity.end_game.emit()
 
 # Highlights the selected valid zone.
@@ -120,3 +127,11 @@ func set_zone(zone: Dropzone):
 		current_zone.pawn = null
 	current_zone = zone
 	current_zone.pawn = self
+
+# Returns true if all of the enemy pawns kave been killed, false otherwise.
+func is_enemy_destroyed() -> bool:
+	var enemy: String = "AI" if is_player else "Player"
+	
+	for pawn in get_tree().get_nodes_in_group(enemy):
+		if pawn.visible: return false
+	return true

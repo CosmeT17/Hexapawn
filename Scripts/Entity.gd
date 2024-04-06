@@ -14,6 +14,7 @@ func Game_Over():
 func _input(_event):
 	if game_over and Input.is_action_just_pressed("New Game"):
 		for pawn in get_tree().get_nodes_in_group("Pawn"):
+			game_over = false
 			
 			# Returning pawns back to initial positions for next game.
 			pawn.current_zone = pawn.initial_zone
