@@ -2,9 +2,7 @@ extends Node2D
 
 @onready var AI = $AI
 @onready var player = $Player
-
 var game_over: bool = false
-#var white_turn: bool = true
 
 func _input(_event):
 	if game_over and Input.is_action_just_pressed("New Game"):
@@ -18,12 +16,24 @@ func _input(_event):
 			if not pawn.visible:
 				pawn.visible = true
 			
-			# Player and AI can now move pieces again.
+			# Player and AI can now move pawns again.
 			AI.can_move = true
 			player.can_move = true
 			
+			# Figuring out who starts the game (White)
+			if player.is_white:
+				player.is_turn = true
+				AI.is_turn = false
+			else:
+				player.is_turn = false
+				AI.is_turn = true
+			
 			# Starting new game.
 			game_over = false
+
+func turn_over(entity_name: String):
+	if entity_name == "Player": AI.is_turn = true
+	else: player.is_turn = true
 
 # No one can move any pieces until a new game starts.
 func Game_Over():

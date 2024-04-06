@@ -40,10 +40,10 @@ func _physics_process(delta):
 		if entity.show_zone: highlight_zone()
 	else:
 		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
-#
+
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
-	if Input.is_action_just_pressed("Click") and entity.can_move:
+	if Input.is_action_just_pressed("Click") and entity.can_move and entity.is_turn:
 		z_index = 1
 		selected = true
 #
@@ -54,7 +54,7 @@ func _input(_event):
 		update_zone()
 		await get_tree().create_timer(0.15).timeout
 		z_index = 0
-#
+
 # Returns the closest valid dropzone to the selected pawn.
 func nearest_zone() -> Dropzone:
 	for zone in dropzones:
@@ -87,6 +87,7 @@ func update_zone():
 	
 	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
+		entity.turn_over()
 		var enemy_destroyed: bool = false
 		
 		# Pawn killer. (RIP)
@@ -99,7 +100,7 @@ func update_zone():
 		
 		# Checking win condition.
 		if current_zone.coordinates.y == entity.winning_y or enemy_destroyed:
-			entity.end_game.emit()
+			entity.Game_Over()
 
 # Highlights the selected valid zone.
 func highlight_zone():
