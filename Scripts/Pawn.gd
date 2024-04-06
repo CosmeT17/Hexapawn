@@ -1,9 +1,14 @@
 extends Node2D
 class_name Pawn
 
+@export var is_player: bool = true
+@export var show_zone: bool = false
+
+
+var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var range: int
 var selected: bool = false
-var show_zone: bool = false
+
 var dropzones: Array = []
 var zone: Dropzone
 var selected_zone: Dropzone
@@ -12,7 +17,18 @@ var previous_zone: Dropzone
 func _ready():
 	dropzones = get_tree().get_nodes_in_group("Zone")
 	range = dropzones[0].radius
-	update_zone()
+	#update_zone()
+	
+	# Assigning the initial zone.
+	for zone in dropzones:
+		if global_position.distance_to(zone.global_position) < range:
+			self.zone = zone
+			break
+	self.zone.pawn = self
+	
+	# Changing the move direction to down if the pawn belongs to AI.
+	if not is_player:
+		direction = -1
 
 # Do the dragging.
 func _physics_process(delta):
@@ -30,17 +46,28 @@ func _on_area_input_event(_viewport, _event, _shape_idx):
 
 # Stop dragging.
 func _input(_event):
-	if Input.is_action_just_released("Click"):
-		z_index = 0
+	if Input.is_action_just_released("Click") and selected:
 		selected = false
 		update_zone()
+		await get_tree().create_timer(0.15).timeout
+		z_index = 0
 
 # Returns the closest valid dropzone to the selected pawn.
 func nearest_zone() -> Dropzone:
 	for zone in dropzones:
-		if global_position.distance_to(zone.global_position) < range:
-			if not zone.pawn:
+		if global_position.distance_to(zone.global_position) < range and zone != self.zone:
+			
+			var diff_y: int = (zone.coordinates.y - self.zone.coordinates.y) * direction
+			var diff_x: int = abs(zone.coordinates.x - self.zone.coordinates.x)
+			
+			print(diff_x)
+			
+			if diff_y == 1 and not zone.pawn:
 				return zone
+			
+			#if not zone.pawn:
+				#return zone
+				
 	return self.zone
 
 # Moves the pawn to the selected valid zone. 
@@ -51,8 +78,8 @@ func update_zone():
 	selected_zone = null
 	previous_zone = null
 	
-	if not zone.pawn:
-		if self.zone: self.zone.pawn = null
+	if self.zone != zone:
+		self.zone.pawn = null
 		self.zone = zone
 		self.zone.pawn = self
 
