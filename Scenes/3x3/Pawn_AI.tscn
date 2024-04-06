@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cv3reh3y05eqf" path="res://Scenes/Objects/Pawn.tscn" id="1_7gdm8"]
 [ext_resource type="Texture2D" uid="uid://bk2s2jo26e1co" path="res://Textures/3x3/Pawn_Black_AI.png" id="2_tbgqa"]
 
-[node name="Pawn" groups=["AI"] instance=ExtResource("1_7gdm8")]
+[node name="Pawn_AI" groups=["AI"] instance=ExtResource("1_7gdm8")]
 is_player = false
 
 [node name="Sprite" parent="." index="0"]

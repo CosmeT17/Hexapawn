@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://csb4c0v3ug7eu"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1_cyrpp"]
-[ext_resource type="Script" path="res://Scripts/Pawns_Player.gd" id="2_62843"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_d3m6j"]
 
 [node name="Board" type="Node2D"]
 
@@ -11,7 +11,9 @@ texture_filter = 1
 [node name="Grid" type="Node2D" parent="."]
 script = ExtResource("1_cyrpp")
 
-[node name="Pawns_Player" type="Node2D" parent="."]
-script = ExtResource("2_62843")
+[node name="Dropzones" type="Node2D" parent="Grid"]
 
-[node name="AI_Player" type="Node2D" parent="."]
+[node name="AI" type="Node2D" parent="Grid"]
+
+[node name="Player" type="Node2D" parent="Grid"]
+script = ExtResource("2_d3m6j")

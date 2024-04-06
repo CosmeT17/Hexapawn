@@ -4,7 +4,6 @@ class_name Pawn
 @export var is_player: bool = true
 @export var show_zone: bool = false
 
-
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var range: int
 var selected: bool = false
@@ -60,13 +59,8 @@ func nearest_zone() -> Dropzone:
 			var diff_y: int = (zone.coordinates.y - self.zone.coordinates.y) * direction
 			var diff_x: int = abs(zone.coordinates.x - self.zone.coordinates.x)
 			
-			print(diff_x)
-			
 			if diff_y == 1 and not zone.pawn:
 				return zone
-			
-			#if not zone.pawn:
-				#return zone
 				
 	return self.zone
 

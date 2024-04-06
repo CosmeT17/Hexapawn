@@ -1,11 +1,15 @@
 extends Node2D
 
+var zones: Array
+var size: int
+
 func _ready():
-	var size: int = sqrt(get_children().size()) - 1
+	zones = $Dropzones.get_children()
+	size = sqrt(zones.size()) - 1
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
-	for zone in get_children():
+	for zone in zones:
 		zone.coordinates = coordinates
 		zone.ID = ID
 		
@@ -21,7 +25,7 @@ func _ready():
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
 		var out: String = ""
-		for zone in get_children():
+		for zone in zones:
 			out = str(zone.get_name()) + ": "
 			out += str(zone.coordinates) + "; "
 			out += zone.ID + "; "
