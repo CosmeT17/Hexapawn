@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bld5ujmcfwugw" path="res://Textures/4x4/Pawn_Black_Player.png" id="2_nwxq8"]
 
 [node name="Pawn_Player" groups=["Player"] instance=ExtResource("1_6rtqt")]
+is_white = false
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_nwxq8")

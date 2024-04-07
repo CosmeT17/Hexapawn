@@ -8,7 +8,7 @@ func _ready():
 	# Calculating grid size if not given.
 	var size: int
 	if grid_size == 0: size = int(sqrt(zones.size())) - 1
-	else: size = grid_size
+	else: size = grid_size - 1
 	
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"

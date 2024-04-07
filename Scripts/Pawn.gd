@@ -25,6 +25,7 @@ func _ready():
 	for zone in dropzones:
 		if global_position.distance_to(zone.global_position) < zone_range:
 			initial_zone = zone
+			global_position = zone.global_position
 			break
 	current_zone = initial_zone
 	
@@ -40,6 +41,10 @@ func _physics_process(delta):
 		if entity.show_zone: highlight_zone()
 	else:
 		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
+		
+		# Smooth-over movement
+		if round(abs((global_position - current_zone.global_position))) == Vector2.ZERO:
+			global_position = current_zone.global_position
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):

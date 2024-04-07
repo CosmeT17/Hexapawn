@@ -11,8 +11,17 @@ var num_wins: int = 0
 # From child --> parent
 @onready var available_pawns: int = get_child_count()
 @onready var max_pawns: int = available_pawns
-@onready var is_white: bool = get_child(0).is_white
-@onready var is_turn: bool = is_white
+var is_white: bool
+var is_turn: bool
+
+func _ready():
+	if max_pawns > 0:
+		is_white = get_child(0).is_white
+		is_turn = is_white
+	
+	print(self)
+	print(is_turn)
+	print()
 
 func turn_over():
 	is_turn = false
