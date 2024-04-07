@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1_cyrpp"]
 [ext_resource type="Script" path="res://Scripts/AI.gd" id="2_6nqqp"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_d3m6j"]
-[ext_resource type="Script" path="res://Scenes/Objects/Grid_Placer.gd" id="2_mgufv"]
+[ext_resource type="Script" path="res://Scripts/Grid_Placer.gd" id="2_mgufv"]
 [ext_resource type="Script" path="res://Scripts/Entities.gd" id="2_vlpmd"]
 
 [node name="Board" type="Node2D"]

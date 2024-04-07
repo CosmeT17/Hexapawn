@@ -1,8 +1,9 @@
 extends Node2D
 class_name Player
 
-@onready var entities = get_parent()
 @export var show_zone: bool = false
+@onready var entities = get_parent()
+@onready var Game = get_tree().get_root().get_child(0)
 
 var winning_y: int # From grandparent --> grandchild
 var can_move: bool = true # From parent --> child
@@ -18,10 +19,6 @@ func _ready():
 	if max_pawns > 0:
 		is_white = get_child(0).is_white
 		is_turn = is_white
-	
-	print(self)
-	print(is_turn)
-	print()
 
 func turn_over():
 	is_turn = false
@@ -38,4 +35,4 @@ func reset():
 	available_pawns = max_pawns
 
 func update_score():
-	print("Player Won: %d" % num_wins)
+	Game.update_scores.emit("Player", num_wins)
