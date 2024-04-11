@@ -3,7 +3,9 @@ class_name Pawn
 
 @export var is_AI: bool = false
 @export var is_white: bool = true
+
 @onready var entity = get_parent()
+@onready var name_label = $Sprite/Name
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
@@ -18,6 +20,9 @@ var selected_zone: Dropzone
 var previous_zone: Dropzone
 
 func _ready():
+	# Updating the name label with the pawns name.
+	name_label.text = name
+	
 	dropzones = get_tree().get_nodes_in_group("Zone")
 	zone_range = dropzones[0].radius
 	

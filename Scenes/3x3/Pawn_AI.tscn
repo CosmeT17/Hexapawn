@@ -1,16 +1,29 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmp1h8bfji6y6"]
 
 [ext_resource type="PackedScene" uid="uid://cv3reh3y05eqf" path="res://Scenes/Objects/Pawn.tscn" id="1_7gdm8"]
-[ext_resource type="Texture2D" uid="uid://bk2s2jo26e1co" path="res://Textures/3x3/Players/Pawn_Black_AI.png" id="2_tbgqa"]
+[ext_resource type="Texture2D" uid="uid://bk2s2jo26e1co" path="res://Textures/3x3/Players/Pawn_Black_AI.png" id="2_548ok"]
 
 [node name="Pawn_AI" groups=["AI"] instance=ExtResource("1_7gdm8")]
 is_AI = true
 is_white = false
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource("2_tbgqa")
+texture = ExtResource("2_548ok")
 
-[node name="Area" parent="Sprite" index="0"]
+[node name="Name" parent="Sprite" index="0"]
+offset_left = -15.0
+offset_top = 35.0
+offset_right = 25.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "B1"
+
+[node name="Area" parent="Sprite" index="1"]
 texture_filter = 1
 
 [node name="CollisionPolygon2D" parent="Sprite/Area" index="0"]

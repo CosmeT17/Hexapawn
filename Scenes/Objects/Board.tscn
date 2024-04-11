@@ -10,18 +10,24 @@
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+metadata/_edit_lock_ = true
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="Sprite"]
 script = ExtResource("1_cyrpp")
+metadata/_edit_lock_ = true
 
-[node name="Dropzones" type="Node2D" parent="Grid"]
+[node name="Dropzones" type="Node2D" parent="Sprite/Grid"]
 script = ExtResource("2_mgufv")
+metadata/_edit_lock_ = true
 
-[node name="Entities" type="Node2D" parent="Grid"]
+[node name="Entities" type="Node2D" parent="Sprite/Grid"]
 script = ExtResource("2_vlpmd")
+metadata/_edit_lock_ = true
 
-[node name="AI" type="Node2D" parent="Grid/Entities"]
+[node name="AI" type="Node2D" parent="Sprite/Grid/Entities"]
 script = ExtResource("2_6nqqp")
+metadata/_edit_lock_ = true
 
-[node name="Player" type="Node2D" parent="Grid/Entities"]
+[node name="Player" type="Node2D" parent="Sprite/Grid/Entities"]
 script = ExtResource("2_d3m6j")
+metadata/_edit_lock_ = true

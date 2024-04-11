@@ -1,86 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://dew0a8yl2exm1"]
+[gd_scene load_steps=5 format=3 uid="uid://dew0a8yl2exm1"]
 
 [ext_resource type="Texture2D" uid="uid://dw077imufbywa" path="res://Textures/3x3/Boards/Board_3x3.png" id="1_a4iha"]
 [ext_resource type="PackedScene" uid="uid://csb4c0v3ug7eu" path="res://Scenes/Objects/Board.tscn" id="1_v5i1f"]
-[ext_resource type="PackedScene" uid="uid://bgiqux1rga4r8" path="res://Scenes/Objects/Dropzone.tscn" id="3_wgq57"]
 [ext_resource type="PackedScene" uid="uid://dmp1h8bfji6y6" path="res://Scenes/3x3/Pawn_AI.tscn" id="4_5qyjy"]
 [ext_resource type="PackedScene" uid="uid://cyijs6w32vbio" path="res://Scenes/3x3/Pawn_Player.tscn" id="4_lpwq2"]
 
 [node name="Board" instance=ExtResource("1_v5i1f")]
-metadata/_edit_lock_ = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("1_a4iha")
-metadata/_edit_lock_ = true
 
-[node name="Grid" parent="." index="1"]
+[node name="Grid" parent="Sprite" index="0"]
+labeled_board_texture = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Boards/Labeled_Board_3x3.png"
 grid_size = 3
 testing = true
-metadata/_edit_lock_ = true
 
-[node name="Dropzones" parent="Grid" index="0"]
-metadata/_edit_lock_ = true
+[node name="AI" parent="Sprite/Grid/Entities" index="0"]
+show_zone = true
 metadata/_edit_group_ = true
 
-[node name="Zone_0" parent="Grid/Dropzones" index="0" instance=ExtResource("3_wgq57")]
-position = Vector2(-212, 212)
-
-[node name="Zone_1" parent="Grid/Dropzones" index="1" instance=ExtResource("3_wgq57")]
-position = Vector2(0, 212)
-
-[node name="Zone_2" parent="Grid/Dropzones" index="2" instance=ExtResource("3_wgq57")]
-position = Vector2(212, 212)
-
-[node name="Zone_3" parent="Grid/Dropzones" index="3" instance=ExtResource("3_wgq57")]
-position = Vector2(-212, 0)
-
-[node name="Zone_4" parent="Grid/Dropzones" index="4" instance=ExtResource("3_wgq57")]
-
-[node name="Zone_5" parent="Grid/Dropzones" index="5" instance=ExtResource("3_wgq57")]
-position = Vector2(212, 0)
-
-[node name="Zone_6" parent="Grid/Dropzones" index="6" instance=ExtResource("3_wgq57")]
+[node name="B1" parent="Sprite/Grid/Entities/AI" index="0" instance=ExtResource("4_5qyjy")]
 position = Vector2(-212, -212)
 
-[node name="Zone_7" parent="Grid/Dropzones" index="7" instance=ExtResource("3_wgq57")]
+[node name="B2" parent="Sprite/Grid/Entities/AI" index="1" instance=ExtResource("4_5qyjy")]
 position = Vector2(0, -212)
 
-[node name="Zone_8" parent="Grid/Dropzones" index="8" instance=ExtResource("3_wgq57")]
+[node name="B3" parent="Sprite/Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
 position = Vector2(212, -212)
 
-[node name="Entities" parent="Grid" index="1"]
-metadata/_edit_lock_ = true
-
-[node name="AI" parent="Grid/Entities" index="0"]
+[node name="Player" parent="Sprite/Grid/Entities" index="1"]
 show_zone = true
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="B1" parent="Grid/Entities/AI" index="0" instance=ExtResource("4_5qyjy")]
-texture_filter = 1
-position = Vector2(-212, -212)
-
-[node name="B2" parent="Grid/Entities/AI" index="1" instance=ExtResource("4_5qyjy")]
-texture_filter = 1
-position = Vector2(0, -212)
-
-[node name="B3" parent="Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
-texture_filter = 1
-position = Vector2(212, -212)
-
-[node name="Player" parent="Grid/Entities" index="1"]
-show_zone = true
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="W1" parent="Grid/Entities/Player" index="0" instance=ExtResource("4_lpwq2")]
-texture_filter = 1
+[node name="W1" parent="Sprite/Grid/Entities/Player" index="0" instance=ExtResource("4_lpwq2")]
 position = Vector2(-212, 212)
 
-[node name="W2" parent="Grid/Entities/Player" index="1" instance=ExtResource("4_lpwq2")]
-texture_filter = 1
+[node name="W2" parent="Sprite/Grid/Entities/Player" index="1" instance=ExtResource("4_lpwq2")]
 position = Vector2(0, 212)
 
-[node name="W3" parent="Grid/Entities/Player" index="2" instance=ExtResource("4_lpwq2")]
-texture_filter = 1
+[node name="W3" parent="Sprite/Grid/Entities/Player" index="2" instance=ExtResource("4_lpwq2")]
 position = Vector2(212, 212)

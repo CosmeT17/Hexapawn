@@ -8,6 +8,13 @@ script = ExtResource("1_kgymo")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 
+[node name="Name" type="Label" parent="Sprite"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Area" type="Area2D" parent="Sprite"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite/Area"]

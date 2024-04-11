@@ -1,12 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyijs6w32vbio"]
 
 [ext_resource type="PackedScene" uid="uid://cv3reh3y05eqf" path="res://Scenes/Objects/Pawn.tscn" id="1_mxl1p"]
-[ext_resource type="Texture2D" uid="uid://b3howvivytcq3" path="res://Textures/3x3/Players/Pawn_White_Player.png" id="2_7s2fn"]
+[ext_resource type="Texture2D" uid="uid://b3howvivytcq3" path="res://Textures/3x3/Players/Pawn_White_Player.png" id="2_t8vcl"]
 
 [node name="Pawn_Player" groups=["Player"] instance=ExtResource("1_mxl1p")]
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource("2_7s2fn")
+texture = ExtResource("2_t8vcl")
+
+[node name="Name" parent="Sprite" index="0"]
+offset_left = -15.0
+offset_top = 35.0
+offset_right = 25.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "W1"
 
 [node name="CollisionPolygon2D" parent="Sprite/Area" index="0"]
 visible = false

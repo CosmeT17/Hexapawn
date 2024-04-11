@@ -10,52 +10,39 @@ metadata/_edit_lock_ = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_25mlu")
-metadata/_edit_lock_ = true
 
-[node name="Grid" parent="." index="1"]
+[node name="Grid" parent="Sprite" index="0"]
 grid_size = 4
 testing = true
-metadata/_edit_lock_ = true
 
-[node name="Dropzones" parent="Grid" index="0"]
-pre_populated = false
-auto_organize = true
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="Entities" parent="Grid" index="1"]
-metadata/_edit_lock_ = true
-
-[node name="AI" parent="Grid/Entities" index="0"]
+[node name="AI" parent="Sprite/Grid/Entities" index="0"]
 show_zone = true
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="W1" parent="Grid/Entities/AI" index="0" instance=ExtResource("4_vnicx")]
+[node name="W1" parent="Sprite/Grid/Entities/AI" index="0" instance=ExtResource("4_vnicx")]
 position = Vector2(-237, -237)
 
-[node name="W2" parent="Grid/Entities/AI" index="1" instance=ExtResource("4_vnicx")]
+[node name="W2" parent="Sprite/Grid/Entities/AI" index="1" instance=ExtResource("4_vnicx")]
 position = Vector2(-79, -237)
 
-[node name="W3" parent="Grid/Entities/AI" index="2" instance=ExtResource("4_vnicx")]
+[node name="W3" parent="Sprite/Grid/Entities/AI" index="2" instance=ExtResource("4_vnicx")]
 position = Vector2(79, -237)
 
-[node name="W4" parent="Grid/Entities/AI" index="3" instance=ExtResource("4_vnicx")]
+[node name="W4" parent="Sprite/Grid/Entities/AI" index="3" instance=ExtResource("4_vnicx")]
 position = Vector2(237, -237)
 
-[node name="Player" parent="Grid/Entities" index="1"]
+[node name="Player" parent="Sprite/Grid/Entities" index="1"]
 show_zone = true
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="B1" parent="Grid/Entities/Player" index="0" instance=ExtResource("5_81i3h")]
+[node name="B1" parent="Sprite/Grid/Entities/Player" index="0" instance=ExtResource("5_81i3h")]
 position = Vector2(-237, 237)
 
-[node name="B2" parent="Grid/Entities/Player" index="1" instance=ExtResource("5_81i3h")]
+[node name="B2" parent="Sprite/Grid/Entities/Player" index="1" instance=ExtResource("5_81i3h")]
 position = Vector2(-79, 237)
 
-[node name="B3" parent="Grid/Entities/Player" index="2" instance=ExtResource("5_81i3h")]
+[node name="B3" parent="Sprite/Grid/Entities/Player" index="2" instance=ExtResource("5_81i3h")]
 position = Vector2(79, 237)
 
-[node name="B4" parent="Grid/Entities/Player" index="3" instance=ExtResource("5_81i3h")]
+[node name="B4" parent="Sprite/Grid/Entities/Player" index="3" instance=ExtResource("5_81i3h")]
 position = Vector2(237, 237)

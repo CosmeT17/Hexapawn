@@ -1,19 +1,16 @@
 extends Node2D
 
+@export_global_file("*.png") var labeled_board_texture = ""
 @export var grid_size: int = 0
 @export var testing: bool = false
 
-#@onready var board_sprite = get_parent
+@onready var board_texture = get_parent().texture
 @onready var zones: Array = $Dropzones.get_children()
 
 var board_state: String = "": get = get_board_state
 
 func _ready():
-	# Calculating grid size if not given.
-	var size: int
-	if grid_size == 0: size = int(sqrt(zones.size())) - 1
-	else: size = grid_size - 1
-	
+	var size = grid_size - 1
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
@@ -30,12 +27,31 @@ func _ready():
 		ID = char(ID.to_ascii_buffer()[0] + 1)
 	
 	$Entities/Player.winning_y = size
+	
+	# Updating texture for labeled board.
+	if labeled_board_texture:
+		labeled_board_texture = load(labeled_board_texture)
+	
+	# Showing testing elements.
+	if testing: 
+		toggle_grid_id()
+		toggle_pawn_name()
 
 func get_board_state() -> String:
 	board_state = ""
 	for pawn in get_tree().get_nodes_in_group("Pawn"):
 		board_state += pawn.current_zone.ID
 	return board_state
+
+func toggle_grid_id():
+	var parent = get_parent()
+	if labeled_board_texture: 
+		if parent.texture == board_texture: parent.texture = labeled_board_texture
+		else: parent.texture = board_texture
+
+func toggle_pawn_name():
+	for pawn in get_tree().get_nodes_in_group("Pawn"):
+		pawn.name_label.visible = not pawn.name_label.visible
 
 # Prints information for testing purposes.
 func _input(_event):
