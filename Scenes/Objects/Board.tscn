@@ -24,10 +24,10 @@ metadata/_edit_lock_ = true
 script = ExtResource("2_vlpmd")
 metadata/_edit_lock_ = true
 
-[node name="AI" type="Node2D" parent="Sprite/Grid/Entities"]
-script = ExtResource("2_6nqqp")
-metadata/_edit_lock_ = true
-
 [node name="Player" type="Node2D" parent="Sprite/Grid/Entities"]
 script = ExtResource("2_d3m6j")
+metadata/_edit_lock_ = true
+
+[node name="AI" type="Node2D" parent="Sprite/Grid/Entities"]
+script = ExtResource("2_6nqqp")
 metadata/_edit_lock_ = true

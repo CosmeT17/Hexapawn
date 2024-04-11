@@ -11,5 +11,5 @@ script = ExtResource("1_00iau")
 position = Vector2(324, 324)
 
 [node name="HUD" parent="." instance=ExtResource("3_o83kp")]
-AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/AI_Pic.png"
-player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/Player_Pic.png"
+AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/Pictures/AI_Pic.png"
+player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/Pictures/Player_Pic.png"

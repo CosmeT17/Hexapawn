@@ -62,7 +62,7 @@ func _input(_event):
 	if Input.is_action_just_released("Click") and selected:
 		selected = false
 		update_zone()
-		await get_tree().create_timer(0.15).timeout
+		await get_tree().create_timer(0.15).timeout # Prevent clipping
 		z_index = 0
 
 # Returns the closest valid dropzone to the selected pawn.

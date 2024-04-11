@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca46k40a6ycq5"
-path="res://.godot/imported/Board_4x4.png-a1f3e809e19f582032675acd92032d45.ctex"
+uid="uid://bk2s2jo26e1co"
+path="res://.godot/imported/Pawn_Black_AI.png-64c508bc3d15cc3b60ee2b8c26f27db6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/4x4/Board_4x4.png"
-dest_files=["res://.godot/imported/Board_4x4.png-a1f3e809e19f582032675acd92032d45.ctex"]
+source_file="res://Textures/3x3/Pawns/Pawn_Black_AI.png"
+dest_files=["res://.godot/imported/Pawn_Black_AI.png-64c508bc3d15cc3b60ee2b8c26f27db6.ctex"]
 
 [params]
 
