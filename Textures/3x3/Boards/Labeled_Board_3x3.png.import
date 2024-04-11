@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw077imufbywa"
-path="res://.godot/imported/Board_3x3.png-302550501edc85b5c34fb37a51d48b91.ctex"
+uid="uid://d3nwevlghlisp"
+path="res://.godot/imported/Labeled_Board_3x3.png-04438de77ba61f32bad1fc67a224662a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/3x3/Board_3x3.png"
-dest_files=["res://.godot/imported/Board_3x3.png-302550501edc85b5c34fb37a51d48b91.ctex"]
+source_file="res://Textures/3x3/Boards/Labeled_Board_3x3.png"
+dest_files=["res://.godot/imported/Labeled_Board_3x3.png-04438de77ba61f32bad1fc67a224662a.ctex"]
 
 [params]
 

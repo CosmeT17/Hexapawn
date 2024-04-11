@@ -12,7 +12,7 @@ func _ready():
 	#region Pre_Populated
 	if not pre_populated and get_child_count() == 0:
 		grid_size = get_parent().grid_size
-		var radius: int = pixel_size / grid_size / 2 - 6
+		var radius: int = int(pixel_size / grid_size / 2 - 6)
 		auto_organize = true
 		
 		for i in range(grid_size ** 2):

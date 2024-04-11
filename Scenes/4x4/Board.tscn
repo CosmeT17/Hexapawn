@@ -27,6 +27,7 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="AI" parent="Grid/Entities" index="0"]
+show_zone = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -43,6 +44,7 @@ position = Vector2(79, -237)
 position = Vector2(237, -237)
 
 [node name="Player" parent="Grid/Entities" index="1"]
+show_zone = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 

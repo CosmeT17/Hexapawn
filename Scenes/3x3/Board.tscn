@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dew0a8yl2exm1"]
 
-[ext_resource type="Texture2D" uid="uid://dw077imufbywa" path="res://Textures/3x3/Board_3x3.png" id="1_a4iha"]
+[ext_resource type="Texture2D" uid="uid://dw077imufbywa" path="res://Textures/3x3/Boards/Board_3x3.png" id="1_a4iha"]
 [ext_resource type="PackedScene" uid="uid://csb4c0v3ug7eu" path="res://Scenes/Objects/Board.tscn" id="1_v5i1f"]
 [ext_resource type="PackedScene" uid="uid://bgiqux1rga4r8" path="res://Scenes/Objects/Dropzone.tscn" id="3_wgq57"]
 [ext_resource type="PackedScene" uid="uid://dmp1h8bfji6y6" path="res://Scenes/3x3/Pawn_AI.tscn" id="4_5qyjy"]
