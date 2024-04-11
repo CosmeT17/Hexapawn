@@ -40,7 +40,8 @@ func _ready():
 func get_board_state() -> String:
 	board_state = ""
 	for pawn in get_tree().get_nodes_in_group("Pawn"):
-		board_state += pawn.current_zone.ID
+		if pawn.visible: board_state += pawn.current_zone.ID
+		else: board_state += "_"
 	return board_state
 
 func toggle_grid_id():
@@ -57,12 +58,12 @@ func toggle_pawn_name():
 func _input(_event):
 	if testing and Input.is_action_just_pressed("Test"):
 		print(board_state)
-		var out: String = ""
-		for zone in zones:
-			out = str(zone.get_name()) + ": "
-			out += str(zone.coordinates) + "; "
-			out += zone.ID + "; "
-			if zone.pawn: out += zone.pawn.get_name()
-			else: out += "NULL"
-			print(out)
-		print()
+		#var out: String = ""
+		#for zone in zones:
+			#out = str(zone.get_name()) + ": "
+			#out += str(zone.coordinates) + "; "
+			#out += zone.ID + "; "
+			#if zone.pawn: out += zone.pawn.get_name()
+			#else: out += "NULL"
+			#print(out)
+		#print()

@@ -138,6 +138,7 @@ func set_zone(zone: Dropzone):
 	current_zone = zone
 	current_zone.pawn = self
 
+# Capture this pawn ==> DEAD
 func capture() -> int:
 	visible = false
 	entity.available_pawns -= 1
