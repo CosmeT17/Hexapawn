@@ -19,9 +19,6 @@ func _ready():
 	if max_pawns > 0:
 		is_white = get_child(0).is_white
 		is_turn = is_white
-	
-	print(name)
-	print(is_turn)
 
 func turn_over():
 	is_turn = false

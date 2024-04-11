@@ -58,6 +58,7 @@ func toggle_pawn_name():
 func _input(_event):
 	if testing and Input.is_action_just_pressed("Test"):
 		print(board_state)
+		
 		#var out: String = ""
 		#for zone in zones:
 			#out = str(zone.get_name()) + ": "

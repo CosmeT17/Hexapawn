@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://csb4c0v3ug7eu"]
 
-[ext_resource type="Script" path="res://Scripts/Grid.gd" id="1_cyrpp"]
-[ext_resource type="Script" path="res://Scripts/AI.gd" id="2_6nqqp"]
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_d3m6j"]
-[ext_resource type="Script" path="res://Scripts/Grid_Placer.gd" id="2_mgufv"]
-[ext_resource type="Script" path="res://Scripts/Entities.gd" id="2_vlpmd"]
+[ext_resource type="Script" path="res://Scripts/Board/Grid.gd" id="1_22p3y"]
+[ext_resource type="Script" path="res://Scripts/Board/Grid_Placer.gd" id="2_xukmf"]
+[ext_resource type="Script" path="res://Scripts/Entities/Entities.gd" id="3_byqmp"]
+[ext_resource type="Script" path="res://Scripts/Entities/Player.gd" id="4_7tl0l"]
+[ext_resource type="Script" path="res://Scripts/Entities/AI.gd" id="5_ab7q7"]
 
 [node name="Board" type="Node2D"]
 
@@ -13,21 +13,21 @@ texture_filter = 1
 metadata/_edit_lock_ = true
 
 [node name="Grid" type="Node2D" parent="Sprite"]
-script = ExtResource("1_cyrpp")
+script = ExtResource("1_22p3y")
 metadata/_edit_lock_ = true
 
 [node name="Dropzones" type="Node2D" parent="Sprite/Grid"]
-script = ExtResource("2_mgufv")
+script = ExtResource("2_xukmf")
 metadata/_edit_lock_ = true
 
 [node name="Entities" type="Node2D" parent="Sprite/Grid"]
-script = ExtResource("2_vlpmd")
+script = ExtResource("3_byqmp")
 metadata/_edit_lock_ = true
 
 [node name="Player" type="Node2D" parent="Sprite/Grid/Entities"]
-script = ExtResource("2_d3m6j")
+script = ExtResource("4_7tl0l")
 metadata/_edit_lock_ = true
 
 [node name="AI" type="Node2D" parent="Sprite/Grid/Entities"]
-script = ExtResource("2_6nqqp")
+script = ExtResource("5_ab7q7")
 metadata/_edit_lock_ = true

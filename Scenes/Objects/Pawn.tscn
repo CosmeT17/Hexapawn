@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cv3reh3y05eqf"]
 
-[ext_resource type="Script" path="res://Scripts/Pawn.gd" id="1_kgymo"]
+[ext_resource type="Script" path="res://Scripts/Entities/Pawn.gd" id="1_kgymo"]
 
 [node name="Pawn" type="Node2D" groups=["Pawn"]]
 script = ExtResource("1_kgymo")

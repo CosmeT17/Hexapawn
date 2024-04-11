@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://byja1ku373fmx"]
 
-[ext_resource type="Script" path="res://Scripts/Scores.gd" id="1_7nhjy"]
-[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_h44hd"]
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="1_mcrd8"]
+[ext_resource type="Script" path="res://Scripts/HUD/HUD.gd" id="1_x0qef"]
+[ext_resource type="Script" path="res://Scripts/HUD/Scores.gd" id="2_doltk"]
 [ext_resource type="FontFile" uid="uid://f6tgej42lrqe" path="res://Fonts/ProtestGuerrilla-Regular.ttf" id="3_pccej"]
 [ext_resource type="Texture2D" uid="uid://cph7cxyuj85tw" path="res://Textures/HUD/Empty_Pic.png" id="4_licqx"]
 
 [node name="HUD" type="Node2D"]
-script = ExtResource("1_h44hd")
+script = ExtResource("1_x0qef")
 metadata/_edit_lock_ = true
 
 [node name="Scores" type="Node2D" parent="."]
-script = ExtResource("1_7nhjy")
+script = ExtResource("2_doltk")
 metadata/_edit_lock_ = true
 
 [node name="AI" type="Node2D" parent="Scores"]
