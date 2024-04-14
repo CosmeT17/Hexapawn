@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dmp1h8bfji6y6" path="res://Scenes/3x3/Pawn_AI.tscn" id="4_5qyjy"]
 [ext_resource type="PackedScene" uid="uid://cyijs6w32vbio" path="res://Scenes/3x3/Pawn_Player.tscn" id="4_lpwq2"]
 
-[node name="Board" instance=ExtResource("1_v5i1f")]
+[node name="Board_3x3" instance=ExtResource("1_v5i1f")]
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("1_a4iha")
@@ -40,3 +40,7 @@ position = Vector2(0, -212)
 
 [node name="B3" parent="Sprite/Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
 position = Vector2(212, -212)
+
+[node name="Scores" parent="." index="1"]
+AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/AI_Pic.png"
+player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/Player_Pic.png"

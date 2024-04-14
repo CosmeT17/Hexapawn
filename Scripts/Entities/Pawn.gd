@@ -97,19 +97,22 @@ func update_zone():
 	
 	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
-		entity.turn_over()
-		
 		# Pawn killer. (RIP)
 		var game_won: bool = false
 		if zone.pawn: 
 			if zone.pawn.capture() == 0: game_won = true
 		
-		# Updating zone pawn values.
+		# Updating zone pawn values & declaring turn over.
 		current_zone = zone
+		entity.turn_over()
 		
 		# Checking win conditions.
 		if current_zone.coordinates.y == entity.winning_y or game_won:
 			entity.Game_Over()
+		
+		## If game is not over, AI can calculate next move.
+		else:
+			entity.Entities.can_calculate_move = true
 
 # Highlights the selected valid zone.
 func highlight_zone():
@@ -143,3 +146,7 @@ func capture() -> int:
 	visible = false
 	entity.available_pawns -= 1
 	return entity.available_pawns
+
+# Returns a list of zones representing the possible moves.
+func possible_moves():
+	return

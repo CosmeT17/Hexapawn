@@ -7,13 +7,14 @@ extends Node2D
 @onready var board_texture = get_parent().texture
 @onready var zones: Array = $Dropzones.get_children()
 
-var board_state: String = "": get = get_board_state
+var board_state: String = ""
 
 func _ready():
 	var size = grid_size - 1
 	var coordinates: Vector2 = Vector2.ZERO
 	var ID: String = "A"
 	
+	# Initializing dropzones.
 	for zone in zones:
 		zone.coordinates = coordinates
 		zone.ID = ID
@@ -36,13 +37,15 @@ func _ready():
 	if testing: 
 		toggle_grid_id()
 		toggle_pawn_name()
+	
+	# Getting initial board state.
+	update_board_state()
 
-func get_board_state() -> String:
+func update_board_state():
 	board_state = ""
 	for pawn in get_tree().get_nodes_in_group("Pawn"):
 		if pawn.visible: board_state += pawn.current_zone.ID
 		else: board_state += "_"
-	return board_state
 
 func toggle_grid_id():
 	var parent = get_parent()
