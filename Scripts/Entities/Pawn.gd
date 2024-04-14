@@ -69,20 +69,8 @@ func _input(_event):
 func nearest_zone() -> Dropzone:
 	for zone in dropzones:
 		if global_position.distance_to(zone.global_position) < zone_range and zone != current_zone:
-			
-			var diff_y: int = (zone.coordinates.y - current_zone.coordinates.y) * direction
-			var diff_x: int = abs(zone.coordinates.x - current_zone.coordinates.x)
-			
-			# Move Forward
-			if diff_y == 1:
-				if diff_x == 0 and not zone.pawn:
-					return zone
-				
-				# Move Diagonally.
-				elif diff_x != 0 and zone.pawn:
-					if get_groups()[1] != zone.pawn.get_groups()[1]:
-						return zone
-		
+			if is_zone_valid(zone):
+				return zone
 	return current_zone
 
 # Updates the pawn's current zone to the selected zone. 
@@ -104,15 +92,15 @@ func update_zone():
 		
 		# Updating zone pawn values & declaring turn over.
 		current_zone = zone
-		entity.turn_over()
+		#entity.turn_over()
 		
 		# Checking win conditions.
 		if current_zone.coordinates.y == entity.winning_y or game_won:
 			entity.Game_Over()
 		
-		## If game is not over, AI can calculate next move.
+		# Turn over
 		else:
-			entity.Entities.can_calculate_move = true
+			entity.turn_over()
 
 # Highlights the selected valid zone.
 func highlight_zone():
@@ -134,6 +122,22 @@ func highlight_zone():
 	if zone == current_zone and selected_zone and selected_zone.visible:
 		selected_zone.visible = false
 
+# Returns true if the pawn can legally move to the given zone, otherwise false.
+func is_zone_valid(zone: Dropzone) -> bool:
+	var diff_y: int = int((zone.coordinates.y - current_zone.coordinates.y) * direction)
+	var diff_x: int = abs(zone.coordinates.x - current_zone.coordinates.x)
+	
+	# Check Forward
+	if diff_y == 1:
+		if diff_x == 0 and not zone.pawn:
+			return true
+		
+		# Check Diagonally.
+		elif diff_x != 0 and zone.pawn:
+			if get_groups()[1] != zone.pawn.get_groups()[1]:
+				return true
+	return false
+
 # Set zone to the current_zone and update the zone pawn values.
 func set_zone(zone: Dropzone):
 	if current_zone and current_zone.pawn == self: 
@@ -148,5 +152,22 @@ func capture() -> int:
 	return entity.available_pawns
 
 # Returns a list of zones representing the possible moves.
-func possible_moves():
-	return
+func possible_moves() -> Array:
+	var moves: Array = []
+	
+	# Getting coordinates of the nearest zones.
+	var down: Vector2 = current_zone.coordinates + Vector2(0, direction)
+	var left: Vector2 = down + Vector2(-1, 0)
+	var right: Vector2 = down + Vector2(1, 0)
+	
+	# Finding the zones and appending them to the Array if they are valid.
+	for zone in dropzones:
+		if zone.coordinates == down or zone.coordinates == left or zone.coordinates == right:
+			if is_zone_valid(zone):
+				moves.append(zone)
+	
+	return moves
+
+# str() Override
+func _to_string():
+	return "" + name

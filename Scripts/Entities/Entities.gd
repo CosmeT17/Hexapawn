@@ -2,10 +2,11 @@ extends Node2D
 
 @onready var AI = $AI
 @onready var player = $Player
+@onready var Grid = get_parent()
 @onready var Board = get_parent().get_parent().get_parent()
 
 var game_over: bool = false
-var can_calculate_move = false
+#var can_calculate_move = false
 
 # Reset game.
 func _input(_event):
@@ -33,6 +34,7 @@ func _input(_event):
 			AI.reset()
 			player.reset()
 			game_over = false
+			Grid.update_board_state()
 
 func turn_over(entity_name: String):
 	if entity_name == "Player":

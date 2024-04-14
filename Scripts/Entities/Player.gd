@@ -3,7 +3,6 @@ class_name Player
 
 @export var show_zone: bool = false
 @onready var Entities = get_parent()
-@onready var Grid = get_parent().get_parent()
 
 var winning_y: int # From grandparent --> grandchild
 var can_move: bool = true # From parent --> child
@@ -21,11 +20,12 @@ func _ready():
 		is_turn = is_white
 
 func turn_over():
-	Grid.update_board_state()
+	Entities.Grid.update_board_state()
 	is_turn = false
 	Entities.turn_over(self.name)
 
 func Game_Over():
+	Entities.Grid.update_board_state()
 	Entities.game_over = true
 	Entities.Game_Over()
 	num_wins += 1

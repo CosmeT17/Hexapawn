@@ -13,3 +13,7 @@ func _ready():
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, ACTIVE_COLOR)
+
+# str() Override
+func _to_string():
+	return ID
