@@ -151,6 +151,7 @@ func capture() -> int:
 	entity.available_pawns -= 1
 	return entity.available_pawns
 
+# TODO: Make better by adding adjacency list to zone
 # Returns a list of zones representing the possible moves.
 func possible_moves() -> Array:
 	var moves: Array = []

@@ -33,8 +33,8 @@ func _input(_event):
 			# Starting new game.
 			AI.reset()
 			player.reset()
-			game_over = false
 			Grid.update_board_state()
+			game_over = false
 
 func turn_over(entity_name: String):
 	if entity_name == "Player":
@@ -49,3 +49,4 @@ func Game_Over():
 	Board.toggle_border.emit()
 	AI.can_move = false
 	player.can_move = false
+	game_over = true
