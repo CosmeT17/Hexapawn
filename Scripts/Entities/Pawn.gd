@@ -44,9 +44,10 @@ func _physics_process(delta):
 	if selected:
 		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
 		if entity.show_zone: highlight_zone()
-	else:
-		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
 		
+	elif global_position != current_zone.global_position:
+		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
+			
 		# Smooth-over movement
 		if round(abs((global_position - current_zone.global_position))) == Vector2.ZERO:
 			global_position = current_zone.global_position
@@ -74,9 +75,7 @@ func nearest_zone() -> Dropzone:
 	return current_zone
 
 # Updates the pawn's current zone to the selected zone. 
-func update_zone():
-	var zone: Dropzone = nearest_zone()
-	
+func update_zone(zone: Dropzone = nearest_zone()):
 	# Hiding zone highlight.
 	if entity.show_zone:
 		if selected_zone: selected_zone.visible = false
@@ -92,10 +91,9 @@ func update_zone():
 		
 		# Updating zone pawn values & declaring turn over.
 		current_zone = zone
-		#entity.turn_over()
 		
 		# Checking win conditions.
-		if current_zone.coordinates.y == entity.winning_y or game_won:
+		if game_won or current_zone.coordinates.y == entity.winning_y:
 			entity.Game_Over()
 		
 		# Turn over

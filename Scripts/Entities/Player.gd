@@ -65,7 +65,7 @@ func set_turn(val: bool):
 							moves[board_state].append([pawn, zone])
 		
 		# Checking for a stalemate.
-		if moves[board_state] == []:
+		if moves[board_state].is_empty():
 			if self is AI: Entities.player.Game_Over()
 			else: Entities.AI.Game_Over()
 		
