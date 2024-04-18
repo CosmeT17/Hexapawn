@@ -10,7 +10,7 @@ var game_over: bool = false
 
 # Reset game.
 func _input(_event):
-	if game_over and Input.is_action_just_pressed("New Game"):
+	if game_over and AI.moved and Input.is_action_just_pressed("Alt_Click"):
 		# Resetting score pic borders.
 		if AI.is_white: Board.toggle_border.emit("AI")
 		else: Board.toggle_border.emit("Player")

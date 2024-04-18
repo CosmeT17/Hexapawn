@@ -69,5 +69,6 @@ func set_turn(val: bool):
 			if self is AI: Entities.player.Game_Over()
 			else: Entities.AI.Game_Over()
 		
-		## TESTING
-		print('[' + name + '] ' + board_state + ': ' + str(moves[board_state]))
+		# TESTING
+		if self is AI:
+			print('[' + name + '] ' + board_state + ': ' + str(moves[board_state]))

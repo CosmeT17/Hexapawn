@@ -37,6 +37,7 @@ func _ready():
 	if testing: 
 		toggle_grid_id()
 		toggle_pawn_name()
+		$Entities/AI.delay = -1
 	
 	# Getting initial board state.
 	update_board_state()

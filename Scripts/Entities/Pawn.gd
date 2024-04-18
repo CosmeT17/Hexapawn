@@ -10,7 +10,7 @@ class_name Pawn
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
 
-#var movable: bool = true
+var movable: bool = true
 var selected: bool = false
 
 var dropzones: Array = []
@@ -37,7 +37,7 @@ func _ready():
 	# Changing the move direction to down if the pawn belongs to AI.
 	if is_AI:
 		direction = -1
-		#movable = false # TODO
+		movable = false
 
 # Do the dragging.
 func _physics_process(delta):
@@ -51,10 +51,13 @@ func _physics_process(delta):
 		# Smooth-over movement
 		if round(abs((global_position - current_zone.global_position))) == Vector2.ZERO:
 			global_position = current_zone.global_position
+			
+			if entity is AI:
+				entity.moved = true
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
-	if Input.is_action_just_pressed("Click") and entity.can_move and entity.is_turn:
+	if movable and Input.is_action_just_pressed("Click") and entity.can_move and entity.is_turn:
 		z_index = 1
 		selected = true
 #
