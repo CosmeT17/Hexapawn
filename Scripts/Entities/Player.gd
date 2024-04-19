@@ -52,7 +52,7 @@ func set_turn(val: bool):
 	is_turn = val
 	
 	# Updating the moves hash table if never before seen board state.
-	if is_turn and not Entities.game_over:
+	if is_turn:
 		board_state = Entities.Grid.board_state
 		if  board_state not in moves:
 			moves[board_state] = []

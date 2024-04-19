@@ -51,9 +51,6 @@ func _physics_process(delta):
 		# Smooth-over movement
 		if round(abs((global_position - current_zone.global_position))) == Vector2.ZERO:
 			global_position = current_zone.global_position
-			
-			if entity is AI:
-				entity.moved = true
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):

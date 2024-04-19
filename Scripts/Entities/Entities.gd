@@ -6,11 +6,10 @@ extends Node2D
 @onready var Board = get_parent().get_parent().get_parent()
 
 var game_over: bool = false
-#var can_calculate_move = false
 
 # Reset game.
 func _input(_event):
-	if game_over and AI.moved and Input.is_action_just_pressed("Alt_Click"):
+	if game_over and Input.is_action_just_pressed("Alt_Click"):
 		# Resetting score pic borders.
 		if AI.is_white: Board.toggle_border.emit("AI")
 		else: Board.toggle_border.emit("Player")
@@ -30,11 +29,11 @@ func _input(_event):
 			AI.can_move = true
 			player.can_move = true
 			
-			# Starting new game.
-			AI.reset()
-			player.reset()
-			Grid.update_board_state()
-			game_over = false
+		# Starting new game.
+		Grid.update_board_state()
+		AI.reset()
+		player.reset()
+		game_over = false
 
 func turn_over(entity_name: String):
 	if entity_name == "Player":
