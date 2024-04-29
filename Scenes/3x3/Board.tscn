@@ -11,8 +11,9 @@
 texture = ExtResource("1_a4iha")
 
 [node name="Grid" parent="Sprite" index="0"]
-labeled_board_texture = "C:/Users/cosme/Documents/GitHub/Godot/Hexapawn/Textures/3x3/Boards/Labeled_Board_3x3.png"
+labeled_board_texture = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Boards/Labeled_Board_3x3.png"
 grid_size = 3
+testing = true
 
 [node name="Player" parent="Sprite/Grid/Entities" index="0"]
 show_zone = true
@@ -41,5 +42,5 @@ position = Vector2(0, -212)
 position = Vector2(212, -212)
 
 [node name="Scores" parent="." index="1"]
-AI_pic = "C:/Users/cosme/Documents/GitHub/Godot/Hexapawn/Textures/3x3/Pictures/AI_Pic.png"
-player_pic = "C:/Users/cosme/Documents/GitHub/Godot/Hexapawn/Textures/3x3/Pictures/Player_Pic.png"
+AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/AI_Pic.png"
+player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/Pictures/Player_Pic.png"

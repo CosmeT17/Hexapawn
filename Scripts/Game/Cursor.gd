@@ -8,7 +8,7 @@ enum Mode {FREE, CONFINED} # Mouse can/cannot leave window.
 
 #region Cursor Icon Textures
 const CURSOR_PNG: CompressedTexture2D = preload("res://Textures/Cursors/Cursor.png")
-const SELECT_PNG: CompressedTexture2D = preload("res://Textures/Cursors/Cursor.png")
+const SELECT_PNG: CompressedTexture2D = preload("res://Textures/Cursors/Select_2.png")
 const GRAB_PNG: CompressedTexture2D = preload("res://Textures/Cursors/Cursor.png")
 #endregion
 
@@ -21,7 +21,7 @@ var mode: int: set = set_mode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Setting the starting context and mode.
-	set_context(Context.CURSOR)
+	set_context(Context.SELECT)
 	set_mode(Mode.FREE)
 
 # Updates the cursor icon based on the context.
