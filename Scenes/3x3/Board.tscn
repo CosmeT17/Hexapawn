@@ -43,4 +43,4 @@ position = Vector2(212, -212)
 
 [node name="Scores" parent="." index="1"]
 AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/AI_Pic.png"
-player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/4x4/Pictures/Player_Pic.png"
+player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/Player_Pic.png"

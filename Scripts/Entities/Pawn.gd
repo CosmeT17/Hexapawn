@@ -37,7 +37,7 @@ func _ready():
 	# Changing the move direction to down if the pawn belongs to AI.
 	if is_AI:
 		direction = -1
-		movable = false
+		movable = entity.is_second_player
 
 # Do the dragging.
 func _physics_process(delta):
@@ -170,3 +170,11 @@ func possible_moves() -> Array:
 # str() Override
 func _to_string():
 	return "" + name
+
+func _on_area_mouse_entered():
+	if entity.is_turn and movable:
+		print("in")
+
+func _on_area_mouse_exited():
+	if entity.is_turn and movable:
+		print("out")
