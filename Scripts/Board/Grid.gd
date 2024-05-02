@@ -56,7 +56,7 @@ func toggle_grid_id():
 
 func toggle_pawn_name():
 	for pawn in get_tree().get_nodes_in_group("Pawn"):
-		pawn.name_label.visible = not pawn.name_label.visible
+		pawn.Name_Label.visible = not pawn.Name_Label.visible
 
 # Prints information for testing purposes.
 func _input(_event):

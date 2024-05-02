@@ -8,6 +8,7 @@ class_name Player
 var winning_y: int # From grandparent --> grandchild
 var can_move: bool = true # From parent --> child
 var num_wins: int = 0
+var Hovered_Pawn: Pawn #: set = set_hovered_pawn
 
 # From child --> parent
 @onready var available_pawns: int = get_child_count()
@@ -51,8 +52,12 @@ func declare_winner():
 func set_turn(val: bool):
 	is_turn = val
 	
-	# Updating the moves hash table if never before seen board state.
 	if is_turn:
+		# Updating Cursor to Grab Icon if on top of selectable pawn.
+		if Hovered_Pawn:
+			Entities.Cursor.context = Entities.Cursor.Context.SELECT
+		
+		# Updating the moves hash table if never before seen board state.
 		board_state = Entities.Grid.board_state
 		if  board_state not in moves:
 			moves[board_state] = []
@@ -66,9 +71,13 @@ func set_turn(val: bool):
 		
 		# Checking for a stalemate.
 		if moves[board_state].is_empty():
-			if self is AI: Entities.player.Game_Over()
-			else: Entities.AI.Game_Over()
+			if self is AI: Entities.Player_Controller.Game_Over()
+			else: Entities.AI_Controller.Game_Over()
 		
 		# TESTING
 		if self is AI:
 			print('[' + name + '] ' + board_state + ': ' + str(moves[board_state]))
+
+#func set_hovered_pawn(pawn: Pawn) -> void:
+	#Hovered_Pawn = pawn
+	#print(Hovered_Pawn)

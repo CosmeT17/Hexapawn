@@ -1,9 +1,10 @@
 extends Node2D
 
-@onready var AI = $AI
-@onready var player = $Player
+@onready var AI_Controller = $AI
+@onready var Player_Controller = $Player
 @onready var Grid = get_parent()
 @onready var Board = get_parent().get_parent().get_parent()
+@onready var Cursor = get_tree().get_root().get_node("Game/Cursor")
 
 var game_over: bool = false
 
@@ -11,7 +12,7 @@ var game_over: bool = false
 func _input(_event):
 	if game_over and Input.is_action_just_pressed("Alt_Click"):
 		# Resetting score pic borders.
-		if AI.is_white: Board.toggle_border.emit("AI")
+		if AI_Controller.is_white: Board.toggle_border.emit("AI")
 		else: Board.toggle_border.emit("Player")
 		Board.toggle_border.emit("", "Winner")
 		
@@ -26,26 +27,26 @@ func _input(_event):
 				pawn.visible = true
 			
 			# Player and AI can now move pawns again.
-			AI.can_move = true
-			player.can_move = true
+			AI_Controller.can_move = true
+			Player_Controller.can_move = true
 			
 		# Starting new game.
 		Grid.update_board_state()
-		AI.reset()
-		player.reset()
+		AI_Controller.reset()
+		Player_Controller.reset()
 		game_over = false
 
 func turn_over(entity_name: String):
 	if entity_name == "Player":
 		Board.toggle_border.emit("AI")
-		AI.is_turn = true
+		AI_Controller.is_turn = true
 	else:
 		Board.toggle_border.emit("Player")
-		player.is_turn = true
+		Player_Controller.is_turn = true
 
 # No one can move any pieces until a new game starts.
 func Game_Over():
 	Board.toggle_border.emit()
-	AI.can_move = false
-	player.can_move = false
+	AI_Controller.can_move = false
+	Player_Controller.can_move = false
 	game_over = true

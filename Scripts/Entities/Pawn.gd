@@ -3,9 +3,10 @@ class_name Pawn
 
 @export var is_AI: bool = false
 @export var is_white: bool = true
+@export var mouse_offset: Vector2 = Vector2(16, 0)
 
-@onready var entity = get_parent()
-@onready var name_label = $Sprite/Name
+@onready var Controller = get_parent()
+@onready var Name_Label = $Sprite/Name
 
 var direction: int = 1 # 1 -> UP, -1 -> DOWN
 var zone_range: int
@@ -21,7 +22,7 @@ var previous_zone: Dropzone
 
 func _ready():
 	# Updating the name label with the pawns name.
-	name_label.text = name
+	Name_Label.text = name
 	
 	dropzones = get_tree().get_nodes_in_group("Zone")
 	zone_range = dropzones[0].radius
@@ -37,13 +38,13 @@ func _ready():
 	# Changing the move direction to down if the pawn belongs to AI.
 	if is_AI:
 		direction = -1
-		movable = entity.is_second_player
+		movable = Controller.is_second_player
 
 # Do the dragging.
 func _physics_process(delta):
 	if selected:
-		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
-		if entity.show_zone: highlight_zone()
+		global_position = lerp(global_position, get_global_mouse_position() + mouse_offset, 25 * delta)
+		if Controller.show_zone: highlight_zone()
 		
 	elif global_position != current_zone.global_position:
 		global_position = lerp(global_position, current_zone.global_position, 10 * delta)
@@ -54,13 +55,15 @@ func _physics_process(delta):
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
-	if movable and Input.is_action_just_pressed("Click") and entity.can_move and entity.is_turn:
+	if movable and Input.is_action_just_pressed("Click") and Controller.can_move and Controller.is_turn:
+		Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.GRAB
 		z_index = 1
 		selected = true
 #
 # Stop dragging.
 func _input(_event):
 	if Input.is_action_just_released("Click") and selected:
+		Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.SELECT
 		selected = false
 		update_zone()
 		await get_tree().create_timer(0.15).timeout # Prevent clipping
@@ -77,13 +80,16 @@ func nearest_zone() -> Dropzone:
 # Updates the pawn's current zone to the selected zone. 
 func update_zone(zone: Dropzone = nearest_zone()):
 	# Hiding zone highlight.
-	if entity.show_zone:
+	if Controller.show_zone:
 		if selected_zone: selected_zone.visible = false
 		selected_zone = null
 		previous_zone = null
 	
 	# Update the current zone only if it is not the current zone already.
 	if current_zone != zone:
+		# Stop showing dragging cursor.
+		Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.CURSOR
+		
 		# Pawn killer. (RIP)
 		var game_won: bool = false
 		if zone.pawn: 
@@ -93,12 +99,12 @@ func update_zone(zone: Dropzone = nearest_zone()):
 		current_zone = zone
 		
 		# Checking win conditions.
-		if game_won or current_zone.coordinates.y == entity.winning_y:
-			entity.Game_Over()
+		if game_won or current_zone.coordinates.y == Controller.winning_y:
+			Controller.Game_Over()
 		
 		# Turn over
 		else:
-			entity.turn_over()
+			Controller.turn_over()
 
 # Highlights the selected valid zone.
 func highlight_zone():
@@ -146,8 +152,8 @@ func set_zone(zone: Dropzone):
 # Capture this pawn ==> DEAD
 func capture() -> int:
 	visible = false
-	entity.available_pawns -= 1
-	return entity.available_pawns
+	Controller.available_pawns -= 1
+	return Controller.available_pawns
 
 # TODO: Make better by adding adjacency list to zone
 # Returns a list of zones representing the possible moves.
@@ -171,10 +177,21 @@ func possible_moves() -> Array:
 func _to_string():
 	return "" + name
 
+#region Cursor Texture Update
+# Pawn is selectable -> Select Cursor Icon
 func _on_area_mouse_entered():
-	if entity.is_turn and movable:
-		print("in")
+	Controller.Hovered_Pawn = self
+	
+	if Controller.is_turn and movable and not selected:
+		if Controller.Entities.Cursor.context != Controller.Entities.Cursor.Context.GRAB:
+			if not Controller.Entities.game_over:
+				Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.SELECT
 
+# Mouse moves out of pawn area -> Regular Cursor Icon
 func _on_area_mouse_exited():
-	if entity.is_turn and movable:
-		print("out")
+	Controller.Hovered_Pawn = null
+	
+	if Controller.Entities.Cursor.context != Controller.Entities.Cursor.Context.GRAB:
+		if Controller.Entities.Cursor.context != Controller.Entities.Cursor.Context.CURSOR:
+			Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.CURSOR
+#endregion

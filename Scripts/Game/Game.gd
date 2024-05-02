@@ -11,3 +11,5 @@ signal update_cursor(context: int)
 func _ready():
 	if starting_board == 0: Board.add_child(Board_3x3)
 	else: Board.add_child(Board_4x4)
+	
+	#print(get_parent())
