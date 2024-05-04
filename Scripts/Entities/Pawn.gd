@@ -52,11 +52,13 @@ func _physics_process(delta):
 		# Smooth-over movement
 		if round(abs((global_position - current_zone.global_position))) == Vector2.ZERO:
 			global_position = current_zone.global_position
+			Controller.has_moved = true
 
 # Start dragging.
 func _on_area_input_event(_viewport, _event, _shape_idx):
 	if movable and Input.is_action_just_pressed("Click") and Controller.can_move and Controller.is_turn:
 		Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.GRAB
+		Controller.Entities.Cursor.mode = Controller.Entities.Cursor.Mode.CONFINED
 		z_index = 1
 		selected = true
 #
@@ -64,6 +66,7 @@ func _on_area_input_event(_viewport, _event, _shape_idx):
 func _input(_event):
 	if Input.is_action_just_released("Click") and selected:
 		Controller.Entities.Cursor.context = Controller.Entities.Cursor.Context.SELECT
+		Controller.Entities.Cursor.mode = Controller.Entities.Cursor.Mode.FREE
 		selected = false
 		update_zone()
 		await get_tree().create_timer(0.15).timeout # Prevent clipping

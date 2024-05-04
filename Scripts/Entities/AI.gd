@@ -3,6 +3,7 @@ class_name AI
 
 @export var is_second_player: bool = false
 @export_range(-0.05, 1, 0.05) var delay: float = 0.5
+
 var move: Array # Stores the previously performed move
 
 func set_turn(val: bool):

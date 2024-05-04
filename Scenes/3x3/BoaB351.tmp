@@ -29,6 +29,7 @@ position = Vector2(0, 212)
 position = Vector2(212, 212)
 
 [node name="AI" parent="Sprite/Grid/Entities" index="1"]
+is_second_player = true
 delay = -0.05
 show_zone = true
 metadata/_edit_group_ = true

@@ -6,9 +6,10 @@ class_name Player
 @onready var Pawns = get_children()
 
 var winning_y: int # From grandparent --> grandchild
-var can_move: bool = true # From parent --> child
 var num_wins: int = 0
-var Hovered_Pawn: Pawn #: set = set_hovered_pawn
+var can_move: bool = true # From parent --> child
+var has_moved: bool = false
+var Hovered_Pawn: Pawn
 
 # From child --> parent
 @onready var available_pawns: int = get_child_count()
@@ -73,11 +74,9 @@ func set_turn(val: bool):
 		if moves[board_state].is_empty():
 			if self is AI: Entities.Player_Controller.Game_Over()
 			else: Entities.AI_Controller.Game_Over()
+		else:
+			has_moved = false
 		
 		# TESTING
 		if self is AI:
 			print('[' + name + '] ' + board_state + ': ' + str(moves[board_state]))
-
-#func set_hovered_pawn(pawn: Pawn) -> void:
-	#Hovered_Pawn = pawn
-	#print(Hovered_Pawn)

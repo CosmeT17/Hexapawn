@@ -10,31 +10,32 @@ var game_over: bool = false
 
 # Reset game.
 func _input(_event):
-	if game_over and Input.is_action_just_pressed("Alt_Click"):
-		# Resetting score pic borders.
-		if AI_Controller.is_white: Board.toggle_border.emit("AI")
-		else: Board.toggle_border.emit("Player")
-		Board.toggle_border.emit("", "Winner")
-		
-		# Resetting pawns.
-		for pawn in get_tree().get_nodes_in_group("Pawn"):
-			# Returning pawns back to initial positions for next game.
-			pawn.current_zone = pawn.initial_zone
-			pawn.global_position = pawn.current_zone.global_position
+	if game_over and AI_Controller.has_moved and Player_Controller.has_moved:
+		if Input.is_action_just_pressed("Alt_Click"):
+			# Resetting score pic borders.
+			if AI_Controller.is_white: Board.toggle_border.emit("AI")
+			else: Board.toggle_border.emit("Player")
+			Board.toggle_border.emit("", "Winner")
 			
-			# Reviving lost pawns.
-			if not pawn.visible:
-				pawn.visible = true
-			
-			# Player and AI can now move pawns again.
-			AI_Controller.can_move = true
-			Player_Controller.can_move = true
-			
-		# Starting new game.
-		Grid.update_board_state()
-		AI_Controller.reset()
-		Player_Controller.reset()
-		game_over = false
+			# Resetting pawns.
+			for pawn in get_tree().get_nodes_in_group("Pawn"):
+				# Returning pawns back to initial positions for next game.
+				pawn.current_zone = pawn.initial_zone
+				pawn.global_position = pawn.current_zone.global_position
+				
+				# Reviving lost pawns.
+				if not pawn.visible:
+					pawn.visible = true
+				
+				# Player and AI can now move pawns again.
+				AI_Controller.can_move = true
+				Player_Controller.can_move = true
+				
+			# Starting new game.
+			Grid.update_board_state()
+			AI_Controller.reset()
+			Player_Controller.reset()
+			game_over = false
 
 func turn_over(entity_name: String):
 	if entity_name == "Player":
