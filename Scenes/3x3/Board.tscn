@@ -11,7 +11,7 @@
 texture = ExtResource("1_a4iha")
 
 [node name="Grid" parent="Sprite" index="0"]
-labeled_board_texture = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Boards/Labeled_Board_3x3.png"
+labeled_board_texture = "res://Textures/3x3/Boards/Labeled_Board_3x3.png"
 grid_size = 3
 testing = true
 
@@ -29,7 +29,6 @@ position = Vector2(0, 212)
 position = Vector2(212, 212)
 
 [node name="AI" parent="Sprite/Grid/Entities" index="1"]
-delay = -0.05
 show_zone = true
 metadata/_edit_group_ = true
 
@@ -43,5 +42,5 @@ position = Vector2(0, -212)
 position = Vector2(212, -212)
 
 [node name="Scores" parent="." index="1"]
-AI_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/AI_Pic.png"
-player_pic = "C:/Users/Cosme-PC/Documents/GitHub/Godot/Projects/Hexapawn/Textures/3x3/Pictures/Player_Pic.png"
+AI_pic = "res://Textures/3x3/Pictures/AI_Pic.png"
+player_pic = "res://Textures/3x3/Pictures/Player_Pic.png"

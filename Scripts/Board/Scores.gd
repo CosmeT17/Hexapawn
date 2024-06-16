@@ -13,6 +13,8 @@ extends Node2D
 @onready var Player_Border_Winner = $Player/Border_Winner
 
 func _ready():
+	#print(get_tree().get_root().get_path())
+	
 	if AI_pic != "": $AI/Picture.texture = load(AI_pic)
 	if player_pic != "": $Player/Picture.texture = load(player_pic)
 	
