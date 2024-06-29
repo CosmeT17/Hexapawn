@@ -5,7 +5,6 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ssgje")
-starting_board = 1
 
 [node name="Cursor" type="Node" parent="."]
 script = ExtResource("2_cmke3")

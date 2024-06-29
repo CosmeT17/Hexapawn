@@ -1,0 +1,116 @@
+[gd_scene load_steps=6 format=3 uid="uid://cksj3jvf4i0im"]
+
+[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Main_Menu/Textures/Title_Screen.png" id="1_aachk"]
+[ext_resource type="Script" path="res://Main_Menu/Scripts/Play_Menu.gd" id="1_ghfg3"]
+[ext_resource type="FontFile" uid="uid://b2mypsnhr840a" path="res://Fonts/PressStart2P-Regular.ttf" id="2_qrch5"]
+[ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="3_4anqc"]
+[ext_resource type="Texture2D" uid="uid://bx805g5kyisdb" path="res://Main_Menu/Textures/Button_Border.png" id="4_wd21x"]
+
+[node name="Play_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ghfg3")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_aachk")
+
+[node name="Content_MContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Title_VBContainer" type="VBoxContainer" parent="Content_MContainer"]
+layout_mode = 2
+theme_override_constants/separation = 65
+
+[node name="Seperator" type="Control" parent="Content_MContainer/Title_VBContainer"]
+layout_mode = 2
+
+[node name="Title_Label" type="Label" parent="Content_MContainer/Title_VBContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = ExtResource("2_qrch5")
+theme_override_font_sizes/font_size = 64
+text = "Hexapawn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button_HBContainer" type="HBoxContainer" parent="Content_MContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button_VBContainer" type="VBoxContainer" parent="Content_MContainer/Button_HBContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Seperator_1" type="Control" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+layout_mode = 2
+
+[node name="Seperator_2" type="Control" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+layout_mode = 2
+
+[node name="3x3_Button" type="Button" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_4anqc")
+theme_override_font_sizes/font_size = 32
+text = "3x3"
+
+[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/3x3_Button"]
+position = Vector2(70, 28)
+texture = ExtResource("4_wd21x")
+metadata/_edit_lock_ = true
+
+[node name="4x4_Buttons" type="Button" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_4anqc")
+theme_override_font_sizes/font_size = 32
+text = "4x4"
+
+[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/4x4_Buttons"]
+position = Vector2(70, 28)
+texture = ExtResource("4_wd21x")
+metadata/_edit_lock_ = true
+
+[node name="Back_Button" type="Button" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_4anqc")
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Back_Button"]
+position = Vector2(70, 28)
+texture = ExtResource("4_wd21x")
+metadata/_edit_lock_ = true
+
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/3x3_Button" to="." method="board_3x3_selected"]
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/4x4_Buttons" to="." method="board_4x4_selected"]
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Back_Button" to="." method="on_back_pressed"]
