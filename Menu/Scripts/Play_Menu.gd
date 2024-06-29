@@ -3,9 +3,12 @@ extends Control
 
 @onready var game = preload("res://Main.tscn").instantiate() as Main
 var main_menu
+var options_menu
 
 func start_game(board_type: int) -> void:
 	main_menu.free()
+	options_menu.free()
+	
 	game.start_board = board_type
 	get_tree().root.add_child(game)
 	get_tree().root.remove_child(self)

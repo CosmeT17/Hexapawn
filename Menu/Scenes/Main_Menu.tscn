@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cf24r6yierbwv"]
 
-[ext_resource type="Script" path="res://Main_Menu/Scripts/Main_Menu.gd" id="1_pto56"]
-[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Main_Menu/Textures/Title_Screen.png" id="2_8mwko"]
+[ext_resource type="Script" path="res://Menu/Scripts/Main_Menu.gd" id="1_pto56"]
+[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Menu/Textures/Title_Screen.png" id="2_8mwko"]
 [ext_resource type="FontFile" uid="uid://b2mypsnhr840a" path="res://Fonts/PressStart2P-Regular.ttf" id="3_ps5g2"]
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="4_758ml"]
-[ext_resource type="Texture2D" uid="uid://bx805g5kyisdb" path="res://Main_Menu/Textures/Button_Border.png" id="5_2r3wn"]
+[ext_resource type="Texture2D" uid="uid://bx805g5kyisdb" path="res://Menu/Textures/Button_Border_Regular.png" id="5_2r3wn"]
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -45,7 +45,6 @@ layout_mode = 2
 
 [node name="Title_Label" type="Label" parent="Content_MContainer/Title_VBContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 24
 theme_override_fonts/font = ExtResource("3_ps5g2")
