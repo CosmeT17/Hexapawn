@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf24r6yierbwv"]
+[gd_scene load_steps=5 format=3 uid="uid://cf24r6yierbwv"]
 
 [ext_resource type="Script" path="res://Menu/Scripts/Main_Menu.gd" id="1_pto56"]
-[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Menu/Textures/Title_Screen.png" id="2_8mwko"]
 [ext_resource type="FontFile" uid="uid://b2mypsnhr840a" path="res://Fonts/PressStart2P-Regular.ttf" id="3_ps5g2"]
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="4_758ml"]
 [ext_resource type="Texture2D" uid="uid://bx805g5kyisdb" path="res://Menu/Textures/Button_Border_Regular.png" id="5_2r3wn"]
@@ -14,15 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pto56")
-
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_8mwko")
 
 [node name="Content_MContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -82,7 +72,7 @@ position = Vector2(70, 28)
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
 
-[node name="Options_Buttons" type="Button" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
+[node name="Options_Button" type="Button" parent="Content_MContainer/Button_HBContainer/Button_VBContainer"]
 custom_minimum_size = Vector2(140, 32)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -91,7 +81,7 @@ theme_override_fonts/font = ExtResource("4_758ml")
 theme_override_font_sizes/font_size = 32
 text = "Options"
 
-[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Buttons"]
+[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Button"]
 position = Vector2(70, 28)
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
@@ -110,6 +100,6 @@ position = Vector2(70, 28)
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
 
-[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Play_Button" to="." method="on_play_pressed"]
-[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Buttons" to="." method="on_options_pressed"]
-[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Exit_Button" to="." method="on_exit_pressed"]
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Play_Button" to="." method="play_button_pressed"]
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Button" to="." method="options_button_pressed"]
+[connection signal="button_down" from="Content_MContainer/Button_HBContainer/Button_VBContainer/Exit_Button" to="." method="exit_button_pressed"]

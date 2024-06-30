@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3ttn6l5btuc8"]
+
+[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Menu/Textures/Title_Screen.png" id="1_xkpvx"]
+[ext_resource type="Script" path="res://Menu/Scripts/Menu.gd" id="1_ytex8"]
+[ext_resource type="PackedScene" uid="uid://cf24r6yierbwv" path="res://Menu/Scenes/Main_Menu.tscn" id="2_afnfa"]
+[ext_resource type="PackedScene" uid="uid://cksj3jvf4i0im" path="res://Menu/Scenes/Play_Menu.tscn" id="3_vvjph"]
+[ext_resource type="PackedScene" uid="uid://dcgp5ut04upqx" path="res://Menu/Scenes/Options_Menu.tscn" id="4_ds7mc"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ytex8")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_xkpvx")
+
+[node name="Main_Menu" parent="." instance=ExtResource("2_afnfa")]
+layout_mode = 1
+
+[node name="Play_Menu" parent="." instance=ExtResource("3_vvjph")]
+visible = false
+layout_mode = 1
+
+[node name="Options_Menu" parent="." instance=ExtResource("4_ds7mc")]
+visible = false
+layout_mode = 1

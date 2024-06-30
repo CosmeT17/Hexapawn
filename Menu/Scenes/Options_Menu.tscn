@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcgp5ut04upqx"]
+[gd_scene load_steps=6 format=3 uid="uid://dcgp5ut04upqx"]
 
 [ext_resource type="Script" path="res://Menu/Scripts/Options_Menu.gd" id="1_yt3cs"]
-[ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Menu/Textures/Title_Screen.png" id="2_ipwxc"]
 [ext_resource type="FontFile" uid="uid://b2mypsnhr840a" path="res://Fonts/PressStart2P-Regular.ttf" id="2_kifqb"]
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="3_6abwd"]
 [ext_resource type="PackedScene" uid="uid://jg3y8fx5w8tl" path="res://Menu/Scenes/Settings_Tab_Container.tscn" id="4_sag2l"]
@@ -15,19 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yt3cs")
-
-[node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -28.0
-offset_right = 20.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_ipwxc")
 
 [node name="Content_MContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -59,13 +45,12 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Control" type="Control" parent="Content_MContainer/VBoxContainer"]
+[node name="Seperator" type="Control" parent="Content_MContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Back_Button" type="Button" parent="Content_MContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-focus_mode = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 9
 theme_override_fonts/font = ExtResource("3_6abwd")
@@ -75,5 +60,6 @@ text = "Back"
 [node name="Button_Border" type="Sprite2D" parent="Content_MContainer/VBoxContainer/Back_Button"]
 position = Vector2(488, 22)
 texture = ExtResource("5_iap2e")
+metadata/_edit_lock_ = true
 
-[connection signal="button_down" from="Content_MContainer/VBoxContainer/Back_Button" to="." method="on_back_pressed"]
+[connection signal="button_down" from="Content_MContainer/VBoxContainer/Back_Button" to="." method="back_button_pressed"]

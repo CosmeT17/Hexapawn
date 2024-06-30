@@ -1,8 +1,7 @@
 class_name OptionsMenu
-extends Control
+extends MenuControl
 
-var main_menu
+signal exit_options_menu
 
-func on_back_pressed() -> void:
-	get_tree().root.add_child(main_menu)
-	get_tree().root.remove_child(self)
+func back_button_pressed():
+	exit_options_menu.emit()

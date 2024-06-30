@@ -13,14 +13,13 @@ config_version=5
 config/name="Hexapawn"
 config/description="Demo of an AI learning how to play Hexapawn."
 config/version="1.0"
-run/main_scene="res://Menu/Scenes/Main_Menu.tscn"
+run/main_scene="res://Menu/Scenes/Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://Textures/AI.svg"
 
 [display]
 
 window/size/viewport_width=1000
-window/size/resizable=false
 
 [file_customization]
 

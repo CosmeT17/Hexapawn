@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://jg3y8fx5w8tl"]
+[gd_scene load_steps=3 format=3 uid="uid://jg3y8fx5w8tl"]
 
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="1_arq05"]
+[ext_resource type="Texture2D" uid="uid://u2hnndttybft" path="res://Menu/Textures/Settings_Border.png" id="2_olyv2"]
 
 [node name="Settings_Tab_Container" type="Control"]
 layout_mode = 3
@@ -28,10 +29,17 @@ theme_override_font_sizes/font_size = 20
 tab_alignment = 1
 tab_focus_mode = 0
 
-[node name="Help" type="TabBar" parent="TabContainer"]
+[node name="Help" type="TextureRect" parent="TabContainer"]
 layout_mode = 2
+texture = ExtResource("2_olyv2")
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Help"]
+[node name="Help" type="TabBar" parent="TabContainer/Help"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 38.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Help/Help"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,16 +51,47 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Help/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Help/Help/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Sound" type="TabBar" parent="TabContainer"]
+[node name="Label_1" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text Here"
+
+[node name="Label_2" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text Here"
+
+[node name="Label_3" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text Here"
+
+[node name="Label_4" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text Here"
+
+[node name="Label_5" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text Here"
+
+[node name="Sound" type="TextureRect" parent="TabContainer"]
 visible = false
 layout_mode = 2
+texture = ExtResource("2_olyv2")
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
+[node name="Sound" type="TabBar" parent="TabContainer/Sound"]
+visible = false
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 88.0
+offset_right = 100.0
+offset_bottom = 50.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound/Sound"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,7 +103,7 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/Sound/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1

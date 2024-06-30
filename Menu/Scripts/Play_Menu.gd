@@ -1,25 +1,15 @@
 class_name PlayMenu
-extends Control
+extends MenuControl
 
-@onready var game = preload("res://Main.tscn").instantiate() as Main
-var main_menu
-var options_menu
+signal start_3x3_board
+signal start_4x4_board
+signal exit_play_menu
 
-func start_game(board_type: int) -> void:
-	main_menu.free()
-	options_menu.free()
-	
-	game.start_board = board_type
-	get_tree().root.add_child(game)
-	get_tree().root.remove_child(self)
-	self.queue_free()
-	
 func board_3x3_selected() -> void:
-	start_game(game.BOARD_3X3)
+	start_3x3_board.emit()
 
 func board_4x4_selected() -> void:
-	start_game(game.BOARD_4X4)
+	start_4x4_board.emit()
 
-func on_back_pressed() -> void:
-	get_tree().root.add_child(main_menu)
-	get_tree().root.remove_child(self)
+func back_button_pressed() -> void:
+	exit_play_menu.emit()
