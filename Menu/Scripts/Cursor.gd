@@ -1,3 +1,4 @@
+class_name Cursor
 extends Node
 
 #region Constants and Variables

@@ -8,8 +8,25 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = 52.0
+offset_right = -31.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Settings_Border" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 46.0
+offset_right = -96.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_olyv2")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -29,17 +46,10 @@ theme_override_font_sizes/font_size = 20
 tab_alignment = 1
 tab_focus_mode = 0
 
-[node name="Help" type="TextureRect" parent="TabContainer"]
+[node name="Help" type="TabBar" parent="TabContainer"]
 layout_mode = 2
-texture = ExtResource("2_olyv2")
 
-[node name="Help" type="TabBar" parent="TabContainer/Help"]
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 38.0
-
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Help/Help"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Help"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,47 +61,36 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Help/Help/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Help/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Label_1" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+[node name="Label_1" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Text Here"
+text = "Help 1"
 
-[node name="Label_2" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+[node name="Label_2" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Text Here"
+text = "Help 2"
 
-[node name="Label_3" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+[node name="Label_3" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Text Here"
+text = "Help 3"
 
-[node name="Label_4" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+[node name="Label_4" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Text Here"
+text = "Help 4"
 
-[node name="Label_5" type="Label" parent="TabContainer/Help/Help/MarginContainer/VBoxContainer"]
+[node name="Label_5" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Text Here"
+text = "Help 5"
 
-[node name="Sound" type="TextureRect" parent="TabContainer"]
+[node name="Sound" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
-texture = ExtResource("2_olyv2")
 
-[node name="Sound" type="TabBar" parent="TabContainer/Sound"]
-visible = false
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 88.0
-offset_right = 100.0
-offset_bottom = 50.0
-
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound/Sound"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,10 +102,30 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/Sound/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
+
+[node name="Label_1" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound 1"
+
+[node name="Label_2" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound 2"
+
+[node name="Label_3" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound 3"
+
+[node name="Label_4" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound 4"
+
+[node name="Label_5" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound 5"
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
@@ -129,6 +148,26 @@ layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
+[node name="Label_1" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics 1"
+
+[node name="Label_2" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics 2"
+
+[node name="Label_3" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics 3"
+
+[node name="Label_4" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics 4"
+
+[node name="Label_5" type="Label" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graphics 5"
+
 [node name="Controls" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -150,6 +189,26 @@ layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
+[node name="Label_1" type="Label" parent="TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls 1"
+
+[node name="Label_2" type="Label" parent="TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls 2"
+
+[node name="Label_3" type="Label" parent="TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls 3"
+
+[node name="Label_4" type="Label" parent="TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls 4"
+
+[node name="Label_5" type="Label" parent="TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls 5"
+
 [node name="Accessibility" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -170,3 +229,23 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
+
+[node name="Label_1" type="Label" parent="TabContainer/Accessibility/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility 1"
+
+[node name="Label_2" type="Label" parent="TabContainer/Accessibility/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility 2"
+
+[node name="Label_3" type="Label" parent="TabContainer/Accessibility/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility 3"
+
+[node name="Label_4" type="Label" parent="TabContainer/Accessibility/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility 4"
+
+[node name="Label_5" type="Label" parent="TabContainer/Accessibility/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accessibility 5"

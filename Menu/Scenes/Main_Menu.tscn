@@ -67,8 +67,13 @@ theme_override_fonts/font = ExtResource("4_758ml")
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Play_Button"]
-position = Vector2(70, 28)
+[node name="Button_Border" type="TextureRect" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Play_Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
 
@@ -81,8 +86,13 @@ theme_override_fonts/font = ExtResource("4_758ml")
 theme_override_font_sizes/font_size = 32
 text = "Options"
 
-[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Button"]
-position = Vector2(70, 28)
+[node name="Button_Border" type="TextureRect" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Options_Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
 
@@ -95,8 +105,13 @@ theme_override_fonts/font = ExtResource("4_758ml")
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
-[node name="Button_Border" type="Sprite2D" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Exit_Button"]
-position = Vector2(70, 28)
+[node name="Button_Border" type="TextureRect" parent="Content_MContainer/Button_HBContainer/Button_VBContainer/Exit_Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_2r3wn")
 metadata/_edit_lock_ = true
 
