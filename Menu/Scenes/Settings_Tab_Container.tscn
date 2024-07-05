@@ -63,28 +63,53 @@ theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Help/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Label_1" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+[node name="Title_Label" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Help 1"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 32
+text = "How to Play"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label_2" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+[node name="Game_Instructions" type="RichTextLabel" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
-text = "Help 2"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+bbcode_enabled = true
+text = "Use the mouse and the [color=light_blue][b]Left Mouse Button[/b][/color] to drag one of the pieces to a valid board position when it's your turn. When the game is over, press the [color=light_blue][b]Right Mouse Button[/b][/color] to restart the board."
+fit_content = true
 
-[node name="Label_3" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+[node name="Pawn_Movement" type="RichTextLabel" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
-text = "Help 3"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+text = "Pawn Movement:
+	* Can move one square forward if it's unoccupied.
+	* Can move one square diagonally forward in the direction of an enemy piece to destroy it."
+fit_content = true
 
-[node name="Label_4" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+[node name="Winning_Conditions" type="RichTextLabel" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
-text = "Help 4"
-
-[node name="Label_5" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Help 5"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+text = "Winning Conditions:
+	* One of your pawns reaches the other end of the board.
+	* Your opponent's pawns are all gone.
+	* Your opponent has no available moves after your move."
+fit_content = true
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
 visible = false
