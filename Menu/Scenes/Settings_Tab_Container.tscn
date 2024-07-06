@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://jg3y8fx5w8tl"]
+[gd_scene load_steps=7 format=3 uid="uid://jg3y8fx5w8tl"]
 
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="1_arq05"]
 [ext_resource type="Texture2D" uid="uid://u2hnndttybft" path="res://Menu/Textures/Settings_Border.png" id="2_olyv2"]
+[ext_resource type="Texture2D" uid="uid://qbw1ju66xejq" path="res://Menu/Textures/Settings_Background.png" id="2_pimw5"]
 [ext_resource type="FontFile" uid="uid://kndmrbxb3lvd" path="res://Fonts/AntonSC-Regular.ttf" id="3_uuh8i"]
 [ext_resource type="FontFile" uid="uid://vouxu18nhm7f" path="res://Fonts/RobotoSlab/RobotoSlab-Regular.ttf" id="4_r70po"]
 [ext_resource type="FontFile" uid="uid://yxubpd2bgy8y" path="res://Fonts/RobotoSlab/RobotoSlab-Bold.ttf" id="5_frjgb"]
@@ -30,6 +31,20 @@ offset_bottom = -96.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_olyv2")
+
+[node name="Settings_Background" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 46.0
+offset_right = -96.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pimw5")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -72,9 +87,9 @@ alignment = 1
 [node name="Title_Label" type="Label" parent="TabContainer/Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 14
+theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("3_uuh8i")
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 40
 text = "How to Play"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -87,23 +102,26 @@ theme_override_constants/separation = 20
 clip_contents = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 11
 theme_override_fonts/normal_font = ExtResource("4_r70po")
 theme_override_fonts/bold_font = ExtResource("5_frjgb")
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 18
 bbcode_enabled = true
-text = "Use the mouse and the [color=light_blue][b]Left Mouse Button[/b][/color] to drag one of the pieces to a valid board position when it's your turn. When the game is over, press the [color=light_blue][b]Right Mouse Button[/b][/color] to restart the board."
+text = "Use the mouse and the [color=maroon][b]Left Mouse Button[/b][/color] to drag one of the pieces to a valid board position when it's your turn. When the game is over, press the [color=maroon][b]Right Mouse Button[/b][/color] to restart the board."
 fit_content = true
 
 [node name="Pawn_Movement" type="RichTextLabel" parent="TabContainer/Help/MarginContainer/VBoxContainer/VBoxContainer"]
 clip_contents = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 11
 theme_override_fonts/normal_font = ExtResource("4_r70po")
+theme_override_fonts/bold_font = ExtResource("5_frjgb")
 theme_override_font_sizes/normal_font_size = 18
-text = "Pawn Movement:
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+text = "[color=teal][b]Pawn Movement:[/b][/color]
 	* Can move one square forward if it's unoccupied.
 	* Can move one square diagonally forward in the direction of an enemy piece to 
        destroy it."
@@ -113,10 +131,13 @@ fit_content = true
 clip_contents = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 11
 theme_override_fonts/normal_font = ExtResource("4_r70po")
+theme_override_fonts/bold_font = ExtResource("5_frjgb")
 theme_override_font_sizes/normal_font_size = 18
-text = "Winning Conditions:
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+text = "[color=teal][b]Winning Conditions:[/b][/color]
 	* One of your pawns reaches the other end of the board.
 	* Your opponent's pawns are all gone.
 	* Your opponent has no available moves after your move."
