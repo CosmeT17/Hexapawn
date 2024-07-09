@@ -2,9 +2,9 @@
 
 importer="texture_atlas"
 type="Texture2D"
-uid="uid://dkmc2kiijwgso"
+uid="uid://ittp5begef8i"
 path="res://.godot/imported/Pawn_Black_Red.png-759ab7c8083a95ad531a2aa8f50e8c6f.res"
-group_file="res://Pieces/Textures/Pawn/Pawn_Atlas.png"
+group_file="res://Pieces/Textures/Piece_Atlas.png"
 valid=true
 [deps]
 
@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/Pawn_Black_Red.png-759ab7c8083a95ad531a2aa8f5
 
 [params]
 
-atlas_file="res://Pieces/Textures/Pawn/Pawn_Atlas.png"
+atlas_file="res://Pieces/Textures/Piece_Atlas.png"
 import_mode=0
 crop_to_region=false
 trim_alpha_border_from_region=true
