@@ -3,14 +3,14 @@
 importer="texture_atlas"
 type="Texture2D"
 uid="uid://pjcs4ienpcc8"
-path="res://.godot/imported/Pawn_Black_Blue.png-5da074b1ed3512a0a555a72d0d47e5da.res"
+path="res://.godot/imported/Pawn_Black_Blue_Texture.png-9b1323b2f040509535c08728538736b6.res"
 group_file="res://Pieces/Textures/Piece_Atlas.png"
 valid=true
 [deps]
 
 
-source_file="res://Pieces/Textures/Pawn/Pawn_Black_Blue.png"
-dest_files=["res://.godot/imported/Pawn_Black_Blue.png-5da074b1ed3512a0a555a72d0d47e5da.res"]
+source_file="res://Pieces/Textures/Pawn/Pawn_Black_Blue_Texture.png"
+dest_files=["res://.godot/imported/Pawn_Black_Blue_Texture.png-9b1323b2f040509535c08728538736b6.res"]
 
 [params]
 
