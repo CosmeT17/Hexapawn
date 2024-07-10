@@ -5,7 +5,4 @@
 [node name="Test" type="Node2D"]
 
 [node name="Pawn" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(189, 169)
-scale = Vector2(0.8, 0.8)
-piece_color = 1
-piece_size = 1
+position = Vector2(126, 144)
