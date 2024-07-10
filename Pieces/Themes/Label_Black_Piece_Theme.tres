@@ -5,7 +5,7 @@ font_names = PackedStringArray("Consolas")
 
 [resource]
 default_font = SubResource("SystemFont_w0awv")
-default_font_size = 30
+default_font_size = 22
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(1, 1, 1, 1)

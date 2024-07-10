@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
+
+[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_4lo6l"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Pawn" parent="." instance=ExtResource("1_4lo6l")]
+position = Vector2(179, 206)
+piece_color = null
+eye_color = null
+piece_size = null

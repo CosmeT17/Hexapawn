@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvy22ih0o7cq6"]
 
-[ext_resource type="Texture2D" uid="uid://cniva83tfc7q3" path="res://Pieces/Textures/Pawn/Pawn_White_Blue_Texture.png" id="1_auqys"]
+[ext_resource type="Texture2D" uid="uid://h7wyfy74j8i8" path="res://Pieces/Textures/Pawn/Pawn_Default_Texture.png" id="1_gv1x1"]
 [ext_resource type="Script" path="res://Pieces/Scripts/Pawn.gd" id="2_j8gee"]
 [ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="3_3l7ye"]
 
 [node name="Pawn" type="Sprite2D"]
-texture = ExtResource("1_auqys")
+texture = ExtResource("1_gv1x1")
 script = ExtResource("2_j8gee")
 metadata/_edit_group_ = true
 
@@ -15,10 +15,9 @@ offset_top = 35.0
 offset_right = 25.0
 offset_bottom = 75.0
 theme = ExtResource("3_3l7ye")
-text = "WP"
+text = "P"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Area" type="Area2D" parent="."]
 

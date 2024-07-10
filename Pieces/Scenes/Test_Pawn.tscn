@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7l34iy7itt1e"]
+
+[ext_resource type="Texture2D" uid="uid://cniva83tfc7q3" path="res://Pieces/Textures/Pawn/Pawn_White_Blue_Texture.png" id="1_vs6gm"]
+[ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="2_23kn1"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vs6gm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -15.0
+offset_top = 35.0
+offset_right = 25.0
+offset_bottom = 75.0
+theme = ExtResource("2_23kn1")
+text = "WP1"
+horizontal_alignment = 1
+vertical_alignment = 1

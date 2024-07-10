@@ -1,8 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=7 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_4lo6l"]
+[ext_resource type="Texture2D" uid="uid://pjcs4ienpcc8" path="res://Pieces/Textures/Pawn/Pawn_Black_Blue_Texture.png" id="2_ds7yf"]
+[ext_resource type="Texture2D" uid="uid://cgs8l57se6iys" path="res://Pieces/Textures/Pawn/Pawn_White_Red_Texture.png" id="3_is5pd"]
+[ext_resource type="Texture2D" uid="uid://f60ba52r85r5" path="res://Textures/4x4/Pawns/Pawn_White_AI.png" id="4_1q0rb"]
+[ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="5_xl1m3"]
+[ext_resource type="PackedScene" uid="uid://c7l34iy7itt1e" path="res://Pieces/Scenes/Test_Pawn.tscn" id="6_u58yr"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Pawn" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(126, 144)
+position = Vector2(191, 145)
+texture = ExtResource("2_ds7yf")
+piece_color = 1
+
+[node name="Pawn2" parent="." instance=ExtResource("1_4lo6l")]
+position = Vector2(370, 145)
+texture = ExtResource("3_is5pd")
+eye_color = 1
+
+[node name="Pawn3" parent="." instance=ExtResource("1_4lo6l")]
+position = Vector2(618, 198)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_is5pd")
+eye_color = 1
+
+[node name="Pawn4" parent="." instance=ExtResource("1_4lo6l")]
+position = Vector2(370, 393)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_is5pd")
+eye_color = 1
+piece_size = 1
+
+[node name="Name_Label" parent="Pawn4" index="0"]
+text = "WP1"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(191, 393)
+texture = ExtResource("4_1q0rb")
+
+[node name="Name" type="Label" parent="Sprite"]
+offset_left = -12.0
+offset_top = 28.0
+offset_right = 20.0
+offset_bottom = 60.0
+theme = ExtResource("5_xl1m3")
+theme_override_font_sizes/font_size = 17
+text = "WP1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Test" parent="." instance=ExtResource("6_u58yr")]
+position = Vector2(593, 469)
+
+[editable path="Pawn4"]
+[editable path="Test"]

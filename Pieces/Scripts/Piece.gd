@@ -25,13 +25,21 @@ const scale_amount = {
 @export_enum("White", "Black") var piece_color = 0 as int :
 	set(color):
 		piece_color = color
+		texture = piece_textures[[piece_color, eye_color]]
 		match piece_color:
 			WHITE: 
-				if(name_label): name_label.theme = LABEL_WHITE_PIECE_THEME
+				if(name_label): 
+					name_label.theme = LABEL_WHITE_PIECE_THEME
+					name_label.text = 'W' + name_label.text.substr(1)
 			BLACK: 
-				if(name_label): name_label.theme = LABEL_BLACK_PIECE_THEME
+				if(name_label): 
+					name_label.theme = LABEL_BLACK_PIECE_THEME
+					name_label.text = 'B' + name_label.text.substr(1)
 
-@export_enum("Blue", "Red") var eye_color = 0 as int
+@export_enum("Blue", "Red") var eye_color = 0 as int :
+	set(color):
+		eye_color = color
+		texture = piece_textures[[piece_color, eye_color]]
 
 @export_enum("3x3 Board", "4x4 Board") var piece_size = 0 as int :
 	set(size):
@@ -39,9 +47,24 @@ const scale_amount = {
 		scale = scale_amount[piece_size]
 #endregion
 
+#region Variables
+var piece_textures = {
+	[WHITE, BLUE]: null,
+	[WHITE, RED]: null,
+	[BLACK, BLUE]: null,
+	[BLACK, RED]: null,
+} as Dictionary
+#endregion
+
 func _ready():
 	if not Engine.is_editor_hint():
-		name_label.visible = false
+		#name_label.visible = false
+		pass
 	
 	if piece_color == BLACK:
 		name_label.theme = LABEL_BLACK_PIECE_THEME
+
+func update_name_color() -> void:
+	match piece_color:
+		WHITE: name_label.text = 'W' + name_label.text.substr(1)
+		BLACK: name_label.text = 'B' + name_label.text.substr(1) 
