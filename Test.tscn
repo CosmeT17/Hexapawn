@@ -1,58 +1,83 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=8 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_4lo6l"]
 [ext_resource type="Texture2D" uid="uid://pjcs4ienpcc8" path="res://Pieces/Textures/Pawn/Pawn_Black_Blue_Texture.png" id="2_ds7yf"]
 [ext_resource type="Texture2D" uid="uid://cgs8l57se6iys" path="res://Pieces/Textures/Pawn/Pawn_White_Red_Texture.png" id="3_is5pd"]
 [ext_resource type="Texture2D" uid="uid://f60ba52r85r5" path="res://Textures/4x4/Pawns/Pawn_White_AI.png" id="4_1q0rb"]
+[ext_resource type="Texture2D" uid="uid://bld5ujmcfwugw" path="res://Textures/4x4/Pawns/Pawn_Black_Player.png" id="4_10y6p"]
+[ext_resource type="Theme" uid="uid://b1hsk2bq34p4o" path="res://Pieces/Themes/Label_Black_Piece_Theme.tres" id="5_cf5nm"]
 [ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="5_xl1m3"]
-[ext_resource type="PackedScene" uid="uid://c7l34iy7itt1e" path="res://Pieces/Scenes/Test_Pawn.tscn" id="6_u58yr"]
 
 [node name="Test" type="Node2D"]
 
-[node name="Pawn" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(191, 145)
+[node name="Pawn_Normal" type="Node2D" parent="."]
+
+[node name="Pawn_Default" parent="Pawn_Normal" instance=ExtResource("1_4lo6l")]
+position = Vector2(203, 226)
+
+[node name="Pawn_Player" parent="Pawn_Normal" instance=ExtResource("1_4lo6l")]
+position = Vector2(684, 226)
 texture = ExtResource("2_ds7yf")
 piece_color = 1
 
-[node name="Pawn2" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(370, 145)
+[node name="Pawn_AI" parent="Pawn_Normal" instance=ExtResource("1_4lo6l")]
+position = Vector2(824, 226)
 texture = ExtResource("3_is5pd")
+piece_color = 0
 eye_color = 1
 
-[node name="Pawn3" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(618, 198)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("3_is5pd")
-eye_color = 1
+[node name="Pawn_New" type="Node2D" parent="."]
 
-[node name="Pawn4" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(370, 393)
+[node name="Pawn_Player" parent="Pawn_New" instance=ExtResource("1_4lo6l")]
+position = Vector2(374, 226)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_ds7yf")
+piece_color = 1
+piece_size = 1
+
+[node name="Pawn_AI" parent="Pawn_New" instance=ExtResource("1_4lo6l")]
+position = Vector2(503, 226)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_is5pd")
+piece_color = 0
 eye_color = 1
 piece_size = 1
 
-[node name="Name_Label" parent="Pawn4" index="0"]
-text = "WP1"
+[node name="Pawn_Old" type="Node2D" parent="."]
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Pawn_Player" type="Sprite2D" parent="Pawn_Old"]
 texture_filter = 1
-position = Vector2(191, 393)
+position = Vector2(374, 421)
+texture = ExtResource("4_10y6p")
+
+[node name="Name" type="Label" parent="Pawn_Old/Pawn_Player"]
+offset_left = -12.0
+offset_top = 28.0
+offset_right = 20.0
+offset_bottom = 60.0
+theme = ExtResource("5_cf5nm")
+theme_override_constants/outline_size = 7
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "BP1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pawn_AI" type="Sprite2D" parent="Pawn_Old"]
+texture_filter = 1
+position = Vector2(503, 421)
 texture = ExtResource("4_1q0rb")
 
-[node name="Name" type="Label" parent="Sprite"]
+[node name="Name" type="Label" parent="Pawn_Old/Pawn_AI"]
 offset_left = -12.0
 offset_top = 28.0
 offset_right = 20.0
 offset_bottom = 60.0
 theme = ExtResource("5_xl1m3")
-theme_override_font_sizes/font_size = 17
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 15
 text = "WP1"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Test" parent="." instance=ExtResource("6_u58yr")]
-position = Vector2(593, 469)
-
-[editable path="Pawn4"]
-[editable path="Test"]
