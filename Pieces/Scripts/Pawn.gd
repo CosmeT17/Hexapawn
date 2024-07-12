@@ -11,13 +11,11 @@ const PAWN_DEFAULT_TEXTURE = preload("res://Pieces/Textures/Pawn/Pawn_Default_Te
 #endregion
 
 func _ready():
+	set_textures([
+		PAWN_WHITE_BLUE_TEXTURE,
+		PAWN_WHITE_RED_TEXTURE,
+		PAWN_BLACK_BLUE_TEXTURE,
+		PAWN_BLACK_RED_TEXTURE,
+		PAWN_DEFAULT_TEXTURE
+	])
 	super()
-	
-	piece_textures[[WHITE, BLUE]] = PAWN_WHITE_BLUE_TEXTURE
-	piece_textures[[WHITE, RED]] = PAWN_WHITE_RED_TEXTURE
-	piece_textures[[BLACK, BLUE]] = PAWN_BLACK_BLUE_TEXTURE
-	piece_textures[[BLACK, RED]] = PAWN_BLACK_RED_TEXTURE
-	piece_textures[UNTEXTURED] = PAWN_DEFAULT_TEXTURE
-	
-	update_texture()
-	update_name_color()

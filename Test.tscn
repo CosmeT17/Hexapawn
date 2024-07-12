@@ -1,8 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=6 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_4lo6l"]
-[ext_resource type="Texture2D" uid="uid://pjcs4ienpcc8" path="res://Pieces/Textures/Pawn/Pawn_Black_Blue_Texture.png" id="2_ds7yf"]
-[ext_resource type="Texture2D" uid="uid://cgs8l57se6iys" path="res://Pieces/Textures/Pawn/Pawn_White_Red_Texture.png" id="3_is5pd"]
 [ext_resource type="Texture2D" uid="uid://f60ba52r85r5" path="res://Textures/4x4/Pawns/Pawn_White_AI.png" id="4_1q0rb"]
 [ext_resource type="Texture2D" uid="uid://bld5ujmcfwugw" path="res://Textures/4x4/Pawns/Pawn_Black_Player.png" id="4_10y6p"]
 [ext_resource type="Theme" uid="uid://b1hsk2bq34p4o" path="res://Pieces/Themes/Label_Black_Piece_Theme.tres" id="5_cf5nm"]
@@ -17,28 +15,22 @@ position = Vector2(203, 226)
 
 [node name="Pawn_Player" parent="Pawn_Normal" instance=ExtResource("1_4lo6l")]
 position = Vector2(684, 226)
-texture = ExtResource("2_ds7yf")
 piece_color = 1
 
 [node name="Pawn_AI" parent="Pawn_Normal" instance=ExtResource("1_4lo6l")]
 position = Vector2(824, 226)
-texture = ExtResource("3_is5pd")
 piece_color = 0
 eye_color = 1
 
 [node name="Pawn_New" type="Node2D" parent="."]
 
 [node name="Pawn_Player" parent="Pawn_New" instance=ExtResource("1_4lo6l")]
-position = Vector2(374, 226)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_ds7yf")
+position = Vector2(374, 223)
 piece_color = 1
 piece_size = 1
 
 [node name="Pawn_AI" parent="Pawn_New" instance=ExtResource("1_4lo6l")]
-position = Vector2(503, 226)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_is5pd")
+position = Vector2(503, 223)
 piece_color = 0
 eye_color = 1
 piece_size = 1

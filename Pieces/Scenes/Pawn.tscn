@@ -4,10 +4,18 @@
 [ext_resource type="Script" path="res://Pieces/Scripts/Pawn.gd" id="2_j8gee"]
 [ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="3_3l7ye"]
 
-[node name="Pawn" type="Sprite2D"]
-texture = ExtResource("1_7roft")
+[node name="Pawn" type="Node2D"]
 script = ExtResource("2_j8gee")
 metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_7roft")
+
+[node name="Area" type="Area2D" parent="Sprite"]
+
+[node name="Collision" type="CollisionPolygon2D" parent="Sprite/Area"]
+visible = false
+polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)
 
 [node name="Name_Label" type="Label" parent="."]
 offset_left = -15.0
@@ -19,9 +27,3 @@ text = "_P1"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="Area" type="Area2D" parent="."]
-
-[node name="Collision" type="CollisionPolygon2D" parent="Area"]
-visible = false
-polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)

@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 class_name Piece
 
 #region Constants
@@ -16,6 +16,7 @@ const scale_amount = {
 #endregion
 
 #region Children Variables
+@onready var sprite = $Sprite
 @onready var name_label = $Name_Label as Label
 #endregion
 
@@ -48,7 +49,8 @@ const scale_amount = {
 @export_enum("3x3 Board", "4x4 Board") var piece_size = 0 as int :
 	set(size):
 		piece_size = size
-		scale = scale_amount[piece_size]
+		if(sprite): update_scale()
+			
 #endregion
 
 #region Variables
@@ -68,12 +70,32 @@ func _ready():
 	
 	if piece_color == BLACK:
 		name_label.theme = LABEL_BLACK_PIECE_THEME
+	
+	update_texture()
+	update_name_color()
+	update_scale()
+
+func set_textures(textures: Array[AtlasTexture]) -> void:
+	piece_textures[[WHITE, BLUE]] = textures[0]
+	piece_textures[[WHITE, RED]] = textures[1]
+	piece_textures[[BLACK, BLUE]] = textures[2]
+	piece_textures[[BLACK, RED]] = textures[3]
+	piece_textures[UNTEXTURED] = textures[4]
 
 func update_texture() -> void:
-	if piece_color != UNTEXTURED: texture = piece_textures[[piece_color, eye_color]]
-	else: texture = piece_textures[UNTEXTURED]
+	if (sprite):
+		if piece_color != UNTEXTURED: 
+			sprite.texture = piece_textures[[piece_color, eye_color]]
+		else: 
+			sprite.texture = piece_textures[UNTEXTURED]
 	
 func update_name_color() -> void:
 	match piece_color:
-		WHITE: name_label.text = 'W' + name_label.text.substr(1)
-		BLACK: name_label.text = 'B' + name_label.text.substr(1) 
+		WHITE: 
+			name_label.text = 'W' + name_label.text.substr(1)
+		BLACK: 
+			name_label.text = 'B' + name_label.text.substr(1) 
+
+func update_scale() -> void:
+	sprite.scale = scale_amount[piece_size]
+	# TO DO: Label scaling
