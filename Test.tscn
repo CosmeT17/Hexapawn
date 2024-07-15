@@ -7,4 +7,4 @@ position = Vector2(40, 0)
 
 [node name="Board" parent="." instance=ExtResource("1_2byyn")]
 position = Vector2(463, 328)
-dimensions = 1
+dimensions = 0
