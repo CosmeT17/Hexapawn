@@ -1,15 +1,15 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d2hu1o6vpt4tu"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cdyqc5lyf2kgq"]
 
 [sub_resource type="SystemFont" id="SystemFont_w0awv"]
 font_names = PackedStringArray("Consolas")
 
 [resource]
 default_font = SubResource("SystemFont_w0awv")
-default_font_size = 22
+default_font_size = 17
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 10
-Label/constants/shadow_offset_x = 1
-Label/constants/shadow_offset_y = 1
-Label/constants/shadow_outline_size = 8
+Label/constants/outline_size = 7
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 4

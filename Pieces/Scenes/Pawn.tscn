@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://h7wyfy74j8i8" path="res://Pieces/Textures/Pawn/Pawn_Default_Texture.png" id="1_7roft"]
 [ext_resource type="Script" path="res://Pieces/Scripts/Pawn.gd" id="2_j8gee"]
-[ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme.tres" id="3_3l7ye"]
+[ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres" id="3_3l7ye"]
 
 [node name="Pawn" type="Node2D"]
 script = ExtResource("2_j8gee")
@@ -16,6 +16,10 @@ texture = ExtResource("1_7roft")
 [node name="Collision" type="CollisionPolygon2D" parent="Sprite/Area"]
 visible = false
 polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)
+
+[node name="Label_Anchor" type="Marker2D" parent="Sprite"]
+visible = false
+position = Vector2(-15, 35)
 
 [node name="Name_Label" type="Label" parent="."]
 offset_left = -15.0
