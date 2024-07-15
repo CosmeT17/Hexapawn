@@ -1,62 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_4lo6l"]
+[ext_resource type="PackedScene" uid="uid://cqjifjw4jupa4" path="res://Boards/Scenes/Board.tscn" id="1_2byyn"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
-[node name="Pawn_1" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(130, 170)
-
-[node name="Pawn_2" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(260, 170)
-piece_color = 0
-
-[node name="Pawn_3" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(390, 170)
-piece_color = 0
-eye_color = 1
-
-[node name="Pawn_4" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(520, 170)
-piece_color = 1
-
-[node name="Pawn_5" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(650, 170)
-piece_color = 1
-eye_color = 1
-
-[node name="Pawn_6" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(780, 170)
-eye_color = 1
-
-[node name="Pawn_7" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(130, 410)
-piece_size = 1
-
-[node name="Pawn_8" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(260, 410)
-piece_color = 0
-piece_size = 1
-
-[node name="Pawn_9" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(390, 410)
-piece_color = 0
-eye_color = 1
-piece_size = 1
-
-[node name="Pawn_10" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(520, 410)
-piece_color = 1
-piece_size = 1
-
-[node name="Pawn_11" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(650, 410)
-piece_color = 1
-eye_color = 1
-piece_size = 1
-
-[node name="Pawn_12" parent="." instance=ExtResource("1_4lo6l")]
-position = Vector2(780, 410)
-eye_color = 1
-piece_size = 1
+[node name="Board" parent="." instance=ExtResource("1_2byyn")]
+position = Vector2(463, 328)
+dimensions = 1

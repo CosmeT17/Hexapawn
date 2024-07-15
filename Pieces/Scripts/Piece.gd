@@ -11,16 +11,16 @@ const LABEL_BLACK_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_Black_Pie
 const LABEL_WHITE_PIECE_THEME_4X4 = preload("res://Pieces/Themes/Label_White_Piece_Theme_4x4.tres") as Theme
 const LABEL_BLACK_PIECE_THEME_4X4 = preload("res://Pieces/Themes/Label_Black_Piece_Theme_4x4.tres") as Theme
 
-const SCALE_AMOUNT = {
+const SCALE_AMOUNT: Dictionary = {
 	BOARD_3X3: Vector2(1.0, 1.0),
 	BOARD_4X4: Vector2(0.8, 0.8)
 }
-const LABEL_SIZE = {
+const LABEL_SIZE: Dictionary = {
 	BOARD_3X3: Vector2(40, 40),
 	BOARD_4X4: Vector2(32, 32),
 }
 
-const LABEL_THEMES = {
+const LABEL_THEMES: Dictionary = {
 	[WHITE, BOARD_3X3]: {
 		"Theme": LABEL_WHITE_PIECE_THEME_3X3,
 		"Size": LABEL_SIZE[BOARD_3X3],
@@ -52,6 +52,8 @@ const LABEL_THEMES = {
 		"Letter": '_'
 	}
 }
+
+const mouse_offset = Vector2(16, 0) as Vector2
 #endregion
 
 #region Children Variables
@@ -62,7 +64,6 @@ const LABEL_THEMES = {
 
 #region Export Variables
 @export_category("Customization")
-
 @export_enum("White", "Black", "Untextured") var piece_color = 2 as int :
 	set(color):
 		piece_color = color
@@ -80,7 +81,7 @@ const LABEL_THEMES = {
 		if(sprite and name_label): update_scale()
 #endregion
 
-#region Variables
+#region Global Variables
 var piece_textures = {
 	[WHITE, BLUE]: null,
 	[WHITE, RED]: null,
@@ -88,6 +89,9 @@ var piece_textures = {
 	[BLACK, RED]: null,
 	UNTEXTURED: null
 } as Dictionary
+
+var movable: bool = true
+var selected: bool = false
 #endregion
 
 func _ready():

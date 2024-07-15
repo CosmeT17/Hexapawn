@@ -1,6 +1,6 @@
 @tool
 extends Piece
-#class_name Pawn
+class_name Pawn
 
 #region Constants
 const PAWN_WHITE_BLUE_TEXTURE = preload("res://Pieces/Textures/Pawn/Pawn_White_Blue_Texture.png") as AtlasTexture

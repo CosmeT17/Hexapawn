@@ -1,5 +1,5 @@
 extends Marker2D
-class_name Dropzone
+#class_name Dropzone
 
 @export var radius: int = 100
 const ACTIVE_COLOR: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25)

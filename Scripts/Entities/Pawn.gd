@@ -1,5 +1,5 @@
 extends Node2D
-class_name Pawn
+#class_name Pawn
 
 @export var is_AI: bool = false
 @export var is_white: bool = true
