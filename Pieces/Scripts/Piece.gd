@@ -57,6 +57,7 @@ const mouse_offset = Vector2(16, 0) as Vector2
 #endregion
 
 #region Children Variables
+@onready var area = $Sprite/Area as Area2D
 @onready var sprite = $Sprite as Sprite2D
 @onready var name_label = $Name_Label as Label
 @onready var label_anchor = $Sprite/Label_Anchor as Marker2D
@@ -92,12 +93,16 @@ var piece_textures = {
 
 var movable: bool = true
 var selected: bool = false
+var cursor: Cursor
 #endregion
 
 func _ready():
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
-		pass
+		
+		cursor = get_tree().get_nodes_in_group("Cursor")[0] as Cursor
+		area.mouse_entered.connect(mouse_entered)
+		area.mouse_exited.connect(mouse_exited)
 	
 	update_texture()
 	update_label()
@@ -125,3 +130,9 @@ func update_scale() -> void:
 	name_label.global_position = label_anchor.global_position
 	name_label.theme = LABEL_THEMES[[piece_color, piece_size]]["Theme"]
 	name_label.size = LABEL_THEMES[[piece_color, piece_size]]["Size"]
+
+func mouse_entered() -> void:
+	cursor.set_context(cursor.Context.GRAB)
+
+func mouse_exited() -> void:
+	cursor.set_context(cursor.Context.CURSOR)

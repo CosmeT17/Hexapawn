@@ -1,5 +1,5 @@
-class_name Cursor
 extends Node
+class_name Cursor
 
 #region Constants and Variables
 #region Enums

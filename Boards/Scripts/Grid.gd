@@ -5,18 +5,12 @@ class_name Grid
 #region Constants and Variables
 const DROPZONE = preload("res://Boards/Scenes/Dropzone.tscn") as PackedScene
 const LABEL_OFFSETS: Dictionary = {
-	1: Vector2(0, 0),
-	2: Vector2(0, 0),
 	3: Vector2(12, 10),
 	4: Vector2(13, 9),
-	5: Vector2(0, 0),
-	6: Vector2(0, 0),
-	7: Vector2(0, 0),
-	8: Vector2(0, 0),
 }
 
 @export_category("Measurements")
-@export_range(0, 8) var dimensions: int = 3 :
+@export_enum("3x3:3", "4x4:4", "None:0") var dimensions: int = 3 :
 	set(dim):
 		dimensions = dim
 		generate_zones()
@@ -38,8 +32,6 @@ func _ready():
 		generate_zones()
 		organize_zones()
 		update_zone_offset()
-	
-	#print(self.get_children())
 
 func generate_zones() -> void:
 	for zone in self.get_children():

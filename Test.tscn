@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=4 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://cqjifjw4jupa4" path="res://Boards/Scenes/Board.tscn" id="1_2byyn"]
+[ext_resource type="PackedScene" uid="uid://dk2jw6mw4an21" path="res://Menu/Scenes/Cursor.tscn" id="1_8clgd"]
+[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="2_yhr6k"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
+[node name="Cursor" parent="." instance=ExtResource("1_8clgd")]
+
 [node name="Board" parent="." instance=ExtResource("1_2byyn")]
-position = Vector2(463, 328)
-dimensions = 0
+position = Vector2(283, 324)
+
+[node name="Pawn" parent="." instance=ExtResource("2_yhr6k")]
+position = Vector2(788, 321)
+piece_color = 0
