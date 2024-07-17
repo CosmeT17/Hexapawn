@@ -60,16 +60,17 @@ func generate_zones() -> void:
 
 func organize_zones() -> void:
 	if dimensions != 0:
-		var square_radius: float = size / dimensions / 2
-		var zone_radius: int = int(square_radius - dropzone_offset)
-		var start_position: Vector2 = Vector2(-(size/2) + square_radius, (size/2) - square_radius)
+		var size_f: float = float(size) # Used to prevent integer devision
+		var square_radius: float = size_f / dimensions / 2
+		var zone_radius: int = floor(square_radius - dropzone_offset)
+		var start_position: Vector2 = Vector2(-(size_f/2) + square_radius, (size_f/2) - square_radius)
 		var label_offset: Vector2 = Vector2(square_radius, square_radius) - LABEL_OFFSETS[dimensions]
 		var count: int = 0
 		
 		for zone: Dropzone in get_children():
 			zone.radius = zone_radius
 			zone.position = start_position + Vector2(2 * count * square_radius, 0)
-			zone.label_id.position -= label_offset
+			if zone.label_id: zone.label_id.position -= label_offset
 			
 			count += 1
 			if count == dimensions:
@@ -78,8 +79,8 @@ func organize_zones() -> void:
 
 func update_zone_offset() -> void:
 	if dimensions != 0:
-		var square_radius: float = size / dimensions / 2
-		var zone_radius: int = int(square_radius - dropzone_offset)
+		var square_radius: float = float(size) / dimensions / 2
+		var zone_radius: int = floor(square_radius - dropzone_offset)
 		
 		for zone: Dropzone in get_children():
 			zone.radius = zone_radius

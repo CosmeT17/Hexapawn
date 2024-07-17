@@ -91,23 +91,30 @@ var piece_textures = {
 	UNTEXTURED: null
 } as Dictionary
 
-var movable: bool = true
 var selected: bool = false
 var cursor: Cursor
 #endregion
 
+#region Node Functions
 func _ready():
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
 		
 		cursor = get_tree().get_nodes_in_group("Cursor")[0] as Cursor
-		area.mouse_entered.connect(mouse_entered)
-		area.mouse_exited.connect(mouse_exited)
+		area.mouse_entered.connect(on_mouse_entered)
+		area.mouse_exited.connect(on_mouse_exited)
+		area.input_event.connect(on_area_input_event)
 	
 	update_texture()
 	update_label()
 	update_scale()
 
+# Stop dragging.
+func _input(_event):
+	pass
+#endregion
+
+#region Update/Set Functions
 func set_textures(textures: Array[AtlasTexture]) -> void:
 	piece_textures[[WHITE, BLUE]] = textures[0]
 	piece_textures[[WHITE, RED]] = textures[1]
@@ -130,9 +137,20 @@ func update_scale() -> void:
 	name_label.global_position = label_anchor.global_position
 	name_label.theme = LABEL_THEMES[[piece_color, piece_size]]["Theme"]
 	name_label.size = LABEL_THEMES[[piece_color, piece_size]]["Size"]
+#endregion
 
-func mouse_entered() -> void:
-	cursor.set_context(cursor.Context.GRAB)
+#region Area Functions
+func on_mouse_entered() -> void:
+	cursor.set_context(cursor.Context.SELECT)
 
-func mouse_exited() -> void:
+func on_mouse_exited() -> void:
 	cursor.set_context(cursor.Context.CURSOR)
+	cursor.set_mode(Cursor.Mode.FREE)
+
+# Start dragging.
+func on_area_input_event(_viewport, _event, _shape_idx) ->void:
+	if Input.is_action_just_pressed("Click"):
+		cursor.set_context(Cursor.Context.GRAB)
+		cursor.set_mode(Cursor.Mode.CONFINED)
+		selected = true
+#endregion
