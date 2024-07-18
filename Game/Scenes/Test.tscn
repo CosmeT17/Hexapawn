@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://bph3wjf6kq2gn" path="res://Boards/Scenes/eat_my_ass.tscn" id="1_k72yg"]
+[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://New_Board/Board.tscn" id="1_7ajlc"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
-[node name="Eat My Ass" parent="." instance=ExtResource("1_k72yg")]
-position = Vector2(514, 320)
-milk = 1
+[node name="Board" parent="." instance=ExtResource("1_7ajlc")]
+position = Vector2(462, 312)
+dimensions = 3
