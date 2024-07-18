@@ -39,7 +39,7 @@ func _ready():
 		
 		if show_grid:
 			for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
-				zone.visible = true
+				zone.invisible = false
 
 func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]

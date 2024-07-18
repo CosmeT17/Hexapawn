@@ -98,8 +98,11 @@ var is_selected: bool = false
 var snap_complete: bool = false
 #endregion
 
+#region Zones
 var initial_zone: Dropzone
 var current_zone: Dropzone
+var hovered_zone: Dropzone
+#endregion
 #endregion
 #endregion
 
@@ -211,31 +214,52 @@ func _input(_event):
 		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
 		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
 		Cursor.set_mode(Cursor.MODE.FREE)
+		hovered_zone = null
 		update_zone()
 		z_index = 0
 #endregion
 
 #region Zone Functions
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
-func is_zone_valid(zone: Dropzone) -> bool:
+func is_zone_valid(_zone: Dropzone) -> bool:
 	return true
 
  # Returns the closest valid dropzone to the selected piece.
 func nearest_zone() -> Dropzone:
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
-		if global_position.distance_to(zone.global_position) < zone.radius: 
-			if zone != current_zone:
-				if is_zone_valid(zone):
-					return zone
+		if global_position.distance_to(zone.global_position) < zone.radius:
+			
+			if zone == current_zone and hovered_zone: 
+				hovered_zone.invisible = true
+				
+			elif is_zone_valid(zone):
+				if hovered_zone and hovered_zone != zone: 
+					hovered_zone.invisible = true
+				hovered_zone = zone
+				return zone
+	
+	
+	
+	hovered_zone = null
+				
+				
 	return current_zone
 
 # Updates the piece's current zone to the selected zone. 
 func update_zone(zone: Dropzone = nearest_zone()) -> void:
-	current_zone = nearest_zone()
+	current_zone = zone
 
 # Show the closest zone's highlight.
 func _process(_delta):
 	if is_selected and Global.show_zone:
-		var zone: Dropzone = nearest_zone()
-		if zone != current_zone: zone.visible = true
+		nearest_zone()
+		if hovered_zone:
+			if hovered_zone != current_zone: 
+				hovered_zone.invisible = false
+				#print("Sayo")
+	
+	if not Engine.is_editor_hint():
+		if name == "Pawn":
+			print(hovered_zone)
+			pass
 #endregion
