@@ -1,23 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://cqjifjw4jupa4" path="res://Boards/Scenes/Board.tscn" id="2_auip0"]
-[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="3_4gxbc"]
+[ext_resource type="PackedScene" uid="uid://bph3wjf6kq2gn" path="res://Boards/Scenes/eat_my_ass.tscn" id="1_k72yg"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
-[node name="Board" parent="." instance=ExtResource("2_auip0")]
-position = Vector2(283, 324)
-dimensions = 3
-
-[node name="Pawn_1" parent="." instance=ExtResource("3_4gxbc")]
-position = Vector2(70, 536)
-piece_color = 0
-
-[node name="Pawn_2" parent="." instance=ExtResource("3_4gxbc")]
-position = Vector2(275, 536)
-piece_color = 0
-
-[node name="Pawn_3" parent="." instance=ExtResource("3_4gxbc")]
-position = Vector2(495, 536)
-piece_color = 0
+[node name="Eat My Ass" parent="." instance=ExtResource("1_k72yg")]
+position = Vector2(514, 320)
+milk = 1

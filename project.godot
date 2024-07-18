@@ -19,8 +19,8 @@ config/icon="res://Z_OLD_Z/Textures/AI.svg"
 
 [autoload]
 
-Cursor="*res://Game/Scripts/Cursor.gd"
 Global="*res://Game/Scripts/Global.gd"
+Cursor="*res://Game/Scripts/Cursor.gd"
 
 [display]
 

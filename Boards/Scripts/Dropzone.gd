@@ -20,9 +20,8 @@ func _ready():
 	ID = String(name) if name != "Dropzone" else "A0"
 	label_id.text = ID
 	
-	if not Engine.is_editor_hint():
+	#if not Engine.is_editor_hint():
 		#visible = false
-		pass
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, ACTIVE_COLOR)

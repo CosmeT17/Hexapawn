@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bph3wjf6kq2gn"]
+
+[ext_resource type="Script" path="res://Boards/Scripts/pee.gd" id="1_hnjrt"]
+[ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Boards/Textures/Board/Board_Default_Texture.png" id="1_k2eu5"]
+
+[node name="Eat My Ass" type="Node2D"]
+script = ExtResource("1_hnjrt")
+
+[node name="Fuck Me" type="Sprite2D" parent="."]
+texture = ExtResource("1_k2eu5")

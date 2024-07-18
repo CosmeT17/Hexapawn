@@ -55,9 +55,6 @@ const LABEL_THEMES: Dictionary = {
 }
 
 const MOUSE_OFFSET = Vector2(16, 0) as Vector2
-var SNAP_SPEED = 30 as int
-var DRAG_SPEED = 20 as int
-var ZONE_SPEED = 10 as int
 #endregion
 
 #region Children Variables
@@ -180,7 +177,7 @@ func _physics_process(delta):
 				global_position = lerp(
 					global_position,
 					get_global_mouse_position() + MOUSE_OFFSET,
-					SNAP_SPEED * delta
+					Global.snap_speed * delta
 				)
 			else: snap_complete = true
 		
@@ -189,21 +186,22 @@ func _physics_process(delta):
 			global_position = lerp(
 				global_position,
 				get_global_mouse_position() + MOUSE_OFFSET,
-				DRAG_SPEED * delta
+				Global.drag_speed * delta
 			)
 	#endregion
 	
 	#region Move Towards Zone
-	elif not Engine.is_editor_hint() and global_position != current_zone.global_position:
-		global_position = lerp(
-			global_position, 
-			current_zone.global_position, 
-			ZONE_SPEED * delta
-		)
-		
-		# Smooth-over movement
-		if round(abs((global_position - current_zone.global_position))) <= Vector2(0.10, 0.10):
-			global_position = current_zone.global_position
+	elif not Engine.is_editor_hint():
+		if current_zone and global_position != current_zone.global_position:
+			global_position = lerp(
+				global_position, 
+				current_zone.global_position, 
+				Global.zone_speed * delta
+			)
+			
+			# Smooth-over movement
+			if round(abs((global_position - current_zone.global_position))) <= Vector2(0.10, 0.10):
+				global_position = current_zone.global_position
 	#endregion
 
 # Stop dragging
@@ -236,4 +234,12 @@ func nearest_zone() -> Dropzone:
 # Updates the piece's current zone to the selected zone. 
 func update_zone(zone: Dropzone = nearest_zone()) -> void:
 	current_zone = nearest_zone()
+
+# Show the closest zone's highlight.
+func _process(_delta):
+	pass
+	#if is_selected and Global.show_zone:
+		#print("yo")
+		#var zone: Dropzone = nearest_zone()
+		#if zone != current_zone: zone.visible = true
 #endregion
