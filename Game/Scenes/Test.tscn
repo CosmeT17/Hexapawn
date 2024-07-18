@@ -1,32 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://Boards/Scenes/Board.tscn" id="1_p5onn"]
-[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="2_47w8u"]
-[ext_resource type="Texture2D" uid="uid://dwbxnw5wrw0bv" path="res://Boards/Textures/Board/Board_3x3_Texture.png" id="2_o56a3"]
+[ext_resource type="PackedScene" uid="uid://djcrkf22kmywk" path="res://Players/Scenes/Player.tscn" id="1_k3txf"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
-[node name="Board" parent="." instance=ExtResource("1_p5onn")]
-position = Vector2(477, 323)
-dimensions = 3
-
-[node name="Sprite" parent="Board" index="0"]
-texture = ExtResource("2_o56a3")
-
-[node name="Grid" parent="Board" index="1"]
-dimensions = 3
-
-[node name="Pawn" parent="." instance=ExtResource("2_47w8u")]
-position = Vector2(265, 535)
-piece_color = 0
-
-[node name="Pawn2" parent="." instance=ExtResource("2_47w8u")]
-position = Vector2(477, 535)
-piece_color = 0
-
-[node name="Pawn3" parent="." instance=ExtResource("2_47w8u")]
-position = Vector2(689, 535)
-piece_color = 0
-
-[editable path="Board"]
+[node name="Player" parent="." instance=ExtResource("1_k3txf")]
+visible = false
+position = Vector2(59, 63)
+board_size = 4

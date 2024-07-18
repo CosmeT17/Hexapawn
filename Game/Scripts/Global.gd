@@ -1,5 +1,9 @@
 extends Node
 
+enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
+enum {WHITE, BLACK, UNTEXTURED}
+enum {BLUE, RED}
+
 # Zones
 var show_zone:= false
 

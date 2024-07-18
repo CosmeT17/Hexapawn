@@ -2,8 +2,6 @@ extends Node
 class_name Board
 
 #region Variables and Constants
-enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
-
 @onready var sprite = $Sprite as Sprite2D
 @onready var grid = $Grid as Grid
 
@@ -22,9 +20,9 @@ enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
 @export var zone_speed := 10
 
 var board_textures = {
-	BOARD_3X3: null,
-	BOARD_4X4: null,
-	NONE: null
+	Global.BOARD_3X3: null,
+	Global.BOARD_4X4: null,
+	Global.NONE: null
 }
 #endregion
 

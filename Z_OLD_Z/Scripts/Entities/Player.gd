@@ -1,5 +1,5 @@
 extends Node2D
-class_name Player
+#class_name Player
 
 @export var show_zone: bool = false
 @onready var Entities = get_parent()

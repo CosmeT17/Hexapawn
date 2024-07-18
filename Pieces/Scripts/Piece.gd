@@ -3,9 +3,6 @@ class_name Piece
 
 #region Variables and Constants
 #region Constants
-enum {WHITE, BLACK, UNTEXTURED}
-enum {BLUE, RED}
-enum {BOARD_3X3 = 3, BOARD_4X4 = 4}
 enum {UP = 1, DOWN = -1}
 
 const LABEL_WHITE_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres") as Theme
@@ -14,43 +11,43 @@ const LABEL_WHITE_PIECE_THEME_4X4 = preload("res://Pieces/Themes/Label_White_Pie
 const LABEL_BLACK_PIECE_THEME_4X4 = preload("res://Pieces/Themes/Label_Black_Piece_Theme_4x4.tres") as Theme
 
 const SCALE_AMOUNT: Dictionary = {
-	BOARD_3X3: Vector2(1.0, 1.0),
-	BOARD_4X4: Vector2(0.8, 0.8)
+	Global.BOARD_3X3: Vector2(1.0, 1.0),
+	Global.BOARD_4X4: Vector2(0.8, 0.8)
 }
 const LABEL_SIZE: Dictionary = {
-	BOARD_3X3: Vector2(40, 40),
-	BOARD_4X4: Vector2(32, 32),
+	Global.BOARD_3X3: Vector2(40, 40),
+	Global.BOARD_4X4: Vector2(32, 32),
 }
 
 const LABEL_THEMES: Dictionary = {
-	[WHITE, BOARD_3X3]: {
+	[Global.WHITE, Global.BOARD_3X3]: {
 		"Theme": LABEL_WHITE_PIECE_THEME_3X3,
-		"Size": LABEL_SIZE[BOARD_3X3],
+		"Size": LABEL_SIZE[Global.BOARD_3X3],
 		"Letter": 'W'
 	},
-	[WHITE, BOARD_4X4]: {
+	[Global.WHITE, Global.BOARD_4X4]: {
 		"Theme": LABEL_WHITE_PIECE_THEME_4X4,
-		"Size": LABEL_SIZE[BOARD_4X4],
+		"Size": LABEL_SIZE[Global.BOARD_4X4],
 		"Letter": 'W'
 	},
-	[BLACK, BOARD_3X3]: {
+	[Global.BLACK, Global.BOARD_3X3]: {
 		"Theme": LABEL_BLACK_PIECE_THEME_3X3,
-		"Size": LABEL_SIZE[BOARD_3X3],
+		"Size": LABEL_SIZE[Global.BOARD_3X3],
 		"Letter": 'B'
 	},
-	[BLACK, BOARD_4X4]: {
+	[Global.BLACK, Global.BOARD_4X4]: {
 		"Theme": LABEL_BLACK_PIECE_THEME_4X4,
-		"Size": LABEL_SIZE[BOARD_4X4],
+		"Size": LABEL_SIZE[Global.BOARD_4X4],
 		"Letter": 'B'
 	},
-	[UNTEXTURED, BOARD_3X3]: {
+	[Global.UNTEXTURED, Global.BOARD_3X3]: {
 		"Theme": LABEL_WHITE_PIECE_THEME_3X3,
-		"Size": LABEL_SIZE[BOARD_3X3],
+		"Size": LABEL_SIZE[Global.BOARD_3X3],
 		"Letter": '_'
 	},
-	[UNTEXTURED, BOARD_4X4]: {
+	[Global.UNTEXTURED, Global.BOARD_4X4]: {
 		"Theme": LABEL_WHITE_PIECE_THEME_4X4,
-		"Size": LABEL_SIZE[BOARD_4X4],
+		"Size": LABEL_SIZE[Global.BOARD_4X4],
 		"Letter": '_'
 	}
 }
@@ -86,11 +83,11 @@ const MOUSE_OFFSET = Vector2(16, 0) as Vector2
 
 #region Global Variables
 var piece_textures = {
-	[WHITE, BLUE]: null,
-	[WHITE, RED]: null,
-	[BLACK, BLUE]: null,
-	[BLACK, RED]: null,
-	UNTEXTURED: null
+	[Global.WHITE, Global.BLUE]: null,
+	[Global.WHITE, Global.RED]: null,
+	[Global.BLACK, Global.BLUE]: null,
+	[Global.BLACK, Global.RED]: null,
+	Global.UNTEXTURED: null
 } as Dictionary
 
 #region Dragging
@@ -105,7 +102,7 @@ var current_zone: Dropzone:
 		if current_zone and current_zone.piece:
 			if current_zone.piece == self: current_zone.piece = null
 		current_zone = zone
-		current_zone.piece = self
+		if current_zone: current_zone.piece = self
 		
 var initial_zone: Dropzone
 var hovered_zone: Dropzone
@@ -114,16 +111,16 @@ var hovered_zone: Dropzone
 #endregion
 
 func _ready():
+	update_texture()
+	update_label()
+	update_scale()
+	
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
 		area.mouse_entered.connect(on_area_mouse_entered)
 		area.mouse_exited.connect(on_area_mouse_exited)
 		area.input_event.connect(on_area_input_event)
-	
-	update_texture()
-	update_label()
-	update_scale()
-	
+
 	# Assigning the initial zone.
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 		if global_position.distance_to(zone.global_position) < zone.radius:
@@ -139,14 +136,15 @@ func set_textures(textures: Array[AtlasTexture]) -> void:
 		piece_textures[piece_textures.keys()[i]] = textures[i]
 
 func update_texture() -> void:
-	if piece_color != UNTEXTURED: 
+	if piece_color != Global.UNTEXTURED: 
 		sprite.texture = piece_textures[[piece_color, eye_color]]
 	else: 
-		sprite.texture = piece_textures[UNTEXTURED]
+		sprite.texture = piece_textures[Global.UNTEXTURED]
 
 func update_label() -> void:
 	name_label.theme = LABEL_THEMES[[piece_color, piece_size]]["Theme"]
 	name_label.text = LABEL_THEMES[[piece_color, piece_size]]["Letter"] + name_label.text.substr(1)
+	name = name_label.text
 
 func update_scale() -> void:
 	sprite.scale = SCALE_AMOUNT[piece_size]
@@ -263,4 +261,8 @@ func _process(_delta):
 		if hovered_zone:
 			if hovered_zone != current_zone:
 				hovered_zone.invisible = false
+		
+	if Engine.is_editor_hint():
+		if name_label.text != name:
+			name_label.text = name
 #endregion

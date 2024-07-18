@@ -42,7 +42,7 @@ func generate_zones() -> void:
 		var ascii_start_val: int = 'A'.to_ascii_buffer()[0]
 		var ascii_val: int = ascii_start_val
 		
-		for i in range(dimensions ** 2):
+		for i: int in range(dimensions ** 2):
 			var zone: Dropzone = DROPZONE.instantiate()
 			
 			zone.coordinates = coordinates
