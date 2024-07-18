@@ -6,6 +6,7 @@ class_name Piece
 enum {WHITE, BLACK, UNTEXTURED}
 enum {BLUE, RED}
 enum {BOARD_3X3 = 3, BOARD_4X4 = 4}
+enum {UP = 1, DOWN = -1}
 
 const LABEL_WHITE_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres") as Theme
 const LABEL_BLACK_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_Black_Piece_Theme_3x3.tres") as Theme
@@ -99,8 +100,14 @@ var snap_complete: bool = false
 #endregion
 
 #region Zones
+var current_zone: Dropzone:
+	set(zone):
+		if current_zone and current_zone.piece:
+			if current_zone.piece == self: current_zone.piece = null
+		current_zone = zone
+		current_zone.piece = self
+		
 var initial_zone: Dropzone
-var current_zone: Dropzone
 var hovered_zone: Dropzone
 #endregion
 #endregion
@@ -203,6 +210,7 @@ func _physics_process(delta):
 			# Smooth-over movement
 			if round(abs((global_position - current_zone.global_position))) <= Vector2(0.10, 0.10):
 				global_position = current_zone.global_position
+				z_index = 0
 	#endregion
 
 # Stop dragging
@@ -214,36 +222,35 @@ func _input(_event):
 		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
 		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
 		Cursor.set_mode(Cursor.MODE.FREE)
-		hovered_zone = null
+		if hovered_zone: hovered_zone.invisible = true
 		update_zone()
-		z_index = 0
 #endregion
 
 #region Zone Functions
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
-func is_zone_valid(_zone: Dropzone) -> bool:
+func is_zone_valid(zone: Dropzone) -> bool:
+	if zone.piece and zone.piece.piece_color == self.piece_color: return false
 	return true
 
  # Returns the closest valid dropzone to the selected piece.
 func nearest_zone() -> Dropzone:
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 		if global_position.distance_to(zone.global_position) < zone.radius:
-			
-			if zone == current_zone and hovered_zone: 
-				hovered_zone.invisible = true
+			if zone != current_zone:
 				
-			elif is_zone_valid(zone):
-				if hovered_zone and hovered_zone != zone: 
+				# Changing between zones -> make the old one invisible.
+				if hovered_zone and hovered_zone != zone:
 					hovered_zone.invisible = true
 				hovered_zone = zone
-				return zone
+				
+				if is_zone_valid(zone):
+					return zone
 	
-	
-	
+	# Moving off a zone into a place with no zones -> make old one invisible.
+	if hovered_zone: hovered_zone.invisible = true
 	hovered_zone = null
-				
-				
-	return current_zone
+	
+	return current_zone 
 
 # Updates the piece's current zone to the selected zone. 
 func update_zone(zone: Dropzone = nearest_zone()) -> void:
@@ -254,12 +261,6 @@ func _process(_delta):
 	if is_selected and Global.show_zone:
 		nearest_zone()
 		if hovered_zone:
-			if hovered_zone != current_zone: 
+			if hovered_zone != current_zone:
 				hovered_zone.invisible = false
-				#print("Sayo")
-	
-	if not Engine.is_editor_hint():
-		if name == "Pawn":
-			print(hovered_zone)
-			pass
 #endregion

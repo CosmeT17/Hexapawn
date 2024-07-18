@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Pieces/Scripts/Pawn.gd" id="2_j8gee"]
 [ext_resource type="Theme" uid="uid://d2hu1o6vpt4tu" path="res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres" id="3_2yxe1"]
 
-[node name="Pawn" type="Node2D" groups=["Piece"]]
+[node name="Pawn" type="Node2D"]
 script = ExtResource("2_j8gee")
 metadata/_edit_group_ = true
 
