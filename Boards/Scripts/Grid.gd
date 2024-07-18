@@ -58,8 +58,8 @@ func generate_zones() -> void:
 			
 			add_child(zone)
 	
-	print(Global.show_grid)
-	print(get_children())
+	#print(Global.show_grid)
+	#print(get_children())
 
 func organize_zones() -> void:
 	if dimensions != 0:

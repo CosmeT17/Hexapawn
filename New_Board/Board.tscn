@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cglhq0koekuya"]
+[gd_scene load_steps=4 format=3 uid="uid://cglhq0koekuya"]
 
 [ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Boards/Textures/Board/Board_Default_Texture.png" id="1_fshw5"]
 [ext_resource type="Script" path="res://New_Board/Chessboard.gd" id="1_umncr"]
+[ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Boards/Scenes/Grid.tscn" id="3_rbprb"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_umncr")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_fshw5")
+
+[node name="Grid" parent="." instance=ExtResource("3_rbprb")]
+dimensions = 0

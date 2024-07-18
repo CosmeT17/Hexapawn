@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://New_Board/Board.tscn" id="1_7ajlc"]
+[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://New_Board/Board.tscn" id="1_2ryrp"]
 
 [node name="Test" type="Node2D"]
 position = Vector2(40, 0)
 
-[node name="Board" parent="." instance=ExtResource("1_7ajlc")]
-position = Vector2(462, 312)
-dimensions = 3
+[node name="Board" parent="." instance=ExtResource("1_2ryrp")]
+position = Vector2(478, 301)
+dimensions = 4
