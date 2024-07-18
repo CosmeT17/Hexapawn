@@ -123,12 +123,10 @@ func _ready():
 	current_zone = initial_zone
 
 #region Update/Set Functions
+# Order: White_Blue, White_Red, Black_Blue, Black_Red, Untextured
 func set_textures(textures: Array[AtlasTexture]) -> void:
-	piece_textures[[WHITE, BLUE]] = textures[0]
-	piece_textures[[WHITE, RED]] = textures[1]
-	piece_textures[[BLACK, BLUE]] = textures[2]
-	piece_textures[[BLACK, RED]] = textures[3]
-	piece_textures[UNTEXTURED] = textures[4]
+	for i: int in range(piece_textures.size()):
+		piece_textures[piece_textures.keys()[i]] = textures[i]
 
 func update_texture() -> void:
 	if piece_color != UNTEXTURED: 
@@ -237,9 +235,7 @@ func update_zone(zone: Dropzone = nearest_zone()) -> void:
 
 # Show the closest zone's highlight.
 func _process(_delta):
-	pass
-	#if is_selected and Global.show_zone:
-		#print("yo")
-		#var zone: Dropzone = nearest_zone()
-		#if zone != current_zone: zone.visible = true
+	if is_selected and Global.show_zone:
+		var zone: Dropzone = nearest_zone()
+		if zone != current_zone: zone.visible = true
 #endregion

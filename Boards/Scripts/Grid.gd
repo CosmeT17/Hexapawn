@@ -57,9 +57,6 @@ func generate_zones() -> void:
 				ascii_val = ascii_start_val
 			
 			add_child(zone)
-	
-	#print(Global.show_grid)
-	#print(get_children())
 
 func organize_zones() -> void:
 	if dimensions != 0:

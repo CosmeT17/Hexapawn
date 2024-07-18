@@ -1,8 +1,9 @@
 extends Node
 
-var show_grid: bool = false
-var show_zone: bool = false
+# Zones
+var show_zone:= false
 
-var snap_speed: int = 30 
-var drag_speed: int = 20 
-var zone_speed: int = 10
+# Pieces
+var snap_speed:= 30 
+var drag_speed:= 20
+var zone_speed:= 10
