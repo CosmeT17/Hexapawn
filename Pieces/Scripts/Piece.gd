@@ -1,6 +1,7 @@
 extends Node2D
 class_name Piece
 
+#region Variables and Constants
 #region Constants
 enum {WHITE, BLACK, UNTEXTURED}
 enum {BLUE, RED}
@@ -56,6 +57,7 @@ const LABEL_THEMES: Dictionary = {
 const MOUSE_OFFSET = Vector2(16, 0) as Vector2
 var SNAP_SPEED = 30 as int
 var DRAG_SPEED = 20 as int
+var ZONE_SPEED = 10 as int
 #endregion
 
 #region Children Variables
@@ -93,12 +95,17 @@ var piece_textures = {
 	UNTEXTURED: null
 } as Dictionary
 
+#region Dragging
 var mouse_on_area: bool = false
 var is_selected: bool = false
 var snap_complete: bool = false
 #endregion
 
-#region Node Functions
+var initial_zone: Dropzone
+var current_zone: Dropzone
+#endregion
+#endregion
+
 func _ready():
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
@@ -109,38 +116,14 @@ func _ready():
 	update_texture()
 	update_label()
 	update_scale()
-
-# Do the dragging.
-func _physics_process(delta):
-	if is_selected:
-		# Snap to cursor.
-		if not snap_complete:
-			if abs(global_position - get_global_mouse_position()) != MOUSE_OFFSET:
-				global_position = lerp(
-					global_position,
-					get_global_mouse_position() + MOUSE_OFFSET,
-					SNAP_SPEED * delta
-				)
-			else: snap_complete = true
-		
-		# Drag piece towards the cursor:
-		else:
-			global_position = lerp(
-				global_position,
-				get_global_mouse_position() + MOUSE_OFFSET,
-				DRAG_SPEED * delta
-			)
-
-# Stop dragging.
-func _input(_event):
-	if is_selected and Input.is_action_just_released("Click"):
-		is_selected = false
-		snap_complete = false
-		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
-		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
-		Cursor.set_mode(Cursor.MODE.FREE)
-		z_index = 0
-#endregion
+	
+	# Assigning the initial zone.
+	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
+		if global_position.distance_to(zone.global_position) < zone.radius:
+			initial_zone = zone
+			global_position = zone.global_position
+			break
+	current_zone = initial_zone
 
 #region Update/Set Functions
 func set_textures(textures: Array[AtlasTexture]) -> void:
@@ -167,7 +150,7 @@ func update_scale() -> void:
 	name_label.size = LABEL_THEMES[[piece_color, piece_size]]["Size"]
 #endregion
 
-#region Area Functions
+#region Cursor Update/Dragging Functions
 func on_area_mouse_entered() -> void:
 	mouse_on_area = true
 	if Cursor.context != Cursor.CONTEXT.GRAB:
@@ -186,4 +169,71 @@ func on_area_input_event(_viewport, _event, _shape_idx) ->void:
 		Cursor.set_mode(Cursor.MODE.CONFINED)
 		z_index = 1
 		is_selected = true
+
+# Do the dragging/ Move towards the current zone's center.
+func _physics_process(delta):
+	#region Dragging
+	if is_selected:
+		# Snap to cursor.
+		if not snap_complete:
+			if abs(global_position - get_global_mouse_position()) != MOUSE_OFFSET:
+				global_position = lerp(
+					global_position,
+					get_global_mouse_position() + MOUSE_OFFSET,
+					SNAP_SPEED * delta
+				)
+			else: snap_complete = true
+		
+		# Drag piece towards the cursor:
+		else:
+			global_position = lerp(
+				global_position,
+				get_global_mouse_position() + MOUSE_OFFSET,
+				DRAG_SPEED * delta
+			)
+	#endregion
+	
+	#region Move Towards Zone
+	elif not Engine.is_editor_hint() and global_position != current_zone.global_position:
+		global_position = lerp(
+			global_position, 
+			current_zone.global_position, 
+			ZONE_SPEED * delta
+		)
+		
+		# Smooth-over movement
+		if round(abs((global_position - current_zone.global_position))) <= Vector2(0.10, 0.10):
+			global_position = current_zone.global_position
+	#endregion
+
+# Stop dragging
+func _input(_event):
+	# Stop dragging.
+	if is_selected and Input.is_action_just_released("Click"):
+		is_selected = false
+		snap_complete = false
+		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
+		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
+		Cursor.set_mode(Cursor.MODE.FREE)
+		update_zone()
+		z_index = 0
+#endregion
+
+#region Zone Functions
+# Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
+func is_zone_valid(zone: Dropzone) -> bool:
+	return true
+
+ # Returns the closest valid dropzone to the selected piece.
+func nearest_zone() -> Dropzone:
+	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
+		if global_position.distance_to(zone.global_position) < zone.radius: 
+			if zone != current_zone:
+				if is_zone_valid(zone):
+					return zone
+	return current_zone
+
+# Updates the piece's current zone to the selected zone. 
+func update_zone(zone: Dropzone = nearest_zone()) -> void:
+	current_zone = nearest_zone()
 #endregion

@@ -8,12 +8,16 @@ position = Vector2(40, 0)
 
 [node name="Board" parent="." instance=ExtResource("2_auip0")]
 position = Vector2(283, 324)
+dimensions = 3
 
 [node name="Pawn_1" parent="." instance=ExtResource("3_4gxbc")]
-position = Vector2(777, 201)
+position = Vector2(70, 536)
 piece_color = 0
 
 [node name="Pawn_2" parent="." instance=ExtResource("3_4gxbc")]
-position = Vector2(777, 434)
-piece_color = 1
-eye_color = 1
+position = Vector2(275, 536)
+piece_color = 0
+
+[node name="Pawn_3" parent="." instance=ExtResource("3_4gxbc")]
+position = Vector2(495, 536)
+piece_color = 0

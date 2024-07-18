@@ -17,7 +17,7 @@ var piece: Piece
 #endregion
 
 func _ready():
-	ID = name if name != "Dropzone" else "A0"
+	ID = String(name) if name != "Dropzone" else "A0"
 	label_id.text = ID
 	
 	if not Engine.is_editor_hint():

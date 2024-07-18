@@ -2,6 +2,7 @@
 extends Node2D
 class_name Board
 
+#region Variables and Constants
 #region Constants
 enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
 
@@ -22,21 +23,22 @@ const TEXTURES: Dictionary = {
 #endregion
 
 #region Export Variables
-@export_enum("3x3:3", "4x4:4", "None:0") var dimensions = 3 as int :
+@export_enum("3x3:3", "4x4:4", "None:0") var dimensions = 0 as int :
 	set(dim):
 		dimensions = dim
 		if(sprite): update_texture()
-#endregion
 
-#region Global Variables
-var zones: Array
+@export_category("Testing")
+@export var show_grid = false as bool
+#endregion
 #endregion
 
 func _ready():
+	Global.show_grid = show_grid
+	if not Engine.is_editor_hint() and not show_grid:
+		grid.visible = false
+		
 	update_texture()
-	
-	if not Engine.is_editor_hint():
-		zones = grid.get_children()
 
 func update_texture() -> void:
 	sprite.texture = TEXTURES[dimensions]
