@@ -3,7 +3,7 @@ extends Node2D
 class_name Board
 
 #region Constants
-enum {BOARD_3X3, BOARD_4X4, NONE}
+enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
 
 const BOARD_3X_3_TEXTURE = preload("res://Boards/Textures/Board/Board_3x3_Texture.png") as AtlasTexture
 const BOARD_4X_4_TEXTURE = preload("res://Boards/Textures/Board/Board_4x4_Texture.png") as AtlasTexture
@@ -14,11 +14,6 @@ const TEXTURES: Dictionary = {
 	BOARD_4X4: BOARD_4X_4_TEXTURE,
 	NONE: BOARD_DEFAULT_TEXTURE
 }
-const DIMENSIONS: Dictionary = {
-	BOARD_3X3: 3,
-	BOARD_4X4: 4,
-	NONE: 0
-}
 #endregion
 
 #region Children Variables
@@ -27,7 +22,7 @@ const DIMENSIONS: Dictionary = {
 #endregion
 
 #region Export Variables
-@export_enum("3x3", "4x4", "None") var dimensions = 2 as int :
+@export_enum("3x3:3", "4x4:4", "None:0") var dimensions = 3 as int :
 	set(dim):
 		dimensions = dim
 		if(sprite): update_texture()
@@ -45,4 +40,4 @@ func _ready():
 
 func update_texture() -> void:
 	sprite.texture = TEXTURES[dimensions]
-	grid.dimensions = DIMENSIONS[dimensions]
+	grid.dimensions = dimensions

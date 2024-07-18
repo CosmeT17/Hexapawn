@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dew0a8yl2exm1"]
+
+[ext_resource type="Texture2D" uid="uid://dw077imufbywa" path="res://Z_OLD_Z/Textures/3x3/Boards/Board_3x3.png" id="1_a4iha"]
+[ext_resource type="PackedScene" uid="uid://csb4c0v3ug7eu" path="res://Z_OLD_Z/Scenes/Objects/Board.tscn" id="1_v5i1f"]
+[ext_resource type="PackedScene" uid="uid://dmp1h8bfji6y6" path="res://Z_OLD_Z/Scenes/3x3/Pawn_AI.tscn" id="4_5qyjy"]
+[ext_resource type="PackedScene" uid="uid://cyijs6w32vbio" path="res://Z_OLD_Z/Scenes/3x3/Pawn_Player.tscn" id="4_lpwq2"]
+
+[node name="Board_3x3" instance=ExtResource("1_v5i1f")]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("1_a4iha")
+
+[node name="Grid" parent="Sprite" index="0"]
+labeled_board_texture = "res://Textures/3x3/Boards/Labeled_Board_3x3.png"
+grid_size = 3
+testing = true
+
+[node name="Player" parent="Sprite/Grid/Entities" index="0"]
+show_zone = true
+metadata/_edit_group_ = true
+
+[node name="W1" parent="Sprite/Grid/Entities/Player" index="0" instance=ExtResource("4_lpwq2")]
+position = Vector2(-212, 212)
+
+[node name="W2" parent="Sprite/Grid/Entities/Player" index="1" instance=ExtResource("4_lpwq2")]
+position = Vector2(0, 212)
+
+[node name="W3" parent="Sprite/Grid/Entities/Player" index="2" instance=ExtResource("4_lpwq2")]
+position = Vector2(212, 212)
+
+[node name="AI" parent="Sprite/Grid/Entities" index="1"]
+show_zone = true
+metadata/_edit_group_ = true
+
+[node name="B1" parent="Sprite/Grid/Entities/AI" index="0" instance=ExtResource("4_5qyjy")]
+position = Vector2(-212, -212)
+
+[node name="B2" parent="Sprite/Grid/Entities/AI" index="1" instance=ExtResource("4_5qyjy")]
+position = Vector2(0, -212)
+
+[node name="B3" parent="Sprite/Grid/Entities/AI" index="2" instance=ExtResource("4_5qyjy")]
+position = Vector2(212, -212)
+
+[node name="Scores" parent="." index="1"]
+AI_pic = "res://Textures/3x3/Pictures/AI_Pic.png"
+player_pic = "res://Textures/3x3/Pictures/Player_Pic.png"

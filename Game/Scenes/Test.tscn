@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
+
+[ext_resource type="PackedScene" uid="uid://cqjifjw4jupa4" path="res://Boards/Scenes/Board.tscn" id="2_auip0"]
+[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="3_4gxbc"]
+
+[node name="Test" type="Node2D"]
+position = Vector2(40, 0)
+
+[node name="Board" parent="." instance=ExtResource("2_auip0")]
+position = Vector2(283, 324)
+
+[node name="Pawn_1" parent="." instance=ExtResource("3_4gxbc")]
+position = Vector2(777, 201)
+piece_color = 0
+
+[node name="Pawn_2" parent="." instance=ExtResource("3_4gxbc")]
+position = Vector2(777, 434)
+piece_color = 1
+eye_color = 1

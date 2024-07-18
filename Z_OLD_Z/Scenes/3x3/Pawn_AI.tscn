@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmp1h8bfji6y6"]
+
+[ext_resource type="PackedScene" uid="uid://cv3reh3y05eqf" path="res://Z_OLD_Z/Scenes/Objects/Pawn.tscn" id="1_7gdm8"]
+[ext_resource type="Texture2D" uid="uid://bk2s2jo26e1co" path="res://Z_OLD_Z/Textures/3x3/Pawns/Pawn_Black_AI.png" id="2_548ok"]
+
+[node name="Pawn_AI" groups=["AI"] instance=ExtResource("1_7gdm8")]
+is_AI = true
+is_white = false
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_548ok")
+
+[node name="Name" parent="Sprite" index="0"]
+offset_left = -15.0
+offset_top = 35.0
+offset_right = 25.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+
+[node name="Area" parent="Sprite" index="1"]
+texture_filter = 1
+
+[node name="CollisionPolygon2D" parent="Sprite/Area" index="0"]
+visible = false
+polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)

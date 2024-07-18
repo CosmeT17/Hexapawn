@@ -4,7 +4,7 @@ class_name Piece
 #region Constants
 enum {WHITE, BLACK, UNTEXTURED}
 enum {BLUE, RED}
-enum {BOARD_3X3, BOARD_4X4}
+enum {BOARD_3X3 = 3, BOARD_4X4 = 4}
 
 const LABEL_WHITE_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres") as Theme
 const LABEL_BLACK_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_Black_Piece_Theme_3x3.tres") as Theme
@@ -53,7 +53,9 @@ const LABEL_THEMES: Dictionary = {
 	}
 }
 
-const mouse_offset = Vector2(16, 0) as Vector2
+const MOUSE_OFFSET = Vector2(16, 0) as Vector2
+var SNAP_SPEED = 30 as int
+var DRAG_SPEED = 20 as int
 #endregion
 
 #region Children Variables
@@ -76,7 +78,7 @@ const mouse_offset = Vector2(16, 0) as Vector2
 		eye_color = color
 		if (sprite): update_texture()
 
-@export_enum("3x3 Board", "4x4 Board") var piece_size = 0 as int :
+@export_enum("3x3 Board:3", "4x4 Board:4") var piece_size = 3 as int :
 	set(size):
 		piece_size = size
 		if(sprite and name_label): update_scale()
@@ -91,27 +93,53 @@ var piece_textures = {
 	UNTEXTURED: null
 } as Dictionary
 
-var selected: bool = false
-var cursor: Cursor
+var mouse_on_area: bool = false
+var is_selected: bool = false
+var snap_complete: bool = false
 #endregion
 
 #region Node Functions
 func _ready():
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
-		
-		cursor = get_tree().get_nodes_in_group("Cursor")[0] as Cursor
-		area.mouse_entered.connect(on_mouse_entered)
-		area.mouse_exited.connect(on_mouse_exited)
+		area.mouse_entered.connect(on_area_mouse_entered)
+		area.mouse_exited.connect(on_area_mouse_exited)
 		area.input_event.connect(on_area_input_event)
 	
 	update_texture()
 	update_label()
 	update_scale()
 
+# Do the dragging.
+func _physics_process(delta):
+	if is_selected:
+		# Snap to cursor.
+		if not snap_complete:
+			if abs(global_position - get_global_mouse_position()) != MOUSE_OFFSET:
+				global_position = lerp(
+					global_position,
+					get_global_mouse_position() + MOUSE_OFFSET,
+					SNAP_SPEED * delta
+				)
+			else: snap_complete = true
+		
+		# Drag piece towards the cursor:
+		else:
+			global_position = lerp(
+				global_position,
+				get_global_mouse_position() + MOUSE_OFFSET,
+				DRAG_SPEED * delta
+			)
+
 # Stop dragging.
 func _input(_event):
-	pass
+	if is_selected and Input.is_action_just_released("Click"):
+		is_selected = false
+		snap_complete = false
+		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
+		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
+		Cursor.set_mode(Cursor.MODE.FREE)
+		z_index = 0
 #endregion
 
 #region Update/Set Functions
@@ -140,17 +168,22 @@ func update_scale() -> void:
 #endregion
 
 #region Area Functions
-func on_mouse_entered() -> void:
-	cursor.set_context(cursor.Context.SELECT)
+func on_area_mouse_entered() -> void:
+	mouse_on_area = true
+	if Cursor.context != Cursor.CONTEXT.GRAB:
+		Cursor.set_context(Cursor.CONTEXT.SELECT)
 
-func on_mouse_exited() -> void:
-	cursor.set_context(cursor.Context.CURSOR)
-	cursor.set_mode(Cursor.Mode.FREE)
+func on_area_mouse_exited() -> void:
+	if is_selected: snap_complete = true
+	mouse_on_area = false
+	if Cursor.context != Cursor.CONTEXT.GRAB:
+		Cursor.set_context(Cursor.CONTEXT.CURSOR)
 
 # Start dragging.
 func on_area_input_event(_viewport, _event, _shape_idx) ->void:
 	if Input.is_action_just_pressed("Click"):
-		cursor.set_context(Cursor.Context.GRAB)
-		cursor.set_mode(Cursor.Mode.CONFINED)
-		selected = true
+		Cursor.set_context(Cursor.CONTEXT.GRAB)
+		Cursor.set_mode(Cursor.MODE.CONFINED)
+		z_index = 1
+		is_selected = true
 #endregion

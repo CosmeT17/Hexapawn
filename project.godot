@@ -13,9 +13,13 @@ config_version=5
 config/name="Hexapawn"
 config/description="Demo of an AI learning how to play Hexapawn."
 config/version="1.0"
-run/main_scene="res://Test.tscn"
+run/main_scene="res://Game/Scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://Textures/AI.svg"
+config/icon="res://Z_OLD_Z/Textures/AI.svg"
+
+[autoload]
+
+Cursor="*res://Game/Scripts/Cursor.gd"
 
 [display]
 
@@ -25,11 +29,11 @@ window/size/resizable=false
 [file_customization]
 
 folder_colors={
-"res://Scenes/3x3/": "blue",
-"res://Scenes/4x4/": "red",
-"res://Scenes/Objects/": "purple",
-"res://Textures/3x3/": "blue",
-"res://Textures/4x4/": "red"
+"res://Z_OLD_Z/Scenes/3x3/": "blue",
+"res://Z_OLD_Z/Scenes/4x4/": "red",
+"res://Z_OLD_Z/Scenes/Objects/": "purple",
+"res://Z_OLD_Z/Textures/3x3/": "blue",
+"res://Z_OLD_Z/Textures/4x4/": "red"
 }
 
 [input]

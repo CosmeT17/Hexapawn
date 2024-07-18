@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3ttn6l5btuc8"]
+[gd_scene load_steps=6 format=3 uid="uid://c3ttn6l5btuc8"]
 
 [ext_resource type="Texture2D" uid="uid://cu27r5ffll3kc" path="res://Menu/Textures/Title_Screen.png" id="1_xkpvx"]
 [ext_resource type="Script" path="res://Menu/Scripts/Menu.gd" id="1_ytex8"]
 [ext_resource type="PackedScene" uid="uid://cf24r6yierbwv" path="res://Menu/Scenes/Main_Menu.tscn" id="2_afnfa"]
-[ext_resource type="PackedScene" uid="uid://dk2jw6mw4an21" path="res://Menu/Scenes/Cursor.tscn" id="2_stwoh"]
 [ext_resource type="PackedScene" uid="uid://cksj3jvf4i0im" path="res://Menu/Scenes/Play_Menu.tscn" id="3_vvjph"]
 [ext_resource type="PackedScene" uid="uid://dcgp5ut04upqx" path="res://Menu/Scenes/Options_Menu.tscn" id="4_ds7mc"]
 
@@ -15,8 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ytex8")
-
-[node name="Cursor" parent="." instance=ExtResource("2_stwoh")]
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

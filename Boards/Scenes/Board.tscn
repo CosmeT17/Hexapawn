@@ -6,6 +6,7 @@
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_6r65d")
+dimensions = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_ri4xy")
