@@ -29,7 +29,6 @@ var board_textures = {
 #endregion
 
 func _ready():
-	print(sprite.modulate.a)
 	update_board()
 	
 	if not Engine.is_editor_hint():
@@ -47,9 +46,9 @@ func update_board() -> void:
 	if grid: grid.dimensions = dimensions
 	
 	# Making the default board texture more see-through.
-	#if sprite:
-		#if dimensions == Global.NONE: sprite.modulate = Color(sprite.modulate, DEFAULT_TEXTURE_ALPHA)
-		#else: sprite.modulate = Color(sprite.modulate, 1)
+	if sprite:
+		if dimensions == Global.NONE: sprite.modulate = Color(sprite.modulate, DEFAULT_TEXTURE_ALPHA)
+		else: sprite.modulate = Color(sprite.modulate, 1)
 
 # Order: BOARD_3X3, BOARD_4X4, NONE
 func set_textures(textures: Array[AtlasTexture]) -> void:

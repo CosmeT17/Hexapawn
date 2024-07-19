@@ -42,13 +42,13 @@ const PIECE_TEAMS: Dictionary = {
 @export_enum("Player 1:1", "Player 2:2") var player_num = 1 as int:
 	set(num):
 		player_num = num
-		organize_pieces()
+		organize_default_pieces()
+		#organize_pieces()
 
 func _ready():
-	#Global.zones_loaded.connect(organize_pieces)
+	Global.zones_loaded.connect(organize_pieces)
 	generate_pieces()
-	organize_pieces()
-	#organize_default_pieces()
+	organize_default_pieces()
 
 func generate_pieces() -> void:
 	for piece in get_children():
@@ -60,31 +60,23 @@ func generate_pieces() -> void:
 			if board_size != Global.NONE: piece.piece_size = board_size
 			add_child(piece)
 
+func organize_default_pieces() -> void:
+	if board_size == Global.NONE:
+		for i: int in range(get_child_count()):
+			get_children()[i].position = PIECE_TEAMS[Global.NONE][POSITIONS][player_num][i]
+
 func organize_pieces() -> void:
-	for i: int in range(get_child_count()):
-		get_children()[i].position = PIECE_TEAMS[Global.NONE][POSITIONS][player_num][i]
-		
-
-
-#func organize_default_pieces() -> void:
-	#if board_size == Global.NONE:
-		#for i: int in range(get_child_count()):
-			#print(i)
-
-#func organize_pieces() -> void:
-	#var zones: Array = get_tree().get_nodes_in_group("Zone")
-	#var j: int
+	var zones: Array = get_tree().get_nodes_in_group("Zone")
+	var j: int
 	
-	#for i: int in range(get_child_count()):
-		#if board_size != Global.NONE:
-			#
+	for i: int in range(get_child_count()):
+		
+		while j < zones.size():
+			print(j)
 			#print(i)
-			
-			#while j < zones.size():
-				#print(i)
-				#print(PIECE_TEAMS[board_size][POSITIONS][player_num][i])
-				#print(j)
-				#j += 1
+			#print(PIECE_TEAMS[board_size][POSITIONS][player_num][i])
+			#print(j)
+			j += 1
 				
 				
 				#print(zones.size())
