@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cglhq0koekuya"]
+[gd_scene load_steps=4 format=3 uid="uid://cglhq0koekuya"]
 
 [ext_resource type="Script" path="res://Boards/Scripts/Chessboard.gd" id="1_umncr"]
 [ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Boards/Textures/Board/Board_Default_Texture.png" id="2_i5vxm"]
 [ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Boards/Scenes/Grid.tscn" id="3_rbprb"]
-[ext_resource type="PackedScene" uid="uid://n2hrl0hmixva" path="res://Players/Scenes/Player.tscn" id="4_wm7nl"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_umncr")
@@ -15,7 +14,6 @@ texture = ExtResource("2_i5vxm")
 [node name="Grid" parent="." instance=ExtResource("3_rbprb")]
 dimensions = 0
 
-[node name="Player_1" parent="." instance=ExtResource("4_wm7nl")]
+[node name="Player_1" type="Node2D" parent="."]
 
-[node name="Player_2" parent="." instance=ExtResource("4_wm7nl")]
-player_num = 2
+[node name="Player_2" type="Node2D" parent="."]

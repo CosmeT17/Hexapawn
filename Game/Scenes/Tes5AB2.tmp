@@ -6,4 +6,3 @@
 
 [node name="Board" parent="." instance=ExtResource("1_5b5o5")]
 position = Vector2(538, 319)
-dimensions = 3
