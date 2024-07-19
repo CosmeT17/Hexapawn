@@ -76,6 +76,8 @@ func organize_zones() -> void:
 			if count == dimensions:
 				start_position = start_position + Vector2(0, -2 * square_radius)
 				count = 0
+		
+		Global.zones_loaded.emit()
 
 func update_zone_offset() -> void:
 	if dimensions != 0:

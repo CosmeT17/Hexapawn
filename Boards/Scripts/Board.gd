@@ -2,6 +2,8 @@ extends Node
 class_name Board
 
 #region Variables and Constants
+const DEFAULT_TEXTURE_ALPHA:= 0.785
+
 @onready var sprite = $Sprite as Sprite2D
 @onready var grid = $Grid as Grid
 
@@ -27,6 +29,7 @@ var board_textures = {
 #endregion
 
 func _ready():
+	print(sprite.modulate.a)
 	update_board()
 	
 	if not Engine.is_editor_hint():
@@ -42,6 +45,11 @@ func _ready():
 func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]
 	if grid: grid.dimensions = dimensions
+	
+	# Making the default board texture more see-through.
+	#if sprite:
+		#if dimensions == Global.NONE: sprite.modulate = Color(sprite.modulate, DEFAULT_TEXTURE_ALPHA)
+		#else: sprite.modulate = Color(sprite.modulate, 1)
 
 # Order: BOARD_3X3, BOARD_4X4, NONE
 func set_textures(textures: Array[AtlasTexture]) -> void:

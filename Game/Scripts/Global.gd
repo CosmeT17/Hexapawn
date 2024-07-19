@@ -12,6 +12,8 @@ var snap_speed:= 30
 var drag_speed:= 20
 var zone_speed:= 10
 
+signal zones_loaded
+
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
 		for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):

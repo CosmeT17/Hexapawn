@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://u2hnndttybft" path="res://Menu/Textures/Settings_Border.png" id="2_olyv2"]
 [ext_resource type="Texture2D" uid="uid://qbw1ju66xejq" path="res://Menu/Textures/Settings_Background.png" id="2_pimw5"]
 [ext_resource type="FontFile" uid="uid://kndmrbxb3lvd" path="res://Fonts/AntonSC-Regular.ttf" id="3_uuh8i"]
-[ext_resource type="FontFile" uid="uid://vouxu18nhm7f" path="res://Fonts/RobotoSlab/RobotoSlab-Regular.ttf" id="4_r70po"]
-[ext_resource type="FontFile" uid="uid://yxubpd2bgy8y" path="res://Fonts/RobotoSlab/RobotoSlab-Bold.ttf" id="5_frjgb"]
+[ext_resource type="FontFile" uid="uid://vouxu18nhm7f" path="res://RobotoSlab/RobotoSlab-Regular.ttf" id="4_r70po"]
+[ext_resource type="FontFile" uid="uid://yxubpd2bgy8y" path="res://RobotoSlab/RobotoSlab-Bold.ttf" id="5_frjgb"]
 
 [node name="Settings_Tab_Container" type="Control"]
 layout_mode = 3
