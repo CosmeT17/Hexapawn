@@ -16,3 +16,6 @@ texture = ExtResource("2_i5vxm")
 dimensions = 0
 
 [node name="Player_1" parent="." instance=ExtResource("4_wm7nl")]
+
+[node name="Player_2" parent="." instance=ExtResource("4_wm7nl")]
+player_num = 2
