@@ -1,13 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://n2hrl0hmixva" path="res://Players/Scenes/Player.tscn" id="1_k3txf"]
-[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://Boards/Scenes/Board.tscn" id="2_ddio0"]
+[ext_resource type="PackedScene" uid="uid://cglhq0koekuya" path="res://Boards/Scenes/Board.tscn" id="1_5b5o5"]
 
 [node name="Test" type="Node2D"]
 
-[node name="Board" parent="." instance=ExtResource("2_ddio0")]
-position = Vector2(495, 323)
+[node name="Board" parent="." instance=ExtResource("1_5b5o5")]
+position = Vector2(509, 327)
 dimensions = 3
-
-[node name="Player" parent="Board" instance=ExtResource("1_k3txf")]
-board_size = 3

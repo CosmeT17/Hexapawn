@@ -6,11 +6,17 @@ const DEFAULT_TEXTURE_ALPHA:= 0.785
 
 @onready var sprite = $Sprite as Sprite2D
 @onready var grid = $Grid as Grid
+@onready var player_1 = $Player_1 as Player
 
 @export_enum("3x3:3", "4x4:4", "None:0") var dimensions = 0 as int :
 	set(dim):
 		dimensions = dim
 		update_board()
+		
+		if dim == Global.NONE:
+			player_1.board_size = dim
+			player_1.organize_default_pieces()
+		
 
 @export_category("Zones")
 @export var show_grid := false

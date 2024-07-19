@@ -51,6 +51,12 @@ func _ready():
 	organize_default_pieces()
 
 func generate_pieces() -> void:
+	#print("Gen: ", get_parent().dimensions)
+	
+	if get_parent() is Board:
+		board_size = get_parent().dimensions
+	
+	
 	for piece in get_children():
 		piece.free()
 	
@@ -61,19 +67,21 @@ func generate_pieces() -> void:
 			add_child(piece)
 
 func organize_default_pieces() -> void:
+	print("Default: ", board_size)
+	
 	if board_size == Global.NONE:
 		for i: int in range(get_child_count()):
 			get_children()[i].position = PIECE_TEAMS[Global.NONE][POSITIONS][player_num][i]
 
 func organize_pieces() -> void:
+	print("Normal: ", get_parent().dimensions)
+	
 	var zones: Array = get_tree().get_nodes_in_group("Zone")
 	var j: int
 	
 	for i: int in range(get_child_count()):
 		
 		while j < zones.size():
-			print(j)
-			#print(i)
 			#print(PIECE_TEAMS[board_size][POSITIONS][player_num][i])
 			#print(j)
 			j += 1
