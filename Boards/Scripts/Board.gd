@@ -2,7 +2,6 @@ extends Node
 class_name Board
 
 #region Variables and Constants
-enum {PLAYER_1 = 1, PLAYER_2 = 2}
 const DEFAULT_TEXTURE_ALPHA:= 0.785
 
 @onready var sprite = $Sprite as Sprite2D
@@ -12,10 +11,12 @@ const DEFAULT_TEXTURE_ALPHA:= 0.785
 	set(dim):
 		dimensions = dim
 		update_board()
-		generate_pieces($Player_1)
-		generate_pieces($Player_2)
-		organizea_default_pieces($Player_1, PLAYER_1)
-		organizea_default_pieces($Player_2, PLAYER_2)
+		
+		$Player_1.generate_pieces()
+		if Engine.is_editor_hint(): $Player_1.organize_pieces()
+		
+		#$Player_2.generate_pieces()
+		#if Engine.is_editor_hint(): $Player_2.organize_pieces()
 
 @export_category("Zones")
 @export var show_grid := false
@@ -59,13 +60,3 @@ func update_board() -> void:
 func set_textures(textures: Array[AtlasTexture]) -> void:
 	for i: int in range(board_textures.size()):
 		board_textures[board_textures.keys()[i]] = textures[i]
-
-# Abstract Functions
-func generate_pieces(_player: Node2D) -> void:
-	return
-
-# Abstract Functions
-func organizea_default_pieces(player: Node2D, player_num: int) -> void:
-	return
-
-

@@ -5,5 +5,5 @@
 [node name="Test" type="Node2D"]
 
 [node name="Board" parent="." instance=ExtResource("1_5b5o5")]
-position = Vector2(538, 319)
+position = Vector2(499, 331)
 dimensions = 3
