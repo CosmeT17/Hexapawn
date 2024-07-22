@@ -4,5 +4,5 @@
 
 [node name="Test" type="Node2D"]
 
-[node name="_P1" parent="." instance=ExtResource("1_06j58")]
-position = Vector2(522, 339)
+[node name="_P0" parent="." instance=ExtResource("1_06j58")]
+position = Vector2(515, 327)

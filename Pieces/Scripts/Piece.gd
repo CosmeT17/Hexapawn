@@ -90,6 +90,12 @@ var piece_textures = {
 	Global.UNTEXTURED: null
 } as Dictionary
 
+#region Name RegEx
+var letter_ID: String
+var name_regex = RegEx.new() as RegEx
+var do_update_name: bool = true
+#endregion
+
 #region Dragging
 var mouse_on_area: bool = false
 var is_selected: bool = false
@@ -111,23 +117,35 @@ var hovered_zone: Dropzone
 #endregion
 
 func _ready():
+	#region Name Regex Initialization
+	var regex_pattern = r'^[_,W,B]' + letter_ID.to_upper() + r'\d*$'
+	name_regex.compile(regex_pattern)
+	#endregion
+	
+	#region Update Graphics
 	update_texture()
+	update_name()
 	update_label()
 	update_scale()
+	#endregion
 	
+	#region Connecting Signals
+	renamed.connect(update_name)
 	if not Engine.is_editor_hint():
 		#name_label.visible = false
 		area.mouse_entered.connect(on_area_mouse_entered)
 		area.mouse_exited.connect(on_area_mouse_exited)
 		area.input_event.connect(on_area_input_event)
-
-	# Assigning the initial zone.
+	#endregion
+	
+	#region Assigning Initial Zone.
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 		if global_position.distance_to(zone.global_position) < zone.radius:
 			initial_zone = zone
 			global_position = zone.global_position
 			break
 	current_zone = initial_zone
+	#endregion
 
 #region Update/Set Functions
 # Order: White_Blue, White_Red, Black_Blue, Black_Red, Untextured
@@ -144,6 +162,7 @@ func update_texture() -> void:
 func update_label() -> void:
 	name_label.theme = LABEL_THEMES[[piece_color, piece_size]]["Theme"]
 	name_label.text = LABEL_THEMES[[piece_color, piece_size]]["Letter"] + name_label.text.substr(1)
+	do_update_name = false
 	name = name_label.text
 
 func update_scale() -> void:
@@ -151,7 +170,19 @@ func update_scale() -> void:
 	name_label.global_position = label_anchor.global_position
 	name_label.theme = LABEL_THEMES[[piece_color, piece_size]]["Theme"]
 	name_label.size = LABEL_THEMES[[piece_color, piece_size]]["Size"]
-#endregion
+
+# If the given name is valid, update the name_label to match.
+func update_name(run: bool = true) -> void:
+	if do_update_name:
+		do_update_name = false
+		var new_name = name.to_upper()
+		
+		if name_regex.search(new_name):
+			name_label.text = new_name
+			name = new_name
+		else: name = name_label.text
+		
+	else: do_update_name = true
 
 #region Cursor Update/Dragging Functions
 func on_area_mouse_entered() -> void:
@@ -261,8 +292,4 @@ func _process(_delta):
 		if hovered_zone:
 			if hovered_zone != current_zone:
 				hovered_zone.invisible = false
-		
-	if Engine.is_editor_hint():
-		if name_label.text != name:
-			name_label.text = name
 #endregion

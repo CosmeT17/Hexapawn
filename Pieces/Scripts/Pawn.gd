@@ -18,4 +18,5 @@ func _ready():
 		PAWN_BLACK_RED_TEXTURE,
 		PAWN_DEFAULT_TEXTURE
 	])
+	letter_ID = 'P'
 	super()
