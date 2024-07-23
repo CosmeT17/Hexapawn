@@ -1,5 +1,4 @@
 extends Node
-class_name Board
 
 #region Variables and Constants
 const DEFAULT_TEXTURE_ALPHA:= 0.785

@@ -3,25 +3,39 @@ extends Marker2D
 class_name Dropzone
 
 #region Constants and Variables
-const ALPHA:= 0.25
-const ALPHA_8:= 64
-
+#region Export Variables
 @export var radius: int = 100 :
 	set(size):
 		radius = size
 		gizmo_extents = radius
+		if not ID_centered: 
+			ID_centered = false
 
-@export var color: Color = Color(Color.MEDIUM_SEA_GREEN, ALPHA):
+var alpha: float = 0.25
+@export var color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
 	set(col):
-		color = col
-		#if col.a8 == ALPHA_8 or col.a8 == 0: color = col
+		if invisible: 
+			color = Color(col, 0)
+		else: 
+			color = col
+			alpha = color.a
 		queue_redraw()
+		print(alpha)
 
-@export var invisible: bool = false:
+@export var invisible: bool = false :
 	set(val):
 		invisible = val
-		if invisible: color = Color(color, 0)
-		else: color = Color(color, ALPHA)
+		color = Color(color, alpha)
+
+@export var ID_centered: bool = true :
+	set(val):
+		ID_centered = val
+		if label_id:
+			if ID_centered: 
+				label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
+			else: 
+				label_id.position = Vector2(-radius, -radius)
+#endregion
 
 @onready var label_id = $Label_ID as Label
 var coordinates: Vector2
@@ -32,9 +46,6 @@ var piece: Piece
 func _ready():
 	ID = String(name) if name != "Dropzone" else "A0"
 	label_id.text = ID
-	
-	if not Engine.is_editor_hint(): 
-		invisible = true
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, color)

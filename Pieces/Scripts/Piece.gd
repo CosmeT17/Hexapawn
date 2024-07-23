@@ -172,7 +172,7 @@ func update_scale() -> void:
 	name_label.size = LABEL_THEMES[[piece_color, piece_size]]["Size"]
 
 # If the given name is valid, update the name_label to match.
-func update_name(run: bool = true) -> void:
+func update_name() -> void:
 	if do_update_name:
 		do_update_name = false
 		var new_name = name.to_upper()
@@ -251,7 +251,7 @@ func _input(_event):
 		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
 		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
 		Cursor.set_mode(Cursor.MODE.FREE)
-		if hovered_zone: hovered_zone.invisible = true
+		if hovered_zone and Global.show_zone: hovered_zone.invisible = true
 		update_zone()
 #endregion
 
@@ -269,14 +269,16 @@ func nearest_zone() -> Dropzone:
 				
 				# Changing between zones -> make the old one invisible.
 				if hovered_zone and hovered_zone != zone:
-					hovered_zone.invisible = true
+					if Global.show_zone: 
+						hovered_zone.invisible = true
 				hovered_zone = zone
 				
 				if is_zone_valid(zone):
 					return zone
 	
 	# Moving off a zone into a place with no zones -> make old one invisible.
-	if hovered_zone: hovered_zone.invisible = true
+	if hovered_zone and Global.show_zone: 
+		hovered_zone.invisible = true
 	hovered_zone = null
 	
 	return current_zone 
