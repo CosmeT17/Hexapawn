@@ -4,6 +4,8 @@ class_name Dropzone
 
 #region Constants and Variables
 #region Export Variables
+#region Zone Export Variables
+@export_category("Zone")
 @export var radius: int = 100 :
 	set(size):
 		radius = size
@@ -14,7 +16,8 @@ class_name Dropzone
 var alpha: float = 0.25
 @export var color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
 	set(col):
-		if invisible: 
+		if invisible:
+			if col.a != 0: alpha = col.a
 			color = Color(col, 0)
 		else: 
 			color = col
@@ -26,6 +29,14 @@ var alpha: float = 0.25
 	set(val):
 		invisible = val
 		color = Color(color, alpha)
+#endregion
+
+#region ID Export Variables
+@export_category("ID")
+@export var show_ID: bool = true :
+	set(val):
+		show_ID = val
+		if label_id: label_id.visible = show_ID
 
 @export var ID_centered: bool = true :
 	set(val):
@@ -35,6 +46,7 @@ var alpha: float = 0.25
 				label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
 			else: 
 				label_id.position = Vector2(-radius, -radius)
+#endregion
 #endregion
 
 @onready var label_id = $Label_ID as Label
@@ -46,6 +58,7 @@ var piece: Piece
 func _ready():
 	ID = String(name) if name != "Dropzone" else "A0"
 	label_id.text = ID
+	label_id.visible = show_ID
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, color)

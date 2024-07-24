@@ -6,8 +6,7 @@
 [node name="Test" type="Node2D"]
 
 [node name="Grid" parent="." instance=ExtResource("2_olhfv")]
-position = Vector2(437, 318)
-show_dropzones = true
+position = Vector2(426, 316)
 
 [node name="_P1" parent="." instance=ExtResource("1_06j58")]
 position = Vector2(922, 538)
