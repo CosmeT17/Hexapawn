@@ -11,7 +11,7 @@ var drag_speed := 20
 var zone_speed := 10
 
 #signal zones_loaded
-var show_zone := false
+var highlight_zone := false
 
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):

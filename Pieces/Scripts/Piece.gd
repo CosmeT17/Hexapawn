@@ -251,7 +251,7 @@ func _input(_event):
 		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
 		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
 		Cursor.set_mode(Cursor.MODE.FREE)
-		if hovered_zone and Global.show_zone: hovered_zone.invisible = true
+		if hovered_zone and Global.highlight_zone: hovered_zone.invisible = true
 		update_zone()
 #endregion
 
@@ -269,7 +269,7 @@ func nearest_zone() -> Dropzone:
 				
 				# Changing between zones -> make the old one invisible.
 				if hovered_zone and hovered_zone != zone:
-					if Global.show_zone: 
+					if Global.highlight_zone: 
 						hovered_zone.invisible = true
 				hovered_zone = zone
 				
@@ -277,7 +277,7 @@ func nearest_zone() -> Dropzone:
 					return zone
 	
 	# Moving off a zone into a place with no zones -> make old one invisible.
-	if hovered_zone and Global.show_zone: 
+	if hovered_zone and Global.highlight_zone: 
 		hovered_zone.invisible = true
 	hovered_zone = null
 	
@@ -289,7 +289,7 @@ func update_zone(zone: Dropzone = nearest_zone()) -> void:
 
 # Show the closest zone's highlight.
 func _process(_delta):
-	if is_selected and Global.show_zone:
+	if is_selected and Global.highlight_zone:
 		nearest_zone()
 		if hovered_zone:
 			if hovered_zone != current_zone:

@@ -1,12 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_06j58"]
-[ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Boards/Scenes/Grid.tscn" id="2_olhfv"]
+[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="2_r86j0"]
 
 [node name="Test" type="Node2D"]
 
-[node name="Grid" parent="." instance=ExtResource("2_olhfv")]
-position = Vector2(426, 316)
+[node name="Board" parent="." instance=ExtResource("2_r86j0")]
+position = Vector2(332, 325)
+dimensions = 3
+show_zone_ID = true
 
-[node name="_P1" parent="." instance=ExtResource("1_06j58")]
-position = Vector2(922, 538)
+[node name="WP1" parent="." instance=ExtResource("1_06j58")]
+position = Vector2(332, 537)
+piece_color = 0

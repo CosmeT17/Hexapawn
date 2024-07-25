@@ -23,7 +23,6 @@ var alpha: float = 0.25
 			color = col
 			alpha = color.a
 		queue_redraw()
-		print(alpha)
 
 @export var invisible: bool = false :
 	set(val):

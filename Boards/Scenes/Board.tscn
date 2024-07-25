@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7o6hs468xm18"]
+
+[ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Boards/Textures/Board/Board_Default_Texture.png" id="1_1rsuf"]
+[ext_resource type="Script" path="res://Boards/Scripts/Board.gd" id="1_bu8b4"]
+[ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Boards/Scenes/Grid.tscn" id="3_rkc6n"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_bu8b4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_1rsuf")
+
+[node name="Grid" parent="." instance=ExtResource("3_rkc6n")]
+dimensions = 0
+area_offset = 6
+show_dropzones = false
+show_dropzone_ID = false
+dropzone_ID_centered = false

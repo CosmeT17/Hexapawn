@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d35o4bm0mnjbm"]
+[gd_scene load_steps=3 format=3 uid="uid://d35o4bm0mnjbm"]
 
 [ext_resource type="Script" path="res://Boards/Scripts/Dropzone.gd" id="1_yln23"]
+[ext_resource type="Theme" uid="uid://daq4lalt5eubq" path="res://Boards/Themes/Label_Board_3x3_Theme.tres" id="2_blqp8"]
 
 [node name="Dropzone" type="Marker2D" groups=["Zone"]]
 gizmo_extents = 100.0
@@ -8,10 +9,11 @@ script = ExtResource("1_yln23")
 metadata/_edit_group_ = true
 
 [node name="Label_ID" type="Label" parent="."]
-offset_left = -10.0
-offset_top = -12.0
-offset_right = 10.0
-offset_bottom = 12.0
+offset_left = -11.0
+offset_top = -11.5
+offset_right = 11.0
+offset_bottom = 11.5
+theme = ExtResource("2_blqp8")
 text = "A0"
 horizontal_alignment = 1
 vertical_alignment = 1
