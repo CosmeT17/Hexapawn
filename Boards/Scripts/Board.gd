@@ -30,7 +30,7 @@ const board_textures: Dictionary = {
 @export var show_zone_ID: bool = false :
 	set(val):
 		show_zone_ID = val
-		grid.show_dropzone_ID = show_zone_ID
+		if grid: grid.show_dropzone_ID = show_zone_ID
 
 @export_category("Testing")
 @export var show_dropzones: bool = false :
