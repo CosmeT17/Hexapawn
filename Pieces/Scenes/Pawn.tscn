@@ -11,14 +11,20 @@ metadata/_edit_group_ = true
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_7roft")
 
-[node name="Area" type="Area2D" parent="Sprite"]
+[node name="Piece_Area" type="Area2D" parent="Sprite"]
 
-[node name="Collision" type="CollisionPolygon2D" parent="Sprite/Area"]
+[node name="Collision" type="CollisionPolygon2D" parent="Sprite/Piece_Area"]
+visible = false
+polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)
+
+[node name="Selection_Area" type="Area2D" parent="Sprite"]
+position = Vector2(-22, -28)
+
+[node name="Collision" type="CollisionPolygon2D" parent="Sprite/Selection_Area"]
 visible = false
 polygon = PackedVector2Array(-35, -95, 35, -95, 35, -85, 45, -85, 45, -65, 55, -65, 55, -25, 45, -25, 45, -15, 35, -15, 35, -5, 25, -5, 25, 35, 35, 35, 35, 75, 45, 75, 45, 95, -45, 95, -45, 75, -35, 75, -35, 35, -25, 35, -25, -5, -35, -5, -35, -15, -45, -15, -45, -25, -55, -25, -55, -65, -45, -65, -45, -85, -35, -85)
 
 [node name="Label_Anchor" type="Marker2D" parent="Sprite"]
-visible = false
 position = Vector2(-15, 35)
 
 [node name="Name_Label" type="Label" parent="."]

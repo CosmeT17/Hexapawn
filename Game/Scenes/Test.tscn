@@ -10,6 +10,5 @@ position = Vector2(332, 325)
 dimensions = 3
 show_zone_ID = true
 
-[node name="WP1" parent="." instance=ExtResource("1_06j58")]
+[node name="_P1" parent="." instance=ExtResource("1_06j58")]
 position = Vector2(332, 537)
-piece_color = 0

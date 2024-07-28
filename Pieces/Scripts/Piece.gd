@@ -52,12 +52,14 @@ const LABEL_THEMES: Dictionary = {
 	}
 }
 
-const MOUSE_OFFSET = Vector2(16, 0) as Vector2
+const GRAB_CURSOR_OFFSET = Vector2(16, 0) as Vector2
+const SELECT_CURSOR_OFFSET = Vector2(-22, -28) as Vector2
 #endregion
 
 #region Children Variables
-@onready var area = $Sprite/Area as Area2D
 @onready var sprite = $Sprite as Sprite2D
+@onready var piece_area = $Sprite/Piece_Area as Area2D
+@onready var selection_area = $Sprite/Selection_Area as Area2D
 @onready var name_label = $Name_Label as Label
 @onready var label_anchor = $Sprite/Label_Anchor as Marker2D
 #endregion
@@ -97,7 +99,8 @@ var do_update_name: bool = true
 #endregion
 
 #region Dragging
-var mouse_on_area: bool = false
+var mouse_on_piece_area: bool = false
+var mouse_on_select_area: bool = false
 var is_selected: bool = false
 var snap_complete: bool = false
 #endregion
@@ -132,10 +135,13 @@ func _ready():
 	#region Connecting Signals
 	renamed.connect(update_name)
 	if not Engine.is_editor_hint():
+		piece_area.mouse_entered.connect(on_piece_area_mouse_entered)
+		piece_area.mouse_exited.connect(on_piece_area_mouse_exited)
+		piece_area.input_event.connect(on_piece_area_input_event)
+		selection_area.mouse_entered.connect(on_select_area_mouse_entered)
+		selection_area.mouse_exited.connect(on_select_area_mouse_exited)
+		selection_area.input_event.connect(on_selection_area_input_event)
 		#name_label.visible = false
-		area.mouse_entered.connect(on_area_mouse_entered)
-		area.mouse_exited.connect(on_area_mouse_exited)
-		area.input_event.connect(on_area_input_event)
 	#endregion
 	
 	#region Assigning Initial Zone.
@@ -183,26 +189,61 @@ func update_name() -> void:
 		else: name = name_label.text
 		
 	else: do_update_name = true
+#endregion
 
 #region Cursor Update/Dragging Functions
-func on_area_mouse_entered() -> void:
-	mouse_on_area = true
-	if Cursor.context != Cursor.CONTEXT.GRAB:
-		Cursor.set_context(Cursor.CONTEXT.SELECT)
+func on_piece_area_mouse_entered() -> void:
+	mouse_on_piece_area = true
+	if not is_selected:
+		if Mouse.context == Mouse.CONTEXT.CURSOR:
+			Mouse.set_context(Mouse.CONTEXT.SELECT)
+			get_viewport().warp_mouse(
+				get_global_mouse_position() + SELECT_CURSOR_OFFSET
+			)
+		elif Mouse.context == Mouse.CONTEXT.GRAB:
+			Mouse.set_context(Mouse.CONTEXT.SELECT)
 
-func on_area_mouse_exited() -> void:
+func on_piece_area_mouse_exited() -> void:
+	mouse_on_piece_area = false
 	if is_selected: snap_complete = true
-	mouse_on_area = false
-	if Cursor.context != Cursor.CONTEXT.GRAB:
-		Cursor.set_context(Cursor.CONTEXT.CURSOR)
+	if not is_selected:
+		if Mouse.context == Mouse.CONTEXT.GRAB:
+			Mouse.set_context(Mouse.CONTEXT.SELECT)
+		elif Mouse.context == Mouse.CONTEXT.SELECT:
+			if not mouse_on_select_area:
+				Mouse.set_context(Mouse.CONTEXT.CURSOR)
+
+func on_piece_area_input_event(_viewport, _event, _shape_idx) -> void:
+	if Mouse.context == Mouse.CONTEXT.SELECT:
+		if Input.is_action_just_pressed("Click"):
+			Mouse.set_context(Mouse.CONTEXT.GRAB)
+			Mouse.set_mode(Mouse.MODE.CONFINED)
+			z_index = 1
+			is_selected = true
+
+func on_select_area_mouse_entered() -> void:
+	mouse_on_select_area = true
+	if not is_selected:
+		if Mouse.context == Mouse.CONTEXT.GRAB:
+			Mouse.set_context(Mouse.CONTEXT.SELECT)
+
+func on_select_area_mouse_exited() -> void:
+	mouse_on_select_area = false
+	if not is_selected:
+		if Mouse.context == Mouse.CONTEXT.SELECT:
+			Mouse.set_context(Mouse.CONTEXT.CURSOR)
+			get_viewport().warp_mouse(
+				get_global_mouse_position() - SELECT_CURSOR_OFFSET
+			)
 
 # Start dragging.
-func on_area_input_event(_viewport, _event, _shape_idx) ->void:
-	if Input.is_action_just_pressed("Click"):
-		Cursor.set_context(Cursor.CONTEXT.GRAB)
-		Cursor.set_mode(Cursor.MODE.CONFINED)
-		z_index = 1
-		is_selected = true
+func on_selection_area_input_event(_viewport, _event, _shape_idx) -> void:
+	if Mouse.context == Mouse.CONTEXT.SELECT:
+		if Input.is_action_just_pressed("Click"):
+			Mouse.set_context(Mouse.CONTEXT.GRAB)
+			Mouse.set_mode(Mouse.MODE.CONFINED)
+			z_index = 1
+			is_selected = true
 
 # Do the dragging/ Move towards the current zone's center.
 func _physics_process(delta):
@@ -210,10 +251,10 @@ func _physics_process(delta):
 	if is_selected:
 		# Snap to cursor.
 		if not snap_complete:
-			if abs(global_position - get_global_mouse_position()) != MOUSE_OFFSET:
+			if abs(global_position - get_global_mouse_position()) != GRAB_CURSOR_OFFSET:
 				global_position = lerp(
 					global_position,
-					get_global_mouse_position() + MOUSE_OFFSET,
+					get_global_mouse_position() + GRAB_CURSOR_OFFSET,
 					Global.snap_speed * delta
 				)
 			else: snap_complete = true
@@ -222,7 +263,7 @@ func _physics_process(delta):
 		else:
 			global_position = lerp(
 				global_position,
-				get_global_mouse_position() + MOUSE_OFFSET,
+				get_global_mouse_position() + GRAB_CURSOR_OFFSET,
 				Global.drag_speed * delta
 			)
 	#endregion
@@ -248,9 +289,20 @@ func _input(_event):
 	if is_selected and Input.is_action_just_released("Click"):
 		is_selected = false
 		snap_complete = false
-		if mouse_on_area: Cursor.set_context(Cursor.CONTEXT.SELECT)
-		else: Cursor.set_context(Cursor.CONTEXT.CURSOR)
-		Cursor.set_mode(Cursor.MODE.FREE)
+		
+		if not mouse_on_piece_area and not mouse_on_select_area:
+			Mouse.set_context(Mouse.CONTEXT.CURSOR)
+		
+		elif mouse_on_piece_area and mouse_on_select_area:
+			on_select_area_mouse_entered()
+			
+		elif not mouse_on_piece_area and mouse_on_select_area:
+			on_piece_area_mouse_exited()
+		
+		elif mouse_on_piece_area and not mouse_on_select_area:
+			on_piece_area_mouse_entered()
+		
+		Mouse.set_mode(Mouse.MODE.FREE)
 		if hovered_zone and Global.highlight_zone: hovered_zone.invisible = true
 		update_zone()
 #endregion
@@ -289,9 +341,10 @@ func update_zone(zone: Dropzone = nearest_zone()) -> void:
 
 # Show the closest zone's highlight.
 func _process(_delta):
-	if is_selected and Global.highlight_zone:
-		nearest_zone()
-		if hovered_zone:
-			if hovered_zone != current_zone:
-				hovered_zone.invisible = false
+	if is_selected:
+		if Global.highlight_zone:
+			nearest_zone()
+			if hovered_zone:
+				if hovered_zone != current_zone:
+					hovered_zone.invisible = false
 #endregion

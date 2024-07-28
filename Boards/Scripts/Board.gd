@@ -40,6 +40,7 @@ const board_textures: Dictionary = {
 
 func _ready():
 	update_board()
+	grid.show_dropzone_ID = show_zone_ID
 	grid.show_dropzones = show_dropzones
 	if not Engine.is_editor_hint():
 			Global.highlight_zone = false if show_dropzones else highlight_dropzones

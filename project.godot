@@ -20,7 +20,7 @@ config/icon="res://Z_OLD_Z/Textures/AI.svg"
 [autoload]
 
 Global="*res://Game/Scripts/Global.gd"
-Cursor="*res://Game/Scripts/Cursor.gd"
+Mouse="*res://Game/Scripts/Mouse.gd"
 
 [display]
 
