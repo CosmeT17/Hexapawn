@@ -52,14 +52,12 @@ const LABEL_THEMES: Dictionary = {
 	}
 }
 
-const GRAB_CURSOR_OFFSET = Vector2(16, 0) as Vector2
-const SELECT_CURSOR_OFFSET = Vector2(-22, -28) as Vector2
+const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 #endregion
 
 #region Children Variables
 @onready var sprite = $Sprite as Sprite2D
-@onready var piece_area = $Sprite/Piece_Area as Area2D
-@onready var selection_area = $Sprite/Selection_Area as Area2D
+@onready var area = $Sprite/Area as Area2D
 @onready var name_label = $Name_Label as Label
 @onready var label_anchor = $Sprite/Label_Anchor as Marker2D
 #endregion
@@ -68,17 +66,23 @@ const SELECT_CURSOR_OFFSET = Vector2(-22, -28) as Vector2
 @export_category("Customization")
 @export_enum("White", "Black", "Untextured") var piece_color = 2 as int :
 	set(color):
+		if piece_color != 0 and piece_color != 1 and piece_color != 2:
+			piece_color = 2
 		piece_color = color
 		if (sprite): update_texture()
 		if(name_label): update_label()
 
 @export_enum("Blue", "Red") var eye_color = 0 as int :
 	set(color):
+		if eye_color != 0 and eye_color != 1:
+			eye_color = 0
 		eye_color = color
 		if (sprite): update_texture()
 
 @export_enum("3x3 Board:3", "4x4 Board:4") var piece_size = 3 as int :
 	set(size):
+		if piece_size != 3 and piece_size != 4:
+			piece_size = 3
 		piece_size = size
 		if(sprite and name_label): update_scale()
 #endregion
@@ -99,8 +103,7 @@ var do_update_name: bool = true
 #endregion
 
 #region Dragging
-var mouse_on_piece_area: bool = false
-var mouse_on_select_area: bool = false
+var mouse_on_area: bool = false
 var is_selected: bool = false
 var snap_complete: bool = false
 #endregion
@@ -135,12 +138,9 @@ func _ready():
 	#region Connecting Signals
 	renamed.connect(update_name)
 	if not Engine.is_editor_hint():
-		piece_area.mouse_entered.connect(on_piece_area_mouse_entered)
-		piece_area.mouse_exited.connect(on_piece_area_mouse_exited)
-		piece_area.input_event.connect(on_piece_area_input_event)
-		selection_area.mouse_entered.connect(on_select_area_mouse_entered)
-		selection_area.mouse_exited.connect(on_select_area_mouse_exited)
-		selection_area.input_event.connect(on_selection_area_input_event)
+		area.mouse_entered.connect(on_area_mouse_entered)
+		area.mouse_exited.connect(on_area_mouse_exited)
+		area.input_event.connect(on_area_input_event)
 		#name_label.visible = false
 	#endregion
 	
@@ -192,58 +192,26 @@ func update_name() -> void:
 #endregion
 
 #region Cursor Update/Dragging Functions
-func on_piece_area_mouse_entered() -> void:
-	mouse_on_piece_area = true
+func on_area_mouse_entered() -> void:
+	mouse_on_area = true
 	if not is_selected:
 		if Mouse.context == Mouse.CONTEXT.CURSOR:
 			Mouse.set_context(Mouse.CONTEXT.SELECT)
-			get_viewport().warp_mouse(
-				get_global_mouse_position() + SELECT_CURSOR_OFFSET
-			)
-		elif Mouse.context == Mouse.CONTEXT.GRAB:
-			Mouse.set_context(Mouse.CONTEXT.SELECT)
-
-func on_piece_area_mouse_exited() -> void:
-	mouse_on_piece_area = false
+	
+func on_area_mouse_exited() -> void:
+	mouse_on_area = false
 	if is_selected: snap_complete = true
-	if not is_selected:
-		if Mouse.context == Mouse.CONTEXT.GRAB:
-			Mouse.set_context(Mouse.CONTEXT.SELECT)
-		elif Mouse.context == Mouse.CONTEXT.SELECT:
-			if not mouse_on_select_area:
-				Mouse.set_context(Mouse.CONTEXT.CURSOR)
-
-func on_piece_area_input_event(_viewport, _event, _shape_idx) -> void:
-	if Mouse.context == Mouse.CONTEXT.SELECT:
-		if Input.is_action_just_pressed("Click"):
-			Mouse.set_context(Mouse.CONTEXT.GRAB)
-			Mouse.set_mode(Mouse.MODE.CONFINED)
-			z_index = 1
-			is_selected = true
-
-func on_select_area_mouse_entered() -> void:
-	mouse_on_select_area = true
-	if not is_selected:
-		if Mouse.context == Mouse.CONTEXT.GRAB:
-			Mouse.set_context(Mouse.CONTEXT.SELECT)
-
-func on_select_area_mouse_exited() -> void:
-	mouse_on_select_area = false
 	if not is_selected:
 		if Mouse.context == Mouse.CONTEXT.SELECT:
 			Mouse.set_context(Mouse.CONTEXT.CURSOR)
-			get_viewport().warp_mouse(
-				get_global_mouse_position() - SELECT_CURSOR_OFFSET
-			)
-
-# Start dragging.
-func on_selection_area_input_event(_viewport, _event, _shape_idx) -> void:
-	if Mouse.context == Mouse.CONTEXT.SELECT:
-		if Input.is_action_just_pressed("Click"):
-			Mouse.set_context(Mouse.CONTEXT.GRAB)
-			Mouse.set_mode(Mouse.MODE.CONFINED)
-			z_index = 1
-			is_selected = true
+	
+func on_area_input_event(_viewport, _event, _shape_idx) -> void:
+	pass
+	if Input.is_action_just_pressed("Click"):
+		Mouse.set_context(Mouse.CONTEXT.GRAB)
+		Mouse.set_mode(Mouse.MODE.CONFINED)
+		z_index = 1
+		is_selected = true
 
 # Do the dragging/ Move towards the current zone's center.
 func _physics_process(delta):
@@ -290,17 +258,8 @@ func _input(_event):
 		is_selected = false
 		snap_complete = false
 		
-		if not mouse_on_piece_area and not mouse_on_select_area:
-			Mouse.set_context(Mouse.CONTEXT.CURSOR)
-		
-		elif mouse_on_piece_area and mouse_on_select_area:
-			on_select_area_mouse_entered()
-			
-		elif not mouse_on_piece_area and mouse_on_select_area:
-			on_piece_area_mouse_exited()
-		
-		elif mouse_on_piece_area and not mouse_on_select_area:
-			on_piece_area_mouse_entered()
+		if mouse_on_area: Mouse.set_context(Mouse.CONTEXT.SELECT)
+		else: Mouse.set_context(Mouse.CONTEXT.CURSOR)
 		
 		Mouse.set_mode(Mouse.MODE.FREE)
 		if hovered_zone and Global.highlight_zone: hovered_zone.invisible = true

@@ -25,7 +25,8 @@ Mouse="*res://Game/Scripts/Mouse.gd"
 [display]
 
 window/size/viewport_width=1000
-window/size/resizable=false
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [file_customization]
 
