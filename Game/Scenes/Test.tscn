@@ -1,31 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="1_06j58"]
 [ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="1_i6fyo"]
 
 [node name="Test" type="Node2D"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-
-[node name="Board" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_i6fyo")]
+[node name="Board" parent="." instance=ExtResource("1_i6fyo")]
 position = Vector2(324, 0)
 dimensions = 3
-show_zone_ID = true
-
-[node name="WP0" parent="CanvasLayer" instance=ExtResource("1_06j58")]
-position = Vector2(112, 536)
-piece_color = 0
-
-[node name="WP1" parent="CanvasLayer" instance=ExtResource("1_06j58")]
-position = Vector2(324, 536)
-piece_color = 0
-
-[node name="WP2" parent="CanvasLayer" instance=ExtResource("1_06j58")]
-position = Vector2(536, 536)
-piece_color = 0

@@ -3,8 +3,6 @@ class_name Piece
 
 #region Variables and Constants
 #region Constants
-enum {UP = 1, DOWN = -1}
-
 const LABEL_WHITE_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_White_Piece_Theme_3x3.tres") as Theme
 const LABEL_BLACK_PIECE_THEME_3X3 = preload("res://Pieces/Themes/Label_Black_Piece_Theme_3x3.tres") as Theme
 const LABEL_WHITE_PIECE_THEME_4X4 = preload("res://Pieces/Themes/Label_White_Piece_Theme_4x4.tres") as Theme
@@ -63,6 +61,8 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 #endregion
 
 #region Export Variables
+@export var can_move: bool = true
+
 @export_category("Customization")
 @export_enum("White", "Black", "Untextured") var piece_color = 2 as int :
 	set(color):
@@ -193,25 +193,27 @@ func update_name() -> void:
 
 #region Cursor Update/Dragging Functions
 func on_area_mouse_entered() -> void:
-	mouse_on_area = true
-	if not is_selected:
-		if Mouse.context == Mouse.CONTEXT.CURSOR:
-			Mouse.set_context(Mouse.CONTEXT.SELECT)
+	if can_move:
+		mouse_on_area = true
+		if not is_selected:
+			if Mouse.context == Mouse.CONTEXT.CURSOR:
+				Mouse.set_context(Mouse.CONTEXT.SELECT)
 	
 func on_area_mouse_exited() -> void:
-	mouse_on_area = false
-	if is_selected: snap_complete = true
-	if not is_selected:
-		if Mouse.context == Mouse.CONTEXT.SELECT:
-			Mouse.set_context(Mouse.CONTEXT.CURSOR)
+	if can_move:
+		mouse_on_area = false
+		if is_selected: snap_complete = true
+		if not is_selected:
+			if Mouse.context == Mouse.CONTEXT.SELECT:
+				Mouse.set_context(Mouse.CONTEXT.CURSOR)
 	
 func on_area_input_event(_viewport, _event, _shape_idx) -> void:
-	pass
-	if Input.is_action_just_pressed("Click"):
-		Mouse.set_context(Mouse.CONTEXT.GRAB)
-		Mouse.set_mode(Mouse.MODE.CONFINED)
-		z_index = 1
-		is_selected = true
+	if can_move:
+		if Input.is_action_just_pressed("Click"):
+			Mouse.set_context(Mouse.CONTEXT.GRAB)
+			Mouse.set_mode(Mouse.MODE.CONFINED)
+			z_index = 1
+			is_selected = true
 
 # Do the dragging/ Move towards the current zone's center.
 func _physics_process(delta):
@@ -257,10 +259,8 @@ func _input(_event):
 	if is_selected and Input.is_action_just_released("Click"):
 		is_selected = false
 		snap_complete = false
-		
 		if mouse_on_area: Mouse.set_context(Mouse.CONTEXT.SELECT)
 		else: Mouse.set_context(Mouse.CONTEXT.CURSOR)
-		
 		Mouse.set_mode(Mouse.MODE.FREE)
 		if hovered_zone and Global.highlight_zone: hovered_zone.invisible = true
 		update_zone()

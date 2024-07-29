@@ -31,8 +31,6 @@ window/stretch/aspect="expand"
 [file_customization]
 
 folder_colors={
-"res://Z_OLD_Z/Scenes/3x3/": "blue",
-"res://Z_OLD_Z/Scenes/4x4/": "red",
 "res://Z_OLD_Z/Scenes/Objects/": "purple",
 "res://Z_OLD_Z/Textures/3x3/": "blue",
 "res://Z_OLD_Z/Textures/4x4/": "red"
