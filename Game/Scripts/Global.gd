@@ -16,6 +16,9 @@ var highlight_zone := false
 
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
-		for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
-			print(zone, ': ', zone.piece)
-		print()
+		for player: Player in get_tree().get_nodes_in_group("Player"):
+			print(player, ": ", player.player_num)
+		
+		#for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
+			#print(zone, ': ', zone.piece)
+		#print()

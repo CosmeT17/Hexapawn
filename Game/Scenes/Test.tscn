@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=3 format=3 uid="uid://cfm0ob6pokol5"]
 
 [ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="1_i6fyo"]
+[ext_resource type="PackedScene" uid="uid://da2xfkybht05o" path="res://Players/Scenes/Player.tscn" id="2_3i2gm"]
 
 [node name="Test" type="Node2D"]
 
 [node name="Board" parent="." instance=ExtResource("1_i6fyo")]
 position = Vector2(324, 0)
 dimensions = 3
+
+[node name="Player_1" parent="Board" instance=ExtResource("2_3i2gm")]
+
+[node name="Player_2" parent="Board" instance=ExtResource("2_3i2gm")]
+player_num = 2
