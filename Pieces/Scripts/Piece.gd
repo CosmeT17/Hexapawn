@@ -141,16 +141,8 @@ func _ready():
 		area.mouse_entered.connect(on_area_mouse_entered)
 		area.mouse_exited.connect(on_area_mouse_exited)
 		area.input_event.connect(on_area_input_event)
+		Global.zones_generated.connect(assign_initial_zone)
 		#name_label.visible = false
-	#endregion
-	
-	#region Assigning Initial Zone.
-	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
-		if global_position.distance_to(zone.global_position) < zone.radius:
-			initial_zone = zone
-			global_position = zone.global_position
-			break
-	current_zone = initial_zone
 	#endregion
 
 #region Update/Set Functions
@@ -267,12 +259,22 @@ func _input(_event):
 #endregion
 
 #region Zone Functions
+func assign_initial_zone() -> void:
+	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
+		if global_position.distance_to(zone.global_position) < zone.radius:
+			initial_zone = zone
+			global_position = zone.global_position
+			break
+	current_zone = initial_zone
+	
+	print(name, ": ", initial_zone)
+
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
 func is_zone_valid(zone: Dropzone) -> bool:
 	if zone.piece and zone.piece.piece_color == self.piece_color: return false
 	return true
 
- # Returns the closest valid dropzone to the selected piece.
+# Returns the closest valid dropzone to the selected piece.
 func nearest_zone() -> Dropzone:
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 		if global_position.distance_to(zone.global_position) < zone.radius:

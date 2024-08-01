@@ -11,14 +11,13 @@ var snap_speed := 30
 var drag_speed := 20
 var zone_speed := 10
 
-#signal zones_loaded
+# Dropzones
 var highlight_zone := false
+signal zones_generated
 
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
-		for player: Player in get_tree().get_nodes_in_group("Player"):
-			print(player, ": ", player.player_num)
-		
+		pass
 		#for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 			#print(zone, ': ', zone.piece)
 		#print()

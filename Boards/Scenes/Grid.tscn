@@ -4,4 +4,5 @@
 
 [node name="Grid" type="Node2D"]
 script = ExtResource("1_6miwy")
-metadata/_edit_group_ = true
+
+[node name="Dropzones" type="Node2D" parent="."]
