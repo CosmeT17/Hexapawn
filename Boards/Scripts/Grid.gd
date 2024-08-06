@@ -58,18 +58,15 @@ const ID_pos_offset := Vector2(2,2)
 		update_dropzone_ID_position()
 #endregion
 #endregion
-
-@onready var dropzones = $Dropzones as Node2D
 #endregion
 
 func _ready():
 	dimensions = dimensions
 
 func generate_zones() -> void:
-	if dropzones:
-		for zone in dropzones.get_children():
-			if zone is Dropzone:
-				zone.free()
+	for zone in get_children():
+		if zone is Dropzone:
+			zone.free()
 	
 	if dimensions != 0:
 		var coordinates: Vector2 = Vector2.ZERO
@@ -90,8 +87,7 @@ func generate_zones() -> void:
 				coordinates.y += 1
 				ascii_val = ascii_start_val
 			
-			if dropzones:
-				dropzones.add_child(zone)
+			add_child(zone)
 			
 			#match dimensions:
 				#Global.BOARD_3X3: zone.label_id.theme = LABEL_BOARD_3X3_THEME
@@ -105,23 +101,22 @@ func organize_zones() -> void:
 		var start_position: Vector2 = Vector2(-(size_f/2) + square_radius, (size_f/2) - square_radius)
 		var count: int = 0
 		
-		if dropzones:
-			for zone in dropzones.get_children():
-				if zone is Dropzone:
-					zone.radius = zone_radius
-					zone.position = start_position + Vector2(2 * count * square_radius, 0)
-					
-					count += 1
-					if count == dimensions:
-						start_position = start_position + Vector2(0, -2 * square_radius)
-						count = 0
+		for zone in get_children():
+			if zone is Dropzone:
+				zone.radius = zone_radius
+				zone.position = start_position + Vector2(2 * count * square_radius, 0)
+				
+				count += 1
+				if count == dimensions:
+					start_position = start_position + Vector2(0, -2 * square_radius)
+					count = 0
 
 func update_zone_offset() -> void:
 	if dimensions != 0:
 		var square_radius: float = float(size) / dimensions / 2
 		var zone_radius: int = floor(square_radius - area_offset)
 		
-		for zone in dropzones.get_children():
+		for zone in get_children():
 			if zone is Dropzone:
 				if zone.radius != zone_radius:
 					zone.radius = zone_radius
@@ -131,35 +126,31 @@ func update_zone_offset() -> void:
 						zone.label_id.position += ID_pos_offset
 
 func recolor_zones() -> void:
-	if dropzones:
-		for zone in dropzones.get_children():
-			if zone is Dropzone:
-				if zone.color != dropzone_color:
-					zone.color = dropzone_color
+	for zone in get_children():
+		if zone is Dropzone:
+			if zone.color != dropzone_color:
+				zone.color = dropzone_color
 
 func update_zone_visibility() -> void:
 	if not Engine.is_editor_hint():
 		Global.highlight_zone = not show_dropzones
 	
-	if dropzones:
-		for zone in dropzones.get_children():
-			if zone is Dropzone:
-				if zone.invisible != not show_dropzones:
-					zone.invisible = not show_dropzones
+	for zone in get_children():
+		if zone is Dropzone:
+			if zone.invisible != not show_dropzones:
+				zone.invisible = not show_dropzones
 
 func update_dropzone_ID_visibility() -> void:
-	if dropzones:
-		for zone in dropzones.get_children():
-			if zone is Dropzone:
-				zone.show_ID = show_dropzone_ID
+	for zone in get_children():
+		if zone is Dropzone:
+			zone.show_ID = show_dropzone_ID
 
 func update_dropzone_ID_position() -> void:
-	if dropzones:
-		for zone in dropzones.get_children():
-			if zone is Dropzone:
-				if zone.ID_centered != dropzone_ID_centered:
-					zone.ID_centered = dropzone_ID_centered
-					
-					if not dropzone_ID_centered and zone.label_id:
-						zone.label_id.position -= Vector2(area_offset, area_offset)
-						zone.label_id.position += ID_pos_offset
+	for zone in get_children():
+		if zone is Dropzone:
+			if zone.ID_centered != dropzone_ID_centered:
+				zone.ID_centered = dropzone_ID_centered
+				
+				if not dropzone_ID_centered and zone.label_id:
+					zone.label_id.position -= Vector2(area_offset, area_offset)
+					zone.label_id.position += ID_pos_offset

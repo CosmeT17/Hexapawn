@@ -18,33 +18,35 @@ texture = ExtResource("2_jx1t4")
 dimensions = 3
 show_dropzone_ID = true
 
-[node name="Player_1" parent="Board/Grid" index="1"]
+[node name="Player_1" parent="Board/Players" index="0"]
 piece_color = 0
+show_piece_ID = true
 
-[node name="WP0" parent="Board/Grid/Player_1" index="0" instance=ExtResource("2_8mhfg")]
+[node name="WP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("2_8mhfg")]
 position = Vector2(-212, 212)
 piece_color = 0
 
-[node name="WP1" parent="Board/Grid/Player_1" index="1" instance=ExtResource("2_8mhfg")]
+[node name="WP1" parent="Board/Players/Player_1" index="1" instance=ExtResource("2_8mhfg")]
 position = Vector2(0, 212)
 piece_color = 0
 
-[node name="WP2" parent="Board/Grid/Player_1" index="2" instance=ExtResource("2_8mhfg")]
+[node name="WP2" parent="Board/Players/Player_1" index="2" instance=ExtResource("2_8mhfg")]
 position = Vector2(212, 212)
 piece_color = 0
 
-[node name="Player_2" parent="Board/Grid" index="2"]
+[node name="Player_2" parent="Board/Players" index="1"]
 piece_color = 1
+show_piece_ID = true
 
-[node name="BP0" parent="Board/Grid/Player_2" index="0" instance=ExtResource("2_8mhfg")]
+[node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("2_8mhfg")]
 position = Vector2(-212, -212)
 piece_color = 1
 
-[node name="BP1" parent="Board/Grid/Player_2" index="1" instance=ExtResource("2_8mhfg")]
+[node name="BP1" parent="Board/Players/Player_2" index="1" instance=ExtResource("2_8mhfg")]
 position = Vector2(0, -212)
 piece_color = 1
 
-[node name="BP2" parent="Board/Grid/Player_2" index="2" instance=ExtResource("2_8mhfg")]
+[node name="BP2" parent="Board/Players/Player_2" index="2" instance=ExtResource("2_8mhfg")]
 position = Vector2(212, -212)
 piece_color = 1
 

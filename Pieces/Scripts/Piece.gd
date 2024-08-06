@@ -69,22 +69,27 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 		if piece_color != 0 and piece_color != 1 and piece_color != 2:
 			piece_color = 2
 		piece_color = color
-		if (sprite): update_texture()
-		if(name_label): update_label()
+		if sprite: update_texture()
+		if name_label: update_label()
 
 @export_enum("Blue", "Red") var eye_color = 0 as int :
 	set(color):
 		if eye_color != 0 and eye_color != 1:
 			eye_color = 0
 		eye_color = color
-		if (sprite): update_texture()
+		if sprite: update_texture()
 
 @export_enum("3x3 Board:3", "4x4 Board:4") var piece_size = 3 as int :
 	set(size):
 		if piece_size != 3 and piece_size != 4:
 			piece_size = 3
 		piece_size = size
-		if(sprite and name_label): update_scale()
+		if sprite and name_label: update_scale()
+
+@export var show_ID = true as bool :
+	set(val):
+		show_ID = val
+		if name_label: name_label.visible = show_ID
 #endregion
 
 #region Global Variables
@@ -133,6 +138,8 @@ func _ready():
 	update_name()
 	update_label()
 	update_scale()
+	if name_label: 
+		name_label.visible = show_ID
 	#endregion
 	
 	#region Connecting Signals
@@ -142,7 +149,6 @@ func _ready():
 		area.mouse_exited.connect(on_area_mouse_exited)
 		area.input_event.connect(on_area_input_event)
 		Global.zones_generated.connect(assign_initial_zone)
-		#name_label.visible = false
 	#endregion
 
 #region Update/Set Functions
@@ -266,8 +272,6 @@ func assign_initial_zone() -> void:
 			global_position = zone.global_position
 			break
 	current_zone = initial_zone
-	
-	print(name, ": ", initial_zone)
 
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
 func is_zone_valid(zone: Dropzone) -> bool:

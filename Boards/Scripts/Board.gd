@@ -17,8 +17,8 @@ const board_textures: Dictionary = {
 #region Children Variables
 @onready var sprite = $Sprite as Sprite2D
 @onready var grid = $Grid as Grid
-@onready var player_1 = $Grid/Player_1 as Player
-@onready var player_2 = $Grid/Player_2 as Player
+@onready var player_1 = $Players/Player_1 as Player
+@onready var player_2 = $Players/Player_2 as Player
 #endregion
 
 #region Export Variables
