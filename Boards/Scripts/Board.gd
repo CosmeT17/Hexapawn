@@ -67,3 +67,8 @@ func _ready():
 func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]
 	if grid: grid.dimensions = dimensions
+
+# TESTING
+func _input(_event):
+	if Input.is_action_just_pressed("Test"):
+		player_1.is_turn = not player_1.is_turn
