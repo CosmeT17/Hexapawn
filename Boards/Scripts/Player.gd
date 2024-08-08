@@ -62,19 +62,22 @@ var player_num : int = 0
 var everyone_can_move: bool = true
 var is_turn: bool = true:
 	set(val):
-		if is_turn != val and piece_color != UNTEXTURED:
-			is_turn = val
-			#print(self, ": ", is_turn)
-			
-			var self_function = func(piece: Piece):
-				piece.can_move = is_turn
-			
-			var other_function = func(player: Player):
-				if everyone_can_move: player.is_turn = true
-				else: player.is_turn = not is_turn
-			
-			set_variable(self_function, other_function)
-#@export var is_AI: bool = false
+		if is_turn != val:
+			if piece_color != UNTEXTURED and not Global.is_selected:
+				is_turn = val
+				#print(self, ": ", is_turn)
+				
+				if player_num == 2:
+					Global.turn_switched = true
+				
+				var self_function = func(piece: Piece):
+					piece.can_move = is_turn
+				
+				var other_function = func(player: Player):
+					if everyone_can_move: player.is_turn = true
+					else: player.is_turn = not is_turn
+				
+				set_variable(self_function, other_function)
 
 # Pice:
 # piece_color <----

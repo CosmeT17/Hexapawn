@@ -191,17 +191,17 @@ func update_name() -> void:
 
 #region Cursor Update/Dragging Functions
 func on_area_mouse_entered() -> void:
+	mouse_on_area = true
 	if can_move:
-		mouse_on_area = true
-		if not is_selected:
+		if not is_selected and not Global.is_selected:
 			if Mouse.context == Mouse.CONTEXT.CURSOR:
 				Mouse.set_context(Mouse.CONTEXT.SELECT)
-	
+
 func on_area_mouse_exited() -> void:
+	mouse_on_area = false
 	if can_move:
-		mouse_on_area = false
 		if is_selected: snap_complete = true
-		if not is_selected:
+		if not is_selected and not Global.is_selected:
 			if Mouse.context == Mouse.CONTEXT.SELECT:
 				Mouse.set_context(Mouse.CONTEXT.CURSOR)
 	
@@ -212,6 +212,7 @@ func on_area_input_event(_viewport, _event, _shape_idx) -> void:
 			Mouse.set_mode(Mouse.MODE.CONFINED)
 			z_index = 1
 			is_selected = true
+			Global.is_selected = true
 
 # Do the dragging/ Move towards the current zone's center.
 func _physics_process(delta):
@@ -256,6 +257,7 @@ func _input(_event):
 	# Stop dragging.
 	if is_selected and Input.is_action_just_released("Click"):
 		is_selected = false
+		Global.is_selected = false
 		snap_complete = false
 		if mouse_on_area: Mouse.set_context(Mouse.CONTEXT.SELECT)
 		else: Mouse.set_context(Mouse.CONTEXT.CURSOR)
@@ -304,12 +306,32 @@ func nearest_zone() -> Dropzone:
 func update_zone(zone: Dropzone = nearest_zone()) -> void:
 	current_zone = zone
 
-# Show the closest zone's highlight.
 func _process(_delta):
-	if is_selected:
-		if Global.highlight_zone:
-			nearest_zone()
-			if hovered_zone:
-				if hovered_zone != current_zone:
-					hovered_zone.invisible = false
+	if not Engine.is_editor_hint():
+		#region Highlight Hovered Zone
+		if is_selected:
+			if Global.highlight_zone:
+				nearest_zone()
+				if hovered_zone:
+					if hovered_zone != current_zone:
+						hovered_zone.invisible = false
+		#endregion
+		
+		#if name == "WP1":
+			#print(Global.turn_switched)
+		
+		#region Cursor Update When Switching Turns
+		if mouse_on_area and not Global.is_selected:
+			if can_move and Global.turn_switched:
+				if Mouse.context != Mouse.CONTEXT.SELECT:
+					Mouse.set_context(Mouse.CONTEXT.SELECT)
+					Global.turn_switched = false
+					print("yo")
+			
+			elif Global.turn_switched:
+				if Mouse.context != Mouse.CONTEXT.CURSOR:
+					Mouse.set_context(Mouse.CONTEXT.CURSOR)
+					Global.turn_switched = false
+					print("Ne")
+		#endregion
 #endregion
