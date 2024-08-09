@@ -1,54 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfm0ob6pokol5"]
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="1_wsifo"]
-[ext_resource type="Texture2D" uid="uid://dwbxnw5wrw0bv" path="res://Boards/Textures/Board/Board_3x3_Texture.png" id="2_asybo"]
-[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="3_apjxq"]
+[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="1_qadwq"]
 
 [node name="Test" type="Node2D"]
 
-[node name="Board" parent="." instance=ExtResource("1_wsifo")]
+[node name="Board" parent="." instance=ExtResource("1_qadwq")]
 position = Vector2(324, 0)
-dimensions = 3
-
-[node name="Sprite" parent="Board" index="0"]
-texture = ExtResource("2_asybo")
-
-[node name="Grid" parent="Board" index="1"]
-dimensions = 3
-
-[node name="Player_1" parent="Board/Players" index="0"]
-piece_color = 0
-show_piece_ID = true
-
-[node name="WP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("3_apjxq")]
-position = Vector2(-212, 212)
-piece_color = 0
-
-[node name="WP1" parent="Board/Players/Player_1" index="1" instance=ExtResource("3_apjxq")]
-position = Vector2(0, 212)
-piece_color = 0
-
-[node name="WP2" parent="Board/Players/Player_1" index="2" instance=ExtResource("3_apjxq")]
-position = Vector2(212, 212)
-piece_color = 0
-
-[node name="Player_2" parent="Board/Players" index="1"]
-piece_color = 1
-show_piece_ID = true
-
-[node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("3_apjxq")]
-position = Vector2(-212, -212)
-can_move = false
-piece_color = 1
-
-[node name="BP1" parent="Board/Players/Player_2" index="1" instance=ExtResource("3_apjxq")]
-position = Vector2(0, -212)
-can_move = false
-piece_color = 1
-
-[node name="BP2" parent="Board/Players/Player_2" index="2" instance=ExtResource("3_apjxq")]
-position = Vector2(212, -212)
-can_move = false
-piece_color = 1
 
 [editable path="Board"]
