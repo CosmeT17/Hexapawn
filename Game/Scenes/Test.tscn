@@ -7,4 +7,10 @@
 [node name="Board" parent="." instance=ExtResource("1_qadwq")]
 position = Vector2(324, 0)
 
+[node name="Player_1" parent="Board/Players" index="0"]
+piece_color = 0
+
+[node name="Player_2" parent="Board/Players" index="1"]
+piece_color = 1
+
 [editable path="Board"]
