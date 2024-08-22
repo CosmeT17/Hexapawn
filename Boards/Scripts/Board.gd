@@ -72,3 +72,11 @@ func update_board() -> void:
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
 		player_1.is_turn = not player_1.is_turn
+		
+		#print(player_1, ": ", player_1.piece_color)
+		#print(player_2, ": ", player_2.piece_color)
+		
+		#if player_1.piece_color == Global.WHITE:
+			#player_1.piece_color = Global.BLACK
+		#elif player_1.piece_color == Global.BLACK:
+			#player_1.piece_color = Global.WHITE
