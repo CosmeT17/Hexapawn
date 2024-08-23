@@ -70,13 +70,31 @@ func update_board() -> void:
 
 # TESTING
 func _input(_event):
+	#region Switch Player Turns
 	if Input.is_action_just_pressed("Test"):
 		player_1.is_turn = not player_1.is_turn
+	#endregion
+	
+	#region Print Player Vars
+	elif Input.is_action_just_pressed("Test_Print"):
+		const colors = {0: "WHITE", 1: "BLACK", 2: "UNTEXTURED"}
+		const eye_col = {false: "BLUE", true: "RED"}
 		
-		#print(player_1, ": ", player_1.piece_color)
-		#print(player_2, ": ", player_2.piece_color)
-		
-		#if player_1.piece_color == Global.WHITE:
-			#player_1.piece_color = Global.BLACK
-		#elif player_1.piece_color == Global.BLACK:
-			#player_1.piece_color = Global.WHITE
+		for player: Player in [player_1, player_2]:
+			print(player, ": ", player.player_num)
+			print(player, ": ", colors[player.piece_color])
+			print(player, ": ", eye_col[player.is_ai], '\n')
+	#endregion
+	
+	#region Switch Player Colors
+	elif Input.is_action_just_pressed("Change_Piece_Color"):
+		if player_1.piece_color == Global.WHITE:
+			player_1.piece_color = Global.BLACK
+		else:
+			player_1.piece_color = Global.WHITE
+	#endregion
+	
+	#region Toggle Player_2 AI
+	elif Input.is_action_just_pressed("Toggle_AI"):
+		player_2.is_ai = not player_2.is_ai
+	#endregion

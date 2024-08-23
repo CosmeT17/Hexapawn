@@ -3,17 +3,18 @@ extends Node
 class_name Player
 
 enum {WHITE, BLACK, UNTEXTURED}
+enum {BLUE, RED}
 
 var is_ready: bool = false
 var alter_other_player: bool = true
 
-func set_variable(self_function: Callable, other_function: Callable) -> void:
+func set_variable(self_function: Callable, other_function) -> void:
 	if is_ready:
 		for piece in get_children():
 			if piece is Piece:
 				self_function.call(piece)
 		
-		if alter_other_player:
+		if alter_other_player and other_function:
 			for player in get_parent().get_children():
 				if player is Player:
 					if player != self:
@@ -25,6 +26,16 @@ func set_variable(self_function: Callable, other_function: Callable) -> void:
 	set(val):
 		if player_num == 2:
 			is_ai = val
+			
+			set_variable(
+				func(piece: Piece):
+					if is_ai: piece.eye_color = RED
+					else: piece.eye_color = BLUE,
+				null
+			)
+		
+		elif not is_ready and player_num == -1:
+			is_ai = val
 
 @export_category("Pieces")
 @export_enum("White", "Black", "Untextured") var piece_color: int = 2 :
@@ -33,16 +44,14 @@ func set_variable(self_function: Callable, other_function: Callable) -> void:
 			piece_color = color
 			#print(self, ": ", piece_color)
 			
-			var self_function = func(piece: Piece): 
-				piece.piece_color = piece_color
-			
-			var other_function = func(player: Player):
-				match piece_color:
-					WHITE: player.piece_color = BLACK
-					BLACK: player.piece_color = WHITE
-					UNTEXTURED: player.piece_color = UNTEXTURED
-			
-			set_variable(self_function, other_function)
+			set_variable(
+				func(piece: Piece): piece.piece_color = piece_color,
+				func(player: Player):
+					match piece_color:
+						WHITE: player.piece_color = BLACK
+						BLACK: player.piece_color = WHITE
+						UNTEXTURED: player.piece_color = UNTEXTURED
+			)
 
 @export var show_piece_ID: bool = false:
 	set(val):
