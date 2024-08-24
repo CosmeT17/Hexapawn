@@ -2,12 +2,39 @@
 extends Node
 class_name Player
 
+#region Constants and Variables
+#region Constants
 enum {WHITE, BLACK, UNTEXTURED}
 enum {BLUE, RED}
+#endregion
+
+#region Variables
+var player_num : int = -1 : 
+	set(num):
+		player_num = num
+		
+		if player_num > 0:
+			match piece_color:
+				WHITE: is_turn = true
+				BLACK: is_turn = false
+
+var is_turn: bool = true :
+	set(val):
+		if player_num != 0 and is_turn != val:
+			if piece_color != UNTEXTURED:
+				is_turn = val
+				Global.turn_switched = true
+				
+				set_variable(
+					func(piece: Piece): piece.can_move = is_turn,
+					func(player: Player): player.is_turn = not is_turn
+				)
 
 var is_ready: bool = false
 var alter_other_player: bool = true
+#endregion
 
+#region Export Variables
 func set_variable(self_function: Callable, other_function) -> void:
 	if is_ready:
 		for piece in get_children():
@@ -22,6 +49,47 @@ func set_variable(self_function: Callable, other_function) -> void:
 						other_function.call(player)
 		alter_other_player = true
 
+#region Pieces Export Variables
+@export_category("Pieces")
+@export_enum("White", "Black", "Untextured") var piece_color: int = 2 :
+	set(color):
+		if player_num != 0 and piece_color != color:
+			piece_color = color
+			
+			set_variable(
+				func(piece: Piece): piece.piece_color = piece_color,
+				func(player: Player):
+					match piece_color:
+						WHITE: player.piece_color = BLACK
+						BLACK: player.piece_color = WHITE
+						UNTEXTURED: player.piece_color = UNTEXTURED
+			)
+			
+			if not Engine.is_editor_hint():
+				if player_num == 1:
+					match piece_color:
+						WHITE: is_turn = true
+						BLACK: is_turn = false
+
+@export var highlight_dropzone: bool = true :
+	set(val):
+		if player_num != 0:
+			highlight_dropzone = val
+			# TODO
+
+@export var show_piece_ID: bool = false :
+	set(val):
+		if player_num != 0 and show_piece_ID != val:
+			show_piece_ID = val
+			
+			set_variable(
+				func(piece: Piece): piece.show_ID = show_piece_ID,
+				func(player: Player): player.show_piece_ID = show_piece_ID
+			)
+#endregion
+
+#region AI Export Variables
+@export_category("AI")
 @export var is_ai: bool = false :
 	set(val):
 		if player_num == 2:
@@ -37,87 +105,18 @@ func set_variable(self_function: Callable, other_function) -> void:
 		elif not is_ready and player_num == -1:
 			is_ai = val
 
-@export_category("Pieces")
-@export_enum("White", "Black", "Untextured") var piece_color: int = 2 :
-	set(color):
-		if player_num != 0 and piece_color != color:
-			piece_color = color
-			#print(self, ": ", piece_color)
-			
-			set_variable(
-				func(piece: Piece): piece.piece_color = piece_color,
-				func(player: Player):
-					match piece_color:
-						WHITE: player.piece_color = BLACK
-						BLACK: player.piece_color = WHITE
-						UNTEXTURED: player.piece_color = UNTEXTURED
-			)
+#TODO: More AI Settings
+#endregion
+#endregion
+#endregion
 
-@export var show_piece_ID: bool = false:
-	set(val):
-		if player_num != 0 and show_piece_ID != val:
-			show_piece_ID = val
-			#print(self, ": ", show_piece_ID)
-			
-			var self_function = func(piece: Piece): 
-				piece.show_ID = show_piece_ID
-			
-			var other_function = func(player: Player):
-				player.show_piece_ID = show_piece_ID
-			
-			set_variable(self_function, other_function)
-
-var player_num : int = -1
-
-#var everyone_can_move: bool = true
-var is_turn: bool = true :
-	set(val):
-		if player_num != 0 and is_turn != val:
-			if piece_color != UNTEXTURED:
-				var run := true
-				if not Engine.is_editor_hint(): 
-					run = not Global.is_selected
-				
-				if run:
-					is_turn = val
-					print(self, ": ", is_turn)
-					
-					if not Engine.is_editor_hint() and player_num == 2:
-						Global.turn_switched = true
-					
-					var self_function = func(piece: Piece):
-						piece.can_move = is_turn
-					
-					var other_function = func(player: Player):
-						player.is_turn = not is_turn
-						#if everyone_can_move: player.is_turn = true
-						#else: player.is_turn = not is_turn
-					
-					set_variable(self_function, other_function)
-
-# Pice:
-# piece_color <----
-# show_piece_IDs <----
-
-# Dropzones
-# highlight_dropzones
-
-# Internal
-# move_direction
-# winning_y
+# TODO:
 # num_wins
+# winning_y
 
 func _ready():
 	player_num = 0
 	is_ready = true
-	
-	#print(self, ": ", piece_color)
-	#if player_num == 1:
-		#match piece_color:
-			#WHITE: is_turn = true
-			#BLACK: is_turn = false
-	
-	#print(self, ": ", piece_color)
 
 func _on_child_entered_tree(node):
 	if is_ready:

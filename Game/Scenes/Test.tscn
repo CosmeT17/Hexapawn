@@ -16,22 +16,12 @@ texture = ExtResource("2_ljtya")
 [node name="Grid" parent="Board" index="1"]
 dimensions = 3
 
-[node name="Player_1" parent="Board/Players" index="0"]
-piece_color = 0
-
-[node name="WP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("2_f33th")]
+[node name="_P0" parent="Board/Players/Player_1" index="0" instance=ExtResource("2_f33th")]
 position = Vector2(0, 212)
-piece_color = 0
 show_ID = false
 
-[node name="Player_2" parent="Board/Players" index="1"]
-is_ai = true
-piece_color = 1
-
-[node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("2_f33th")]
+[node name="_P0" parent="Board/Players/Player_2" index="0" instance=ExtResource("2_f33th")]
 position = Vector2(0, -212)
-piece_color = 1
-eye_color = 1
 show_ID = false
 
 [editable path="Board"]
