@@ -3,14 +3,14 @@
 importer="texture_atlas"
 type="Texture2D"
 uid="uid://c1s8qneqj3bdq"
-path="res://.godot/imported/Board_Default_Texture.png-a690b299294900a76e52a7ea1f30d0e4.res"
+path="res://.godot/imported/Board_Default_Texture.png-bfe14b18af824f1872e0ffd556d62547.res"
 group_file="res://Boards/Textures/Board_Atlas.png"
 valid=true
 [deps]
 
 
-source_file="res://Boards/Textures/Board/Board_Default_Texture.png"
-dest_files=["res://.godot/imported/Board_Default_Texture.png-a690b299294900a76e52a7ea1f30d0e4.res"]
+source_file="res://Board/Textures/Board/Board_Default_Texture.png"
+dest_files=["res://.godot/imported/Board_Default_Texture.png-bfe14b18af824f1872e0ffd556d62547.res"]
 
 [params]
 

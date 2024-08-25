@@ -9,34 +9,28 @@ enum {BLUE, RED}
 #endregion
 
 #region Variables
-var player_num : int = -1 : 
-	set(num):
-		player_num = num
-		
-		if player_num > 0:
-			match piece_color:
-				WHITE: is_turn = true
-				BLACK: is_turn = false
+var player_num : int = -1
+var is_ready: bool = false
+var alter_other_player: bool = true
 
 var is_turn: bool = true :
 	set(val):
 		if player_num != 0 and is_turn != val:
-			if piece_color != UNTEXTURED:
+			if not (not Engine.is_editor_hint() and piece_color == UNTEXTURED):
 				is_turn = val
-				Global.turn_switched = true
+				
+				if not Engine.is_editor_hint(): 
+					Global.turn_switched = true
 				
 				set_variable(
-					func(piece: Piece): piece.can_move = is_turn,
-					func(player: Player): player.is_turn = not is_turn
+					func(piece: Piece): piece.can_move = is_turn if piece_color != UNTEXTURED else true,
+					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
-
-var is_ready: bool = false
-var alter_other_player: bool = true
 #endregion
 
 #region Export Variables
-func set_variable(self_function: Callable, other_function) -> void:
-	if is_ready:
+func set_variable(self_function: Callable, other_function, pre_run: bool = false) -> void:
+	if is_ready or pre_run:
 		for piece in get_children():
 			if piece is Piece:
 				self_function.call(piece)
@@ -65,17 +59,8 @@ func set_variable(self_function: Callable, other_function) -> void:
 						UNTEXTURED: player.piece_color = UNTEXTURED
 			)
 			
-			if not Engine.is_editor_hint():
-				if player_num == 1:
-					match piece_color:
-						WHITE: is_turn = true
-						BLACK: is_turn = false
-
-@export var highlight_dropzone: bool = true :
-	set(val):
-		if player_num != 0:
-			highlight_dropzone = val
-			# TODO
+			if piece_color == BLACK: is_turn = false
+			else: is_turn = true
 
 @export var show_piece_ID: bool = false :
 	set(val):
@@ -92,18 +77,20 @@ func set_variable(self_function: Callable, other_function) -> void:
 @export_category("AI")
 @export var is_ai: bool = false :
 	set(val):
-		if player_num == 2:
+		if (player_num == 2 and is_ai != val) or not is_ready:
 			is_ai = val
 			
 			set_variable(
 				func(piece: Piece):
-					if is_ai: piece.eye_color = RED
-					else: piece.eye_color = BLUE,
-				null
+					if is_ai: 
+						piece.eye_color = RED
+						piece.highlight_zone = false
+					else: 
+						piece.eye_color = BLUE
+						piece.highlight_zone = true,
+				null,
+				true
 			)
-		
-		elif not is_ready and player_num == -1:
-			is_ai = val
 
 #TODO: More AI Settings
 #endregion
@@ -116,14 +103,17 @@ func set_variable(self_function: Callable, other_function) -> void:
 
 func _ready():
 	player_num = 0
+	is_ai = is_ai
 	is_ready = true
 
 func _on_child_entered_tree(node):
 	if is_ready:
 		if player_num != 0:
 			if node is Piece:
-				node.can_move = is_turn
 				node.piece_color = piece_color
 				node.show_ID = show_piece_ID
+				node.piece_size = get_parent().get_parent().dimensions
+				if piece_color == BLACK: node.can_move = false
+				if is_ai: node.eye_color = RED
 		else:
 			node.queue_free()

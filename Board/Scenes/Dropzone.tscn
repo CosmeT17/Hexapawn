@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d35o4bm0mnjbm"]
 
-[ext_resource type="Script" path="res://Boards/Scripts/Dropzone.gd" id="1_yln23"]
-[ext_resource type="Theme" uid="uid://daq4lalt5eubq" path="res://Boards/Themes/Label_Board_3x3_Theme.tres" id="2_blqp8"]
+[ext_resource type="Script" path="res://Board/Scripts/Dropzone.gd" id="1_yln23"]
+[ext_resource type="Theme" uid="uid://daq4lalt5eubq" path="res://Board/Themes/Label_Board_3x3_Theme.tres" id="2_blqp8"]
 
 [node name="Dropzone" type="Marker2D" groups=["Zone"]]
 gizmo_extents = 100.0

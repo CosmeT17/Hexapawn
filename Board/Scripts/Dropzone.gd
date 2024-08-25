@@ -8,10 +8,11 @@ class_name Dropzone
 @export_category("Zone")
 @export var radius: int = 100 :
 	set(size):
-		radius = size
-		gizmo_extents = radius
-		if not ID_centered: 
-			ID_centered = false
+		if radius != size:
+			radius = size
+			gizmo_extents = radius
+			if not ID_centered: 
+				ID_centered = false
 
 var alpha: float = 0.25
 @export var color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
@@ -34,17 +35,19 @@ var alpha: float = 0.25
 @export_category("ID")
 @export var show_ID: bool = true :
 	set(val):
-		show_ID = val
-		if label_id: label_id.visible = show_ID
+		if show_ID != val:
+			show_ID = val
+			if label_id: label_id.visible = show_ID
 
 @export var ID_centered: bool = true :
 	set(val):
-		ID_centered = val
-		if label_id:
-			if ID_centered: 
-				label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
-			else: 
-				label_id.position = Vector2(-radius, -radius)
+		if ID_centered != val:
+			ID_centered = val
+			if label_id:
+				if ID_centered: 
+					label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
+				else: 
+					label_id.position = Vector2(-radius, -radius)
 #endregion
 #endregion
 

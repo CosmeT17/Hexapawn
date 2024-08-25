@@ -1,27 +1,39 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfm0ob6pokol5"]
 
-[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Boards/Scenes/Board.tscn" id="1_qadwq"]
+[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Board/Scenes/Board.tscn" id="1_auy5j"]
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="2_f33th"]
-[ext_resource type="Texture2D" uid="uid://dwbxnw5wrw0bv" path="res://Boards/Textures/Board/Board_3x3_Texture.png" id="2_ljtya"]
+[ext_resource type="Texture2D" uid="uid://dwbxnw5wrw0bv" path="res://Board/Textures/Board/Board_3x3_Texture.png" id="2_o0okw"]
 
 [node name="Test" type="Node2D"]
 
-[node name="Board" parent="." instance=ExtResource("1_qadwq")]
+[node name="Board" parent="." instance=ExtResource("1_auy5j")]
 position = Vector2(324, 0)
 dimensions = 3
+highlight_dropzones = true
 
 [node name="Sprite" parent="Board" index="0"]
-texture = ExtResource("2_ljtya")
+texture = ExtResource("2_o0okw")
 
 [node name="Grid" parent="Board" index="1"]
 dimensions = 3
 
-[node name="_P0" parent="Board/Players/Player_1" index="0" instance=ExtResource("2_f33th")]
+[node name="Player_1" parent="Board/Players" index="0"]
+piece_color = 0
+
+[node name="WP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("2_f33th")]
 position = Vector2(0, 212)
+piece_color = 0
 show_ID = false
 
-[node name="_P0" parent="Board/Players/Player_2" index="0" instance=ExtResource("2_f33th")]
+[node name="Player_2" parent="Board/Players" index="1"]
+piece_color = 1
+is_ai = true
+
+[node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("2_f33th")]
 position = Vector2(0, -212)
+can_move = false
+piece_color = 1
+eye_color = 1
 show_ID = false
 
 [editable path="Board"]

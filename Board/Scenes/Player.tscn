@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://da2xfkybht05o"]
 
-[ext_resource type="Script" path="res://Boards/Scripts/Player.gd" id="1_3kkj3"]
+[ext_resource type="Script" path="res://Board/Scripts/Player.gd" id="1_lka34"]
 
 [node name="Player_1" type="Node2D"]
-script = ExtResource("1_3kkj3")
+script = ExtResource("1_lka34")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

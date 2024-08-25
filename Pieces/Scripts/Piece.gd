@@ -66,30 +66,32 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 @export_category("Customization")
 @export_enum("White", "Black", "Untextured") var piece_color = 2 as int :
 	set(color):
-		if piece_color != 0 and piece_color != 1 and piece_color != 2:
-			piece_color = 2
-		piece_color = color
-		if sprite: update_texture()
-		if name_label: update_label()
+		if piece_color != color and color in [0, 1, 2]:
+			piece_color = color
+			if sprite: update_texture()
+			if name_label: update_label()
 
 @export_enum("Blue", "Red") var eye_color = 0 as int :
 	set(color):
-		if eye_color != 0 and eye_color != 1:
-			eye_color = 0
-		eye_color = color
-		if sprite: update_texture()
+		if eye_color != color and color in [0, 1]:
+			if eye_color != 0 and eye_color != 1:
+				eye_color = 0
+			eye_color = color
+			if sprite: update_texture()
 
 @export_enum("3x3 Board:3", "4x4 Board:4") var piece_size = 3 as int :
 	set(size):
-		if piece_size != 3 and piece_size != 4:
-			piece_size = 3
-		piece_size = size
-		if sprite and name_label: update_scale()
+		if piece_size != size and size in [3, 4]:
+			if piece_size != 3 and piece_size != 4:
+				piece_size = 3
+			piece_size = size
+			if sprite and name_label: update_scale()
 
 @export var show_ID = true as bool :
 	set(val):
-		show_ID = val
-		if name_label: name_label.visible = show_ID
+		if show_ID != val:
+			show_ID = val
+			if name_label: name_label.visible = show_ID
 #endregion
 
 #region Global Variables
@@ -123,6 +125,7 @@ var current_zone: Dropzone:
 		
 var initial_zone: Dropzone
 var hovered_zone: Dropzone
+var highlight_zone: bool = true
 #endregion
 #endregion
 #endregion
@@ -262,7 +265,9 @@ func _input(_event):
 		if mouse_on_area: Mouse.set_context(Mouse.CONTEXT.SELECT)
 		else: Mouse.set_context(Mouse.CONTEXT.CURSOR)
 		Mouse.set_mode(Mouse.MODE.FREE)
-		if hovered_zone and Global.highlight_zone: hovered_zone.invisible = true
+		if hovered_zone:
+			if highlight_zone and Global.highlight_zone: 
+				hovered_zone.invisible = true
 		update_zone()
 #endregion
 
@@ -288,7 +293,7 @@ func nearest_zone() -> Dropzone:
 				
 				# Changing between zones -> make the old one invisible.
 				if hovered_zone and hovered_zone != zone:
-					if Global.highlight_zone: 
+					if highlight_zone and Global.highlight_zone: 
 						hovered_zone.invisible = true
 				hovered_zone = zone
 				
@@ -296,8 +301,9 @@ func nearest_zone() -> Dropzone:
 					return zone
 	
 	# Moving off a zone into a place with no zones -> make old one invisible.
-	if hovered_zone and Global.highlight_zone: 
-		hovered_zone.invisible = true
+	if hovered_zone:
+		if highlight_zone and Global.highlight_zone: 
+			hovered_zone.invisible = true
 	hovered_zone = null
 	
 	return current_zone 
@@ -310,7 +316,7 @@ func _process(_delta):
 	if not Engine.is_editor_hint():
 		#region Highlight Hovered Zone
 		if is_selected:
-			if Global.highlight_zone:
+			if highlight_zone and Global.highlight_zone:
 				nearest_zone()
 				if hovered_zone:
 					if hovered_zone != current_zone:

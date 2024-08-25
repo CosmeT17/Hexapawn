@@ -13,49 +13,56 @@ const ID_pos_offset := Vector2(2,2)
 @export_category("Measurements")
 @export_enum("3x3:3", "4x4:4", "None: 0") var dimensions: int = 3 :
 	set(dim):
-		dimensions = dim
-		generate_zones()
-		organize_zones()
-		recolor_zones()
-		update_zone_visibility()
-		update_dropzone_ID_visibility()
-		update_dropzone_ID_position()
+		if dimensions != dim and dim in [3, 4, 0]:
+			dimensions = dim
+			generate_zones()
+			organize_zones()
+			recolor_zones()
+			update_zone_visibility()
+			update_dropzone_ID_visibility()
+			update_dropzone_ID_position()
 
 @export_range(300, 700) var size: int = 636 :
 	set(val):
-		size = val
-		organize_zones()
+		if size != val:
+			size = val
+			organize_zones()
 #endregion
 
 #region Dropzones Export Variables
 @export_category("Dropzones")
 @export_range(0, 50) var area_offset: int = 0 :
 	set(offset):
-		area_offset = offset
-		update_zone_offset()
+		if area_offset != offset:
+			area_offset = offset
+			update_zone_offset()
 
 @export var dropzone_color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
 	set(color):
-		dropzone_color = color
-		recolor_zones()
+		if dropzone_color != color:
+			dropzone_color = color
+			recolor_zones()
 
 @export var show_dropzones: bool = true :
 	set(val):
-		show_dropzones = val
-		update_zone_visibility()
+		if show_dropzones != val:
+			show_dropzones = val
+			update_zone_visibility()
 #endregion
 
 #region IDs Export Variables
 @export_category("IDs")
 @export var show_dropzone_ID: bool = true :
 	set(val):
-		show_dropzone_ID = val
-		update_dropzone_ID_visibility()
+		if show_dropzone_ID != val:
+			show_dropzone_ID = val
+			update_dropzone_ID_visibility()
 
 @export var dropzone_ID_centered: bool = true :
 	set(val):
-		dropzone_ID_centered = val
-		update_dropzone_ID_position()
+		if dropzone_ID_centered != val:
+			dropzone_ID_centered = val
+			update_dropzone_ID_position()
 #endregion
 #endregion
 #endregion

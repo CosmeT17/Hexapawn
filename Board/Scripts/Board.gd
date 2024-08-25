@@ -24,29 +24,35 @@ const board_textures: Dictionary = {
 #region Export Variables
 @export_enum("3x3:3", "4x4:4", "None:0") var dimensions: int = 0 :
 	set(dim):
-		dimensions = dim
-		update_board()
+		if dimensions != dim and dim in [3, 4, 0]:
+			dimensions = dim
+			update_board()
 
 #region Dropzone Export Variables
 @export_category("Dropzones")
-@export var highlight_dropzones: bool = true :
+@export var highlight_dropzones: bool = false :
 	set(val):
-		highlight_dropzones = val
-		if not Engine.is_editor_hint():
-			Global.highlight_zone = false if show_dropzones else highlight_dropzones
+		if highlight_dropzones != val:
+			highlight_dropzones = val
+			if not Engine.is_editor_hint():
+				Global.highlight_zone = false if show_dropzones else highlight_dropzones
 
 @export var show_zone_ID: bool = false :
 	set(val):
-		show_zone_ID = val
-		if grid: grid.show_dropzone_ID = show_zone_ID
+		if show_zone_ID != val:
+			show_zone_ID = val
+			if grid: grid.show_dropzone_ID = show_zone_ID
 #endregion
 
-@export_category("Testing")
 @export var show_dropzones: bool = false :
 	set(val):
-		show_dropzones = val
-		if grid: grid.show_dropzones = show_dropzones
+		if show_dropzones != val:
+			show_dropzones = val
+			if grid: grid.show_dropzones = show_dropzones
 #endregion
+
+@export_category("P")
+
 #endregion
 
 func _ready():

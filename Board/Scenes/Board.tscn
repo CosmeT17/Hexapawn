@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7o6hs468xm18"]
 
-[ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Boards/Textures/Board/Board_Default_Texture.png" id="1_1rsuf"]
-[ext_resource type="Script" path="res://Boards/Scripts/Board.gd" id="1_bu8b4"]
-[ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Boards/Scenes/Grid.tscn" id="3_rkc6n"]
-[ext_resource type="PackedScene" uid="uid://da2xfkybht05o" path="res://Boards/Scenes/Player.tscn" id="4_noqmj"]
+[ext_resource type="Texture2D" uid="uid://c1s8qneqj3bdq" path="res://Board/Textures/Board/Board_Default_Texture.png" id="1_1rsuf"]
+[ext_resource type="Script" path="res://Board/Scripts/Board.gd" id="1_bu8b4"]
+[ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Board/Scenes/Grid.tscn" id="3_rkc6n"]
+[ext_resource type="PackedScene" uid="uid://da2xfkybht05o" path="res://Board/Scenes/Player.tscn" id="4_noqmj"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_bu8b4")

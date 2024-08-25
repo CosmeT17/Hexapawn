@@ -18,10 +18,3 @@ signal zones_generated
 
 # Mouse
 var turn_switched := false
-
-func _input(_event):
-	if Input.is_action_just_pressed("Test"):
-		pass
-		#for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
-			#print(zone, ': ', zone.piece)
-		#print()
