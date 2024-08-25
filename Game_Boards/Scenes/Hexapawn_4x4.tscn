@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://bam5fr3mw5mqm"]
+
+[ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Board/Scenes/Board.tscn" id="1_isbsj"]
+[ext_resource type="Texture2D" uid="uid://bafepqfbr4iv0" path="res://Board/Textures/Board/Board_4x4_Texture.png" id="2_logks"]
+[ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="3_43xwu"]
+
+[node name="Hexapawn_4X4" type="Node2D"]
+
+[node name="Board" parent="." instance=ExtResource("1_isbsj")]
+dimensions = 4
+
+[node name="Sprite" parent="Board" index="0"]
+texture = ExtResource("2_logks")
+
+[node name="Grid" parent="Board" index="1"]
+dimensions = 4
+
+[node name="Player_1" parent="Board/Players" index="0"]
+piece_color = 1
+
+[node name="BP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("3_43xwu")]
+position = Vector2(-238, 239)
+can_move = false
+piece_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="BP1" parent="Board/Players/Player_1" index="1" instance=ExtResource("3_43xwu")]
+position = Vector2(-79, 239)
+can_move = false
+piece_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="BP2" parent="Board/Players/Player_1" index="2" instance=ExtResource("3_43xwu")]
+position = Vector2(80, 239)
+can_move = false
+piece_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="BP3" parent="Board/Players/Player_1" index="3" instance=ExtResource("3_43xwu")]
+position = Vector2(239, 239)
+can_move = false
+piece_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="Player_2" parent="Board/Players" index="1"]
+piece_color = 0
+is_ai = true
+
+[node name="WP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("3_43xwu")]
+position = Vector2(-238, -238)
+piece_color = 0
+eye_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="WP1" parent="Board/Players/Player_2" index="1" instance=ExtResource("3_43xwu")]
+position = Vector2(-79, -238)
+piece_color = 0
+eye_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="WP2" parent="Board/Players/Player_2" index="2" instance=ExtResource("3_43xwu")]
+position = Vector2(80, -238)
+piece_color = 0
+eye_color = 1
+piece_size = 4
+show_ID = false
+
+[node name="WP3" parent="Board/Players/Player_2" index="3" instance=ExtResource("3_43xwu")]
+position = Vector2(239, -238)
+piece_color = 0
+eye_color = 1
+piece_size = 4
+show_ID = false
+
+[editable path="Board"]
