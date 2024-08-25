@@ -3,9 +3,9 @@ extends Node2D
 class_name Grid
 
 #region Constants and Variables
-const DROPZONE = preload("res://Boards/Scenes/Dropzone.tscn") as PackedScene
-const LABEL_BOARD_3X3_THEME = preload("res://Boards/Themes/Label_Board_3x3_Theme.tres") as Theme
-const LABEL_BOARD_4X4_THEME = preload("res://Boards/Themes/Label_Board_4x4_Theme.tres") as Theme
+const DROPZONE = preload("res://Board/Scenes/Dropzone.tscn") as PackedScene
+const LABEL_BOARD_3X3_THEME = preload("res://Board/Themes/Label_Board_3x3_Theme.tres") as Theme
+const LABEL_BOARD_4X4_THEME = preload("res://Board/Themes/Label_Board_4x4_Theme.tres") as Theme
 const ID_pos_offset := Vector2(2,2)
 
 #region Export Variables

@@ -2,9 +2,9 @@
 
 importer="texture_atlas"
 type="Texture2D"
-uid="uid://dwbxnw5wrw0bv"
+uid="uid://cm7mjbaeydqs4"
 path="res://.godot/imported/Board_3x3_Texture.png-d085fd04a401bed73be0941849871a38.res"
-group_file="res://Boards/Textures/Board_Atlas.png"
+group_file="res://Board/Textures/Board_Atlas.png"
 valid=true
 [deps]
 
@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/Board_3x3_Texture.png-d085fd04a401bed73be0941
 
 [params]
 
-atlas_file="res://Boards/Textures/Board_Atlas.png"
+atlas_file="res://Board/Textures/Board_Atlas.png"
 import_mode=0
 crop_to_region=false
 trim_alpha_border_from_region=true

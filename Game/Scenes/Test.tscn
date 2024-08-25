@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c7o6hs468xm18" path="res://Board/Scenes/Board.tscn" id="1_auy5j"]
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="2_f33th"]
-[ext_resource type="Texture2D" uid="uid://dwbxnw5wrw0bv" path="res://Board/Textures/Board/Board_3x3_Texture.png" id="2_o0okw"]
+[ext_resource type="Texture2D" uid="uid://cm7mjbaeydqs4" path="res://Board/Textures/Board/Board_3x3_Texture.png" id="2_mb87u"]
 
 [node name="Test" type="Node2D"]
 
@@ -12,7 +12,7 @@ dimensions = 3
 highlight_dropzones = true
 
 [node name="Sprite" parent="Board" index="0"]
-texture = ExtResource("2_o0okw")
+texture = ExtResource("2_mb87u")
 
 [node name="Grid" parent="Board" index="1"]
 dimensions = 3
