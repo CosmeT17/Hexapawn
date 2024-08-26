@@ -1,9 +1,9 @@
 extends Node
 
 # Enums
+enum {NORTH, EAST, SOUTH, WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST, NORTH_WEST}
 enum {BOARD_3X3 = 3, BOARD_4X4 = 4, NONE = 0}
 enum {WHITE, BLACK, UNTEXTURED}
-enum {UP = 1, DOWN = -1}
 enum {BLUE, RED}
 
 # Pieces

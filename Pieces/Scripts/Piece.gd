@@ -126,6 +126,7 @@ var current_zone: Dropzone:
 var initial_zone: Dropzone
 var hovered_zone: Dropzone
 var highlight_zone: bool = true
+var get_neighbor: Callable
 #endregion
 #endregion
 #endregion
@@ -279,6 +280,7 @@ func assign_initial_zone() -> void:
 			global_position = zone.global_position
 			break
 	current_zone = initial_zone
+	get_neighbor = initial_zone.get_parent().get_neighbor
 
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
 func is_zone_valid(zone: Dropzone) -> bool:

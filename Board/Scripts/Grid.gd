@@ -3,10 +3,12 @@ extends Node2D
 class_name Grid
 
 #region Constants and Variables
+enum {NORTH, EAST, SOUTH, WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST, NORTH_WEST}
 const DROPZONE = preload("res://Board/Scenes/Dropzone.tscn") as PackedScene
 const LABEL_BOARD_3X3_THEME = preload("res://Board/Themes/Label_Board_3x3_Theme.tres") as Theme
 const LABEL_BOARD_4X4_THEME = preload("res://Board/Themes/Label_Board_4x4_Theme.tres") as Theme
 const ID_pos_offset := Vector2(2,2)
+var dropzones: Array[Array] 
 
 #region Export Variables
 #region Measurements Export Variables
@@ -86,6 +88,9 @@ func generate_zones() -> void:
 			zone.coordinates = coordinates
 			zone.name = String.chr(ascii_val) + str(coordinates.y + 1)
 			
+			if coordinates.x == 0: dropzones.append([])
+			dropzones[coordinates.y].append(zone)
+				
 			if coordinates.x < dimensions - 1:
 				coordinates.x += 1
 				ascii_val += 1
@@ -161,3 +166,34 @@ func update_dropzone_ID_position() -> void:
 				if not dropzone_ID_centered and zone.label_id:
 					zone.label_id.position -= Vector2(area_offset, area_offset)
 					zone.label_id.position += ID_pos_offset
+
+func get_neighbor(zone: Dropzone, direction: int) -> Dropzone:
+	var coordinates: Vector2 = zone.coordinates
+	
+	match direction:
+		NORTH: 
+			if coordinates.y + 1 >= dimensions: return null
+			return dropzones[coordinates.y + 1][coordinates.x]
+		EAST:
+			if coordinates.x + 1 >= dimensions: return null
+			return dropzones[coordinates.y][coordinates.x + 1]
+		SOUTH:
+			if coordinates.y - 1 < 0: return null
+			return dropzones[coordinates.y - 1][coordinates.x]
+		WEST:
+			if coordinates.x - 1 < 0: return null
+			return dropzones[coordinates.y][coordinates.x - 1]
+		NORTH_EAST:
+			if coordinates.y + 1 >= dimensions or coordinates.x + 1 >= dimensions: return null
+			return dropzones[coordinates.y + 1][coordinates.x + 1]
+		SOUTH_EAST:
+			if coordinates.y - 1 < 0 or coordinates.x + 1 >= dimensions: return null
+			return dropzones[coordinates.y - 1][coordinates.x + 1]
+		SOUTH_WEST:
+			if coordinates.y - 1 < 0 or coordinates.x - 1 < 0 : return null
+			return dropzones[coordinates.y - 1][coordinates.x - 1]
+		NORTH_WEST:
+			if coordinates.y + 1 >= dimensions or coordinates.x - 1 < 0: return null
+			return dropzones[coordinates.y + 1][coordinates.x - 1]
+			
+	return null
