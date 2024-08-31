@@ -11,8 +11,7 @@ class_name Dropzone
 		if radius != size:
 			radius = size
 			gizmo_extents = radius
-			if not ID_centered: 
-				ID_centered = false
+			if not ID_centered: update_ID_position()
 
 var alpha: float = 0.25
 @export var color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
@@ -43,11 +42,9 @@ var alpha: float = 0.25
 	set(val):
 		if ID_centered != val:
 			ID_centered = val
+			
 			if label_id:
-				if ID_centered: 
-					label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
-				else: 
-					label_id.position = Vector2(-radius, -radius)
+				update_ID_position()
 #endregion
 #endregion
 
@@ -62,6 +59,7 @@ func _ready():
 	ID = String(name) if name != "Dropzone" else "A0"
 	label_id.text = ID
 	label_id.visible = show_ID
+	update_ID_position()
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, color)
@@ -69,3 +67,9 @@ func _draw():
 # str() Override
 func _to_string():
 	return ID
+
+func update_ID_position() -> void:
+	if ID_centered: 
+		label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
+	else: 
+		label_id.position = Vector2(-radius, -radius)
