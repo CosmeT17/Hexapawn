@@ -90,6 +90,9 @@ func generate_zones() -> void:
 			
 			if coordinates.x == 0: dropzones.append([])
 			dropzones[coordinates.y].append(zone)
+			
+			zone.get_neighbor = func(direction: int): 
+				return get_neighbor(zone, direction)
 				
 			if coordinates.x < dimensions - 1:
 				coordinates.x += 1

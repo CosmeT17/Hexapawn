@@ -32,12 +32,14 @@ func assign_initial_zone() -> void:
 func is_zone_valid(zone: Dropzone) -> bool:
 	if not super(zone): return false
 	
-	match move_direction:
-		UP: if get_neighbor.call(zone, Global.SOUTH) == current_zone: return true
-		DOWN: if get_neighbor.call(zone, Global.NORTH) == current_zone: return true
+	if not zone.piece:
+		match move_direction:
+			UP: return is_neighbor.call(Global.SOUTH)
+			DOWN: return is_neighbor.call(Global.NORTH)
+	
+	else:
+		match move_direction:
+			UP: if is_neighbor.call(Global.SOUTH_EAST) or is_neighbor.call(Global.SOUTH_WEST): return true
+			DOWN: if is_neighbor.call(Global.NORTH_EAST) or is_neighbor.call(Global.NORTH_WEST): return true
 	
 	return false
-
-# TODO - BUGS:
-# Table dropzone IDs not positioned correctly.
-# Mouse cursor changes incorrectly when a piece is dragged on top of another piece of the same color and is let go.

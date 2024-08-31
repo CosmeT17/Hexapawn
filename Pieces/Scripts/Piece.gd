@@ -116,17 +116,26 @@ var snap_complete: bool = false
 #endregion
 
 #region Zones
-var current_zone: Dropzone:
+var current_zone: Dropzone :
 	set(zone):
 		if current_zone and current_zone.piece:
 			if current_zone.piece == self: current_zone.piece = null
 		current_zone = zone
 		if current_zone: current_zone.piece = self
-		
+
+var nearest_zone: Dropzone :
+	set(zone):
+		if zone != nearest_zone: 
+			nearest_zone = zone
+			nearest_zone_changed = true
+		else:
+			nearest_zone_changed = false
+
 var initial_zone: Dropzone
 var hovered_zone: Dropzone
 var highlight_zone: bool = true
-var get_neighbor: Callable
+var nearest_zone_changed: bool = false
+var nearest_zone_is_valid: bool = false
 #endregion
 #endregion
 #endregion
@@ -280,26 +289,37 @@ func assign_initial_zone() -> void:
 			global_position = zone.global_position
 			break
 	current_zone = initial_zone
-	get_neighbor = initial_zone.get_parent().get_neighbor
 
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
+var is_neighbor: Callable
 func is_zone_valid(zone: Dropzone) -> bool:
 	if zone.piece and zone.piece.piece_color == self.piece_color: return false
+	
+	is_neighbor = func(direction: int):
+		if zone.get_neighbor.call(direction) == current_zone: return true
+		return false
+	
 	return true
-
+	
 # Returns the closest valid dropzone to the selected piece.
-func nearest_zone() -> Dropzone:
+func get_nearest_zone() -> Dropzone:
 	for zone: Dropzone in get_tree().get_nodes_in_group("Zone"):
 		if global_position.distance_to(zone.global_position) < zone.radius:
-			if zone != current_zone:
-				
+			nearest_zone = zone
+			
+			if zone == current_zone:
+				return current_zone
+			
+			else:
 				# Changing between zones -> make the old one invisible.
 				if hovered_zone and hovered_zone != zone:
 					if highlight_zone and Global.highlight_zone: 
 						hovered_zone.invisible = true
 				hovered_zone = zone
 				
-				if is_zone_valid(zone):
+				if nearest_zone_changed: 
+					nearest_zone_is_valid = is_zone_valid(zone)
+				if nearest_zone_is_valid:
 					return zone
 	
 	# Moving off a zone into a place with no zones -> make old one invisible.
@@ -308,18 +328,19 @@ func nearest_zone() -> Dropzone:
 			hovered_zone.invisible = true
 	hovered_zone = null
 	
-	return current_zone 
+	return current_zone
 
 # Updates the piece's current zone to the selected zone. 
-func update_zone(zone: Dropzone = nearest_zone()) -> void:
+func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 	current_zone = zone
+	nearest_zone = zone
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
 		#region Highlight Hovered Zone
 		if is_selected:
 			if highlight_zone and Global.highlight_zone:
-				nearest_zone()
+				get_nearest_zone()
 				if hovered_zone:
 					if hovered_zone != current_zone:
 						hovered_zone.invisible = false
