@@ -136,7 +136,7 @@ func update_zone_offset() -> void:
 				if zone.radius != zone_radius:
 					zone.radius = zone_radius
 					
-					if not dropzone_ID_centered:
+					if not dropzone_ID_centered and zone.label_id:
 						zone.label_id.position -= Vector2(area_offset, area_offset)
 						zone.label_id.position += ID_pos_offset
 

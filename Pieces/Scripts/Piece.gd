@@ -313,7 +313,7 @@ func get_nearest_zone() -> Dropzone:
 			else:
 				# Changing between zones -> make the old one invisible.
 				if hovered_zone and hovered_zone != zone:
-					if highlight_zone and Global.highlight_zone: 
+					if highlight_zone and Global.highlight_zone:
 						hovered_zone.invisible = true
 				hovered_zone = zone
 				
