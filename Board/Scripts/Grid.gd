@@ -17,12 +17,7 @@ var dropzones: Array[Array]
 	set(dim):
 		if dimensions != dim and dim in [3, 4, 0]:
 			dimensions = dim
-			generate_zones()
-			organize_zones()
-			recolor_zones()
-			update_zone_visibility()
-			update_dropzone_ID_visibility()
-			update_dropzone_ID_position()
+			initialize_grid()
 
 @export_range(300, 700) var size: int = 636 :
 	set(val):
@@ -70,9 +65,19 @@ var dropzones: Array[Array]
 #endregion
 
 func _ready():
-	dimensions = dimensions
+	if dimensions == 3:
+		initialize_grid()
+
+func initialize_grid() -> void:
+	generate_zones()
+	organize_zones()
+	recolor_zones()
+	update_zone_visibility()
+	update_dropzone_ID_visibility()
+	update_dropzone_ID_position()
 
 func generate_zones() -> void:
+	dropzones = []
 	for zone in get_children():
 		if zone is Dropzone:
 			zone.free()
@@ -120,6 +125,10 @@ func organize_zones() -> void:
 			if zone is Dropzone:
 				zone.radius = zone_radius
 				zone.position = start_position + Vector2(2 * count * square_radius, 0)
+				
+				if not dropzone_ID_centered and zone.label_id:
+					zone.label_id.position -= Vector2(area_offset, area_offset)
+					zone.label_id.position += ID_pos_offset
 				
 				count += 1
 				if count == dimensions:

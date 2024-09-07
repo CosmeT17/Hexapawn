@@ -359,3 +359,17 @@ func _process(_delta):
 					Global.turn_switched = false
 		#endregion
 #endregion
+
+#region Piece Functions
+func _to_string():
+	return String(name)
+
+# TODO
+func capture() -> void:
+	visible = false
+	current_zone.piece = null
+	current_zone = null
+	# Player num pieces -= 1
+	
+# TODO: func possible_moves()
+#endregion
