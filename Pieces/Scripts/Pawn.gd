@@ -39,7 +39,11 @@ func is_zone_valid(zone: Dropzone) -> bool:
 	
 	else:
 		match move_direction:
-			UP: if is_neighbor.call(Global.SOUTH_EAST) or is_neighbor.call(Global.SOUTH_WEST): return true
-			DOWN: if is_neighbor.call(Global.NORTH_EAST) or is_neighbor.call(Global.NORTH_WEST): return true
+			UP: if is_neighbor.call(Global.SOUTH_EAST) or is_neighbor.call(Global.SOUTH_WEST): 
+				#print("capture")
+				return true
+			DOWN: if is_neighbor.call(Global.NORTH_EAST) or is_neighbor.call(Global.NORTH_WEST): 
+				#print("capture")
+				return true
 	
 	return false

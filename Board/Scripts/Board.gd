@@ -74,21 +74,39 @@ func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]
 	if grid: grid.dimensions = dimensions
 
+func _to_string():
+	var out: String = str(name) + ":\n"
+	
+	out += "\t* " + str(player_1) + "\n"
+	out += "\t* " + str(player_2) + "\n\n"
+	
+	out += "\t"
+	for chr: String in str(grid):
+		if chr == "\n": out += "\n\t"
+		else: out += chr
+	
+	return out
+
 # TESTING
 func _input(_event):
 	if Input.is_action_just_pressed("Test"):
 		player_1.is_turn = not player_1.is_turn
 	
 	elif Input.is_action_just_pressed("Test_Print"):
-		const colors = {0: "WHITE", 1: "BLACK", 2: "UNTEXTURED"}
+		print(_to_string())
+		
+		print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
 		for player: Player in [player_1, player_2]:
-			print(player.name, ":")
-			print("\t* Player Number: ", player.player_num)
-			print("\t* Is Turn: ", player.is_turn)
-			print("\t* Piece Color: ", colors[player.piece_color])
-			print("\t* Show Piece ID: ", player.show_piece_ID)
-			print("\t* Is AI: ", player.is_ai, '\n')
-	
+			for pawn: Pawn in player.get_children():
+				var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
+				
+				for i in range(zones.size()):
+					if zones[i]: zones[i] = zones[i].ID
+					else: zones[i] = "__"
+					
+				print("\t* ", pawn, ": ", zones)
+			print()
+		
 	elif Input.is_action_just_pressed("Change_Piece_Color"):
 		if player_1.piece_color == Global.WHITE:
 			player_1.piece_color = Global.BLACK
@@ -100,3 +118,6 @@ func _input(_event):
 	
 	elif Input.is_action_just_pressed("Toggle_Piece_ID"):
 		player_1.show_piece_ID = not player_1.show_piece_ID
+
+	elif Input.is_action_just_pressed("Toggle_Grid_ID"):
+		show_zone_ID = not show_zone_ID

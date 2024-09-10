@@ -64,9 +64,9 @@ func _ready():
 func _draw():
 	draw_circle(Vector2.ZERO, radius, color)
 
-# str() Override
 func _to_string():
-	return ID
+	if piece: return ID + '[' + str(piece) + ']'
+	else: return ID + "[___]"
 
 func update_ID_position() -> void:
 	if ID_centered: 

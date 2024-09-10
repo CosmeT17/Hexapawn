@@ -48,6 +48,7 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 @export_enum("White", "Black", "Untextured") var piece_color: int = 2 :
 	set(color):
 		if player_num != 0 and piece_color != color:
+			if color == UNTEXTURED and is_ai: is_ai = false 
 			piece_color = color
 			
 			set_variable(
@@ -77,7 +78,7 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 @export_category("AI")
 @export var is_ai: bool = false :
 	set(val):
-		if (player_num == 2 and is_ai != val) or not is_ready:
+		if (player_num == 2 and piece_color != UNTEXTURED and is_ai != val) or not is_ready:
 			is_ai = val
 			
 			set_variable(
@@ -117,3 +118,16 @@ func _on_child_entered_tree(node):
 				if is_ai: node.eye_color = RED
 		else:
 			node.queue_free()
+
+func _to_string():
+	const colors = {0: "WHITE", 1: "BLACK", 2: "UNTEXTURED"}
+	const ai = {true: "IS_AI", false: "NOT_AI"}
+	const turn = {true: "IS_TURN", false: "NOT_TURN"}
+	
+	var player_info: Array[String] = [
+		colors[piece_color],
+		ai[is_ai],
+		turn[is_turn]
+	]
+	
+	return str(name) + ": " + str(player_info)

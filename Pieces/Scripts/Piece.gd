@@ -362,7 +362,7 @@ func _process(_delta):
 
 #region Piece Functions
 func _to_string():
-	return String(name)
+	return str(name)
 
 # TODO
 func capture() -> void:

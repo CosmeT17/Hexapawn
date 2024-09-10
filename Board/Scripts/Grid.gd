@@ -209,3 +209,14 @@ func get_neighbor(zone: Dropzone, direction: int) -> Dropzone:
 			return dropzones[coordinates.y + 1][coordinates.x - 1]
 			
 	return null
+
+func _to_string():
+	var out: String = ""
+	for row: int in range(dropzones.size()-1, -1, -1):
+		out += "| "
+		for column: int in range(dropzones[row].size()):
+			out += str(dropzones[row][column])
+			if column == dropzones[row].size() - 1: out += " |"
+			else: out += " | "
+		if row != 0: out += "\n"
+	return out
