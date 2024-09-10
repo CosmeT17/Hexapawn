@@ -108,10 +108,12 @@ func _input(_event):
 			print()
 		
 	elif Input.is_action_just_pressed("Change_Piece_Color"):
-		if player_1.piece_color == Global.WHITE:
-			player_1.piece_color = Global.BLACK
-		else:
-			player_1.piece_color = Global.WHITE
+		#if player_1.piece_color == Global.WHITE:
+			#player_1.piece_color = Global.BLACK
+		#else:
+			#player_1.piece_color = Global.WHITE
+			
+		player_1.get_children()[1].update_zone(grid.dropzones[1][1])
 	
 	elif Input.is_action_just_pressed("Toggle_AI"):
 		player_2.is_ai = not player_2.is_ai
