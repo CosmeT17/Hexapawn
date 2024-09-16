@@ -71,13 +71,14 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 			if sprite: update_texture()
 			if name_label: update_label()
 
+var is_ai: bool = false
 @export_enum("Blue", "Red") var eye_color = 0 as int :
 	set(color):
 		if eye_color != color and color in [0, 1]:
-			if eye_color != 0 and eye_color != 1:
-				eye_color = 0
 			eye_color = color
 			if sprite: update_texture()
+			if eye_color == 0: is_ai = false
+			else: is_ai = true
 
 @export_enum("3x3 Board:3", "4x4 Board:4") var piece_size = 3 as int :
 	set(size):
@@ -109,7 +110,7 @@ var name_regex = RegEx.new() as RegEx
 var do_update_name: bool = true
 #endregion
 
-#region Dragging
+#region Dragging/Moving
 var mouse_on_area: bool = false
 var is_selected: bool = false
 var snap_complete: bool = false
@@ -118,8 +119,8 @@ var snap_complete: bool = false
 #region Zones
 var current_zone: Dropzone :
 	set(zone):
-		if current_zone and current_zone.piece:
-			if current_zone.piece == self: current_zone.piece = null
+		if zone and zone.piece and zone.piece != self: zone.piece.capture()
+		if current_zone: current_zone.piece = null
 		current_zone = zone
 		if current_zone: current_zone.piece = self
 
@@ -252,15 +253,18 @@ func _physics_process(delta):
 	
 	#region Move Towards Zone
 	elif not Engine.is_editor_hint():
+		var speed: int = Global.ai_speed if is_ai else Global.zone_speed
+		
 		if current_zone and global_position != current_zone.global_position:
 			global_position = lerp(
 				global_position, 
 				current_zone.global_position, 
-				Global.zone_speed * delta
+				speed * delta
 			)
 			
-			# Smooth-over movement
-			if round(abs((global_position - current_zone.global_position))) <= Vector2(0.10, 0.10):
+			#Smooth-over movement
+			var pos_diff: Vector2 = round(abs((global_position - current_zone.global_position)))
+			if pos_diff.x <= 0.10 and pos_diff.y <= 0.10:
 				global_position = current_zone.global_position
 				z_index = 0
 	#endregion
@@ -332,8 +336,10 @@ func get_nearest_zone() -> Dropzone:
 
 # Updates the piece's current zone to the selected zone. 
 func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
-	current_zone = zone
-	nearest_zone = zone
+	if current_zone != zone:
+		z_index = 1
+		current_zone = zone
+		nearest_zone = zone
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
@@ -369,6 +375,8 @@ func capture() -> void:
 	visible = false
 	current_zone.piece = null
 	current_zone = null
+	nearest_zone = null
+	hovered_zone = null
 	# Player num pieces -= 1
 	
 # TODO: func possible_moves()

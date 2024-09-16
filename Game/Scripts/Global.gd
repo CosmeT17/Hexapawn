@@ -11,6 +11,7 @@ var is_selected := false
 var snap_speed := 30 
 var drag_speed := 20
 var zone_speed := 10
+var ai_speed := 5
 
 # Dropzones
 var highlight_zone := false

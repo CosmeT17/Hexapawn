@@ -38,20 +38,24 @@ piece_color = 0
 [node name="Player_2" parent="Board/Players" index="1"]
 piece_color = 1
 show_piece_ID = true
+is_ai = true
 
 [node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("3_fyjh5")]
 position = Vector2(-212, -212)
 can_move = false
 piece_color = 1
+eye_color = 1
 
 [node name="BP1" parent="Board/Players/Player_2" index="1" instance=ExtResource("3_fyjh5")]
 position = Vector2(0, -212)
 can_move = false
 piece_color = 1
+eye_color = 1
 
 [node name="BP2" parent="Board/Players/Player_2" index="2" instance=ExtResource("3_fyjh5")]
 position = Vector2(212, -212)
 can_move = false
 piece_color = 1
+eye_color = 1
 
 [editable path="Board"]

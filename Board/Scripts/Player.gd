@@ -23,6 +23,9 @@ var is_turn: bool = true :
 					Global.turn_switched = true
 				
 				set_variable(
+					#func(piece: Piece): piece.can_move = is_turn and not is_ai if piece_color != UNTEXTURED else true,
+					#func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
+					
 					func(piece: Piece): piece.can_move = is_turn if piece_color != UNTEXTURED else true,
 					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
@@ -86,9 +89,11 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 					if is_ai: 
 						piece.eye_color = RED
 						piece.highlight_zone = false
+						#piece.can_move = false
 					else: 
 						piece.eye_color = BLUE
 						piece.highlight_zone = true,
+						#piece.can_move = true,
 				null,
 				true
 			)

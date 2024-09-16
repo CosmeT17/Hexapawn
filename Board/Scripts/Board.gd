@@ -95,25 +95,28 @@ func _input(_event):
 	elif Input.is_action_just_pressed("Test_Print"):
 		print(_to_string())
 		
-		print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
-		for player: Player in [player_1, player_2]:
-			for pawn: Pawn in player.get_children():
-				var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
-				
-				for i in range(zones.size()):
-					if zones[i]: zones[i] = zones[i].ID
-					else: zones[i] = "__"
-					
-				print("\t* ", pawn, ": ", zones)
-			print()
+		#for player: Player in [player_1, player_2]:
+			#for pawn: Pawn in player.get_children():
+				#print(pawn, ':', pawn.can_move)
+			#print()
+		
+		#print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
+		#for player: Player in [player_1, player_2]:
+			#for pawn: Pawn in player.get_children():
+				#var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
+				#
+				#for i in range(zones.size()):
+					#if zones[i]: zones[i] = zones[i].ID
+					#else: zones[i] = "__"
+					#
+				#print("\t* ", pawn, ": ", zones)
+			#print()
 		
 	elif Input.is_action_just_pressed("Change_Piece_Color"):
-		#if player_1.piece_color == Global.WHITE:
-			#player_1.piece_color = Global.BLACK
-		#else:
-			#player_1.piece_color = Global.WHITE
-			
-		player_1.get_children()[1].update_zone(grid.dropzones[1][1])
+		if player_1.piece_color == Global.WHITE:
+			player_1.piece_color = Global.BLACK
+		else:
+			player_1.piece_color = Global.WHITE
 	
 	elif Input.is_action_just_pressed("Toggle_AI"):
 		player_2.is_ai = not player_2.is_ai
@@ -123,3 +126,7 @@ func _input(_event):
 
 	elif Input.is_action_just_pressed("Toggle_Grid_ID"):
 		show_zone_ID = not show_zone_ID
+	
+	elif Input.is_action_just_pressed("Capture_Piece"):
+		player_2.get_children()[0].update_zone(grid.dropzones[1][1])
+		##player_1.get_children()[2].capture()
