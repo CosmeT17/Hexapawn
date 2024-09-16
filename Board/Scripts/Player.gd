@@ -20,13 +20,10 @@ var is_turn: bool = true :
 				is_turn = val
 				
 				if not Engine.is_editor_hint(): 
-					Global.turn_switched = true
+					Global.update_cursor = true
 				
 				set_variable(
-					#func(piece: Piece): piece.can_move = is_turn and not is_ai if piece_color != UNTEXTURED else true,
-					#func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
-					
-					func(piece: Piece): piece.can_move = is_turn if piece_color != UNTEXTURED else true,
+					func(piece: Piece): piece.can_move = is_turn and not is_ai if piece_color != UNTEXTURED else true,
 					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
 #endregion
@@ -83,17 +80,18 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 	set(val):
 		if (player_num == 2 and piece_color != UNTEXTURED and is_ai != val) or not is_ready:
 			is_ai = val
+			if not Engine.is_editor_hint(): Global.update_cursor = true
 			
 			set_variable(
 				func(piece: Piece):
 					if is_ai: 
 						piece.eye_color = RED
 						piece.highlight_zone = false
-						#piece.can_move = false
+						piece.can_move = false
 					else: 
 						piece.eye_color = BLUE
-						piece.highlight_zone = true,
-						#piece.can_move = true,
+						piece.highlight_zone = true
+						if is_ready and is_turn: piece.can_move = true,
 				null,
 				true
 			)

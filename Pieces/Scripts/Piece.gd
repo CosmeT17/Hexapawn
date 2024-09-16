@@ -354,15 +354,15 @@ func _process(_delta):
 		
 		#region Cursor Update When Switching Turns
 		if mouse_on_area and not Global.is_selected:
-			if can_move and Global.turn_switched:
+			if can_move and Global.update_cursor:
 				if Mouse.context != Mouse.CONTEXT.SELECT:
 					Mouse.set_context(Mouse.CONTEXT.SELECT)
-					Global.turn_switched = false
+					Global.update_cursor = false
 			
-			elif Global.turn_switched:
+			elif Global.update_cursor:
 				if Mouse.context != Mouse.CONTEXT.CURSOR:
 					Mouse.set_context(Mouse.CONTEXT.CURSOR)
-					Global.turn_switched = false
+					Global.update_cursor = false
 		#endregion
 #endregion
 

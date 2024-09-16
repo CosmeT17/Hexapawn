@@ -18,4 +18,4 @@ var highlight_zone := false
 signal zones_generated
 
 # Mouse
-var turn_switched := false
+var update_cursor := false
