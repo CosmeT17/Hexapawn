@@ -9,9 +9,20 @@ enum {BLUE, RED}
 #endregion
 
 #region Variables
-var player_num : int = -1
 var is_ready: bool = false
 var alter_other_player: bool = true
+
+var num_pieces: int = -1 :
+	set(num):
+		num_pieces = num
+		if not Engine.is_editor_hint() and num_pieces == 0: 
+			Global.game_over = true
+
+var player_num : int = -1 : 
+	set(num):
+		player_num = num
+		if player_num == 1: name = "Player_1"
+		elif player_num == 2: name = "Player_2"
 
 var is_turn: bool = true :
 	set(val):
@@ -26,6 +37,10 @@ var is_turn: bool = true :
 					func(piece: Piece): piece.can_move = is_turn and not is_ai if piece_color != UNTEXTURED else true,
 					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
+				
+				if not Engine.is_editor_hint() and is_turn:
+					print("Turn: ", name)
+					pass
 #endregion
 
 #region Export Variables
@@ -61,7 +76,10 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 			)
 			
 			if piece_color == BLACK: is_turn = false
-			else: is_turn = true
+			else: 
+				is_turn = true
+				print("Turn: ", name)
+				pass
 
 @export var show_piece_ID: bool = false :
 	set(val):
@@ -108,6 +126,7 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 func _ready():
 	player_num = 0
 	is_ai = is_ai
+	num_pieces = get_children().size()
 	is_ready = true
 
 func _on_child_entered_tree(node):
@@ -130,7 +149,8 @@ func _to_string():
 	var player_info: Array[String] = [
 		colors[piece_color],
 		ai[is_ai],
-		turn[is_turn]
+		turn[is_turn],
+		"Num_Pieces: " + str(num_pieces)
 	]
 	
 	return str(name) + ": " + str(player_info)

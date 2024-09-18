@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b1lt4o6m7l8su" path="res://Board/Scenes/Grid.tscn" id="3_rkc6n"]
 [ext_resource type="PackedScene" uid="uid://da2xfkybht05o" path="res://Board/Scenes/Player.tscn" id="4_noqmj"]
 
-[node name="Board" type="Node2D"]
+[node name="Board" type="Node2D" groups=["Board"]]
 script = ExtResource("1_bu8b4")
 
 [node name="Sprite" type="Sprite2D" parent="."]

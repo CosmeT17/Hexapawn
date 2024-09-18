@@ -86,6 +86,7 @@ func _to_string():
 		else: out += chr
 	
 	return out
+# ------------------------------------------------------------------------------
 
 # TESTING
 func _input(_event):
@@ -128,5 +129,4 @@ func _input(_event):
 		show_zone_ID = not show_zone_ID
 	
 	elif Input.is_action_just_pressed("Capture_Piece"):
-		player_2.get_children()[0].update_zone(grid.dropzones[1][1])
-		##player_1.get_children()[2].capture()
+		player_2.get_children()[1].update_zone(grid.dropzones[1][1])

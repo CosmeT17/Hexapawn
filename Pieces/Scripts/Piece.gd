@@ -53,7 +53,8 @@ const LABEL_THEMES: Dictionary = {
 const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 #endregion
 
-#region Children Variables
+#region Parent/Children Variables
+@onready var player = get_parent() if get_parent() is Player else null
 @onready var sprite = $Sprite as Sprite2D
 @onready var area = $Sprite/Area as Area2D
 @onready var name_label = $Name_Label as Label
@@ -119,7 +120,6 @@ var snap_complete: bool = false
 #region Zones
 var current_zone: Dropzone :
 	set(zone):
-		if zone and zone.piece and zone.piece != self: zone.piece.capture()
 		if current_zone: current_zone.piece = null
 		current_zone = zone
 		if current_zone: current_zone.piece = self
@@ -135,6 +135,7 @@ var nearest_zone: Dropzone :
 var initial_zone: Dropzone
 var hovered_zone: Dropzone
 var highlight_zone: bool = true
+var current_zone_changed: bool = false
 var nearest_zone_changed: bool = false
 var nearest_zone_is_valid: bool = false
 #endregion
@@ -206,18 +207,25 @@ func update_name() -> void:
 #region Cursor Update/Dragging Functions
 func on_area_mouse_entered() -> void:
 	mouse_on_area = true
+	
 	if can_move:
+		Global.num_pieces_mouse_on_area += 1
+		
 		if not is_selected and not Global.is_selected:
 			if Mouse.context == Mouse.CONTEXT.CURSOR:
 				Mouse.set_context(Mouse.CONTEXT.SELECT)
 
 func on_area_mouse_exited() -> void:
 	mouse_on_area = false
+	
 	if can_move:
+		Global.num_pieces_mouse_on_area -= 1
 		if is_selected: snap_complete = true
+		
 		if not is_selected and not Global.is_selected:
 			if Mouse.context == Mouse.CONTEXT.SELECT:
-				Mouse.set_context(Mouse.CONTEXT.CURSOR)
+				if Global.num_pieces_mouse_on_area == 0:
+					Mouse.set_context(Mouse.CONTEXT.CURSOR)
 	
 func on_area_input_event(_viewport, _event, _shape_idx) -> void:
 	if can_move:
@@ -255,19 +263,34 @@ func _physics_process(delta):
 	elif not Engine.is_editor_hint():
 		var speed: int = Global.ai_speed if is_ai else Global.zone_speed
 		
-		if current_zone and global_position != current_zone.global_position:
-			global_position = lerp(
-				global_position, 
-				current_zone.global_position, 
-				speed * delta
-			)
-			
-			#Smooth-over movement
-			var pos_diff: Vector2 = round(abs((global_position - current_zone.global_position)))
-			if pos_diff.x <= 0.10 and pos_diff.y <= 0.10:
-				global_position = current_zone.global_position
-				z_index = 0
+		if current_zone:
+			if global_position != current_zone.global_position:
+				global_position = lerp(
+					global_position, 
+					current_zone.global_position, 
+					speed * delta
+				)
+				
+				#Smooth-over movement
+				var pos_diff: Vector2 = round(abs((global_position - current_zone.global_position)))
+				if pos_diff.x <= 0.1 and pos_diff.y <= 0.1:
+					global_position = current_zone.global_position
+					z_index = 0
 	#endregion
+			
+			#region Change Turns
+			elif current_zone_changed:
+				current_zone_changed = false
+				if is_ai and not Global.game_over: 
+					player.is_turn = not player.is_turn
+			#endregion
+		
+		#region AI Piece Capturing
+		if piece_to_capture:
+			if global_position.distance_to(current_zone.global_position) <= current_zone.radius:
+				piece_to_capture.visible = false
+				piece_to_capture = null
+		#endregion
 
 # Stop dragging
 func _input(_event):
@@ -283,6 +306,8 @@ func _input(_event):
 			if highlight_zone and Global.highlight_zone: 
 				hovered_zone.invisible = true
 		update_zone()
+		if current_zone_changed and not Global.game_over: 
+			player.is_turn = not player.is_turn
 #endregion
 
 #region Zone Functions
@@ -334,10 +359,19 @@ func get_nearest_zone() -> Dropzone:
 	
 	return current_zone
 
-# Updates the piece's current zone to the selected zone. 
+# Updates the piece's current zone to the selected zone, capturing if necessary.
 func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
-	if current_zone != zone:
+	if current_zone != zone and zone:
+		#region Piece Capturing
+		if zone.piece:
+			if is_ai:
+				piece_to_capture = zone.piece
+				zone.piece.capture(false)
+			else: zone.piece.capture()
+		#endregion
+		
 		z_index = 1
+		current_zone_changed = true
 		current_zone = zone
 		nearest_zone = zone
 
@@ -357,11 +391,13 @@ func _process(_delta):
 			if can_move and Global.update_cursor:
 				if Mouse.context != Mouse.CONTEXT.SELECT:
 					Mouse.set_context(Mouse.CONTEXT.SELECT)
+					Global.num_pieces_mouse_on_area += 1
 					Global.update_cursor = false
 			
 			elif Global.update_cursor:
 				if Mouse.context != Mouse.CONTEXT.CURSOR:
 					Mouse.set_context(Mouse.CONTEXT.CURSOR)
+					Global.num_pieces_mouse_on_area -= 1
 					Global.update_cursor = false
 		#endregion
 #endregion
@@ -370,14 +406,14 @@ func _process(_delta):
 func _to_string():
 	return str(name)
 
-# TODO
-func capture() -> void:
-	visible = false
+var piece_to_capture: Piece
+func capture(make_invisible: bool = true) -> void:
+	if make_invisible: visible = false
 	current_zone.piece = null
 	current_zone = null
 	nearest_zone = null
 	hovered_zone = null
-	# Player num pieces -= 1
+	player.num_pieces -= 1
 	
 # TODO: func possible_moves()
 #endregion
