@@ -25,5 +25,15 @@ metadata/_edit_lock_ = true
 [node name="Player_1" parent="Players" instance=ExtResource("4_noqmj")]
 metadata/_edit_lock_ = true
 
+[node name="Score_Counter" parent="Players/Player_1" index="0"]
+position = Vector2(466, 212)
+
 [node name="Player_2" parent="Players" instance=ExtResource("4_noqmj")]
 metadata/_edit_lock_ = true
+
+[node name="Score_Counter" parent="Players/Player_2" index="0"]
+position = Vector2(466, -212)
+player_num = 2
+
+[editable path="Players/Player_1"]
+[editable path="Players/Player_2"]

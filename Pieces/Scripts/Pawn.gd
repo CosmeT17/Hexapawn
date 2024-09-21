@@ -55,8 +55,13 @@ func is_zone_valid(zone: Dropzone) -> bool:
 	return false
 
 func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
-	super()
+	super(zone)
 	
-	if zone.coordinates.y == end_of_board_y:
-		if mode == HEXAPAWN: Global.game_over = true
+	if current_zone.coordinates.y == end_of_board_y:
+		if mode == HEXAPAWN: 
+			if not Global.game_over:
+				Global.game_over = true
+				player.score_counter.game_won = true
+				player.score_counter.score += 1
+		
 		else: pass # TODO: Chess pawn promotion

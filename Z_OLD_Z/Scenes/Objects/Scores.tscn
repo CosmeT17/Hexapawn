@@ -1,11 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://byja1ku373fmx"]
 
 [ext_resource type="Script" path="res://Z_OLD_Z/Scripts/Board/Scores.gd" id="1_mj3p5"]
-[ext_resource type="Texture2D" uid="uid://cph7cxyuj85tw" path="res://Z_OLD_Z/Textures/Scores/Empty_Pic.png" id="2_opity"]
-[ext_resource type="Texture2D" uid="uid://bbpiymebldd7a" path="res://Z_OLD_Z/Textures/Scores/Border_Select.png" id="3_bfqad"]
+[ext_resource type="Texture2D" uid="uid://cph7cxyuj85tw" path="res://Board/Textures/Profile_Pics/Empty_Profile_Pic.png" id="2_opity"]
+[ext_resource type="Texture2D" uid="uid://bbpiymebldd7a" path="res://Board/Textures/Profile_Pics/Border_Green_Profile_Pic.png" id="3_bfqad"]
 [ext_resource type="FontFile" uid="uid://bru4ckd1tof86" path="res://Fonts/Kanit-Bold.ttf" id="4_iutuu"]
-[ext_resource type="Texture2D" uid="uid://6n4gdg2evttu" path="res://Z_OLD_Z/Textures/Scores/Border_Winner.png" id="4_yinid"]
+[ext_resource type="Texture2D" uid="uid://6n4gdg2evttu" path="res://Board/Textures/Profile_Pics/Border_Red_Profile_Pic.png" id="4_yinid"]
 [ext_resource type="FontFile" uid="uid://f6tgej42lrqe" path="res://Fonts/ProtestGuerrilla-Regular.ttf" id="5_jfpqn"]
+
 
 [node name="Scores" type="Node2D"]
 position = Vector2(-324, -324)

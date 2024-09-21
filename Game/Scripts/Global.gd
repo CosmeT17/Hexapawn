@@ -28,15 +28,15 @@ signal zones_generated
 var update_cursor := false
 
 # Game
+var can_restart: bool = false
 var game_over: bool = false :
 	set(val):
-		game_over = val
-		
-		if game_over: 
-			if Mouse.context != Mouse.CONTEXT.CURSOR:
-				Mouse.set_context(Mouse.CONTEXT.CURSOR)
+		if game_over != val:
+			game_over = val
 			
-			for piece: Piece in get_tree().get_nodes_in_group("Piece"):
-				piece.can_move = false
-			
-			print("Game Over")
+			if game_over: 
+				if Mouse.context != Mouse.CONTEXT.CURSOR:
+					Mouse.set_context(Mouse.CONTEXT.CURSOR)
+				
+				for piece: Piece in get_tree().get_nodes_in_group("Piece"):
+					piece.can_move = false

@@ -18,17 +18,20 @@ dimensions = 3
 [node name="Player_1" parent="Board/Players" index="0"]
 piece_color = 0
 
-[node name="WP0" parent="Board/Players/Player_1" index="0" instance=ExtResource("3_vtct4")]
+[node name="Score_Counter" parent="Board/Players/Player_1" index="0"]
+profile_pic = 1
+
+[node name="WP0" parent="Board/Players/Player_1/Pieces" index="0" instance=ExtResource("3_vtct4")]
 position = Vector2(-212, 212)
 piece_color = 0
 show_ID = false
 
-[node name="WP1" parent="Board/Players/Player_1" index="1" instance=ExtResource("3_vtct4")]
+[node name="WP1" parent="Board/Players/Player_1/Pieces" index="1" instance=ExtResource("3_vtct4")]
 position = Vector2(0, 212)
 piece_color = 0
 show_ID = false
 
-[node name="WP2" parent="Board/Players/Player_1" index="2" instance=ExtResource("3_vtct4")]
+[node name="WP2" parent="Board/Players/Player_1/Pieces" index="2" instance=ExtResource("3_vtct4")]
 position = Vector2(212, 212)
 piece_color = 0
 show_ID = false
@@ -37,21 +40,24 @@ show_ID = false
 piece_color = 1
 is_ai = true
 
-[node name="BP0" parent="Board/Players/Player_2" index="0" instance=ExtResource("3_vtct4")]
+[node name="Score_Counter" parent="Board/Players/Player_2" index="0"]
+profile_pic = 4
+
+[node name="BP0" parent="Board/Players/Player_2/Pieces" index="0" instance=ExtResource("3_vtct4")]
 position = Vector2(-212, -212)
 can_move = false
 piece_color = 1
 eye_color = 1
 show_ID = false
 
-[node name="BP1" parent="Board/Players/Player_2" index="1" instance=ExtResource("3_vtct4")]
+[node name="BP1" parent="Board/Players/Player_2/Pieces" index="1" instance=ExtResource("3_vtct4")]
 position = Vector2(0, -212)
 can_move = false
 piece_color = 1
 eye_color = 1
 show_ID = false
 
-[node name="BP2" parent="Board/Players/Player_2" index="2" instance=ExtResource("3_vtct4")]
+[node name="BP2" parent="Board/Players/Player_2/Pieces" index="2" instance=ExtResource("3_vtct4")]
 position = Vector2(212, -212)
 can_move = false
 piece_color = 1
@@ -59,3 +65,5 @@ eye_color = 1
 show_ID = false
 
 [editable path="Board"]
+[editable path="Board/Players/Player_1"]
+[editable path="Board/Players/Player_2"]

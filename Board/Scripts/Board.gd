@@ -86,24 +86,28 @@ func _to_string():
 		else: out += chr
 	
 	return out
-# ------------------------------------------------------------------------------
 
-# TESTING
+var count = 0
+
 func _input(_event):
+	if Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
+		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
+			piece.reset()
+		player_1.reset()
+		Global.game_over = false
+		Global.can_restart = false
+
+# ------------------------------------------------------------------------------
+	# TESTING
 	if Input.is_action_just_pressed("Test"):
 		player_1.is_turn = not player_1.is_turn
 	
 	elif Input.is_action_just_pressed("Test_Print"):
 		print(_to_string())
 		
-		#for player: Player in [player_1, player_2]:
-			#for pawn: Pawn in player.get_children():
-				#print(pawn, ':', pawn.can_move)
-			#print()
-		
 		#print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
 		#for player: Player in [player_1, player_2]:
-			#for pawn: Pawn in player.get_children():
+			#for pawn: Pawn in player.get_node("Pieces").get_children():
 				#var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
 				#
 				#for i in range(zones.size()):
@@ -129,4 +133,10 @@ func _input(_event):
 		show_zone_ID = not show_zone_ID
 	
 	elif Input.is_action_just_pressed("Capture_Piece"):
-		player_2.get_children()[1].update_zone(grid.dropzones[1][1])
+		if count == 0:
+			player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][0])
+			count += 1
+		
+		else: 
+			player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+			count = 0

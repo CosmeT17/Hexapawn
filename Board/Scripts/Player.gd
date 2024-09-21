@@ -12,21 +12,33 @@ enum {BLUE, RED}
 var is_ready: bool = false
 var alter_other_player: bool = true
 
+@onready var score_counter = $Score_Counter as ScoreCounter
+@onready var pieces = $Pieces as Node2D
+
 var num_pieces: int = -1 :
 	set(num):
 		num_pieces = num
-		if not Engine.is_editor_hint() and num_pieces == 0: 
-			Global.game_over = true
+		if not Engine.is_editor_hint() and num_pieces == 0:
+			if not Global.game_over:
+				Global.game_over = true
+				
+				set_variable(
+					null,
+					func(player: Player):
+						player.score_counter.game_won = true
+						player.score_counter.score += 1
+				)
 
 var player_num : int = -1 : 
 	set(num):
 		player_num = num
 		if player_num == 1: name = "Player_1"
 		elif player_num == 2: name = "Player_2"
+		if score_counter: score_counter.player_num = player_num
 
 var is_turn: bool = true :
 	set(val):
-		if player_num != 0 and is_turn != val:
+		if player_num != 0 and (is_turn != val or (not Engine.is_editor_hint() and Global.game_over)):
 			if not (not Engine.is_editor_hint() and piece_color == UNTEXTURED):
 				is_turn = val
 				
@@ -37,18 +49,20 @@ var is_turn: bool = true :
 					func(piece: Piece): piece.can_move = is_turn and not is_ai if piece_color != UNTEXTURED else true,
 					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
+				if score_counter: score_counter.is_turn = is_turn
 				
-				if not Engine.is_editor_hint() and is_turn:
-					print("Turn: ", name)
-					pass
+				#if not Engine.is_editor_hint() and is_turn:
+					#print("Turn: ", name)
+					#pass
 #endregion
 
 #region Export Variables
-func set_variable(self_function: Callable, other_function, pre_run: bool = false) -> void:
+func set_variable(self_function, other_function, pre_run: bool = false) -> void:
 	if is_ready or pre_run:
-		for piece in get_children():
-			if piece is Piece:
-				self_function.call(piece)
+		if pieces and self_function:
+			for piece in pieces.get_children():
+				if piece is Piece:
+					self_function.call(piece)
 		
 		if alter_other_player and other_function:
 			for player in get_parent().get_children():
@@ -74,12 +88,12 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 						BLACK: player.piece_color = WHITE
 						UNTEXTURED: player.piece_color = UNTEXTURED
 			)
+			if score_counter: update_profile_pic()
 			
 			if piece_color == BLACK: is_turn = false
-			else: 
-				is_turn = true
-				print("Turn: ", name)
-				pass
+			else: is_turn = true
+				#print("Turn: ", name)
+				#pass
 
 @export var show_piece_ID: bool = false :
 	set(val):
@@ -113,23 +127,17 @@ func set_variable(self_function: Callable, other_function, pre_run: bool = false
 				null,
 				true
 			)
-
-#TODO: More AI Settings
-#endregion
-#endregion
-#endregion
-
-# TODO:
-# num_wins
-# winning_y
+			if score_counter: update_profile_pic()
 
 func _ready():
 	player_num = 0
 	is_ai = is_ai
-	num_pieces = get_children().size()
+	num_pieces = pieces.get_children().size()
+	update_profile_pic()
+	score_counter.is_turn = is_turn
 	is_ready = true
 
-func _on_child_entered_tree(node):
+func _on_pieces_child_entered_tree(node):
 	if is_ready:
 		if player_num != 0:
 			if node is Piece:
@@ -154,3 +162,21 @@ func _to_string():
 	]
 	
 	return str(name) + ": " + str(player_info)
+
+func update_profile_pic() -> void:
+	match piece_color:
+		WHITE: 
+			if is_ai: score_counter.profile_pic = score_counter.WHITE_AI
+			else: score_counter.profile_pic = score_counter.WHITE_PLAYER
+		BLACK: 
+			if is_ai: score_counter.profile_pic = score_counter.BLACK_AI
+			else: score_counter.profile_pic = score_counter.BLACK_PLAYER
+		UNTEXTURED: 
+			score_counter.profile_pic = score_counter.NONE
+
+func reset() -> void:
+	if piece_color == BLACK: is_turn = false
+	else: is_turn = true
+	for player: Player in get_parent().get_children():
+		player.score_counter.game_won = false
+		player.num_pieces = player.pieces.get_children().size()

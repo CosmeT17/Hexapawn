@@ -54,7 +54,7 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 #endregion
 
 #region Parent/Children Variables
-@onready var player = get_parent() if get_parent() is Player else null
+@onready var player = get_parent().get_parent() if get_parent().get_parent() is Player else null
 @onready var sprite = $Sprite as Sprite2D
 @onready var area = $Sprite/Area as Area2D
 @onready var name_label = $Name_Label as Label
@@ -120,7 +120,7 @@ var snap_complete: bool = false
 #region Zones
 var current_zone: Dropzone :
 	set(zone):
-		if current_zone: current_zone.piece = null
+		if current_zone and current_zone.piece == self: current_zone.piece = null
 		current_zone = zone
 		if current_zone: current_zone.piece = self
 
@@ -281,8 +281,8 @@ func _physics_process(delta):
 			#region Change Turns
 			elif current_zone_changed:
 				current_zone_changed = false
-				if is_ai and not Global.game_over: 
-					player.is_turn = not player.is_turn
+				if Global.game_over: Global.can_restart = true
+				elif is_ai: player.is_turn = not player.is_turn
 			#endregion
 		
 		#region AI Piece Capturing
@@ -361,19 +361,21 @@ func get_nearest_zone() -> Dropzone:
 
 # Updates the piece's current zone to the selected zone, capturing if necessary.
 func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
-	if current_zone != zone and zone:
-		#region Piece Capturing
-		if zone.piece:
-			if is_ai:
-				piece_to_capture = zone.piece
-				zone.piece.capture(false)
-			else: zone.piece.capture()
-		#endregion
-		
-		z_index = 1
-		current_zone_changed = true
-		current_zone = zone
-		nearest_zone = zone
+	if current_zone != zone and zone and not current_zone_changed:
+		if player.is_turn and not Global.game_over:
+			
+			#region Piece Capturing
+			if zone.piece:
+				if is_ai:
+					piece_to_capture = zone.piece
+					zone.piece.capture(false)
+				else: zone.piece.capture()
+			#endregion
+			
+			z_index = 1
+			current_zone_changed = true
+			current_zone = zone
+			nearest_zone = zone
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
@@ -414,6 +416,13 @@ func capture(make_invisible: bool = true) -> void:
 	nearest_zone = null
 	hovered_zone = null
 	player.num_pieces -= 1
-	
+
+func reset() -> void:
+	nearest_zone = null
+	hovered_zone = null
+	current_zone = initial_zone
+	global_position = current_zone.global_position
+	visible = true
+
 # TODO: func possible_moves()
 #endregion
