@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5n1r86iotak5"
-path="res://.godot/imported/Knight_White.png-8d262b9bb5b0de71980ba19001ec06b6.ctex"
+uid="uid://be4kd0y8mvheh"
+path="res://.godot/imported/Robi.svg-4aeb10de804de56fb4595f13357f688f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Z_OLD_Z/Textures/New Pieces/Knight_White.png"
-dest_files=["res://.godot/imported/Knight_White.png-8d262b9bb5b0de71980ba19001ec06b6.ctex"]
+source_file="res://Pieces/Textures/Misc/Robi.svg"
+dest_files=["res://.godot/imported/Robi.svg-4aeb10de804de56fb4595f13357f688f.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

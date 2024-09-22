@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq4y6cuccnlvy"
-path="res://.godot/imported/Knight_Black.png-815c287fbb689226e7bd401197b97aff.ctex"
+uid="uid://dh0wlcpwjy1j2"
+path="res://.godot/imported/Robi_Pixelated.png-24be0bddb7f759963885c51f1a291d9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Z_OLD_Z/Textures/New Pieces/Knight_Black.png"
-dest_files=["res://.godot/imported/Knight_Black.png-815c287fbb689226e7bd401197b97aff.ctex"]
+source_file="res://Pieces/Textures/Misc/Robi_Pixelated.png"
+dest_files=["res://.godot/imported/Robi_Pixelated.png-24be0bddb7f759963885c51f1a291d9d.ctex"]
 
 [params]
 

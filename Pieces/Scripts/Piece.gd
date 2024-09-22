@@ -54,7 +54,8 @@ const GRAB_CURSOR_OFFSET = Vector2(0, -18) as Vector2
 #endregion
 
 #region Parent/Children Variables
-@onready var player = get_parent().get_parent() if get_parent().get_parent() is Player else null
+@onready var board = get_tree().get_nodes_in_group("Board")[0] as Board
+@onready var player = get_parent().get_parent() as Player
 @onready var sprite = $Sprite as Sprite2D
 @onready var area = $Sprite/Area as Area2D
 @onready var name_label = $Name_Label as Label
@@ -281,6 +282,7 @@ func _physics_process(delta):
 			#region Change Turns
 			elif current_zone_changed:
 				current_zone_changed = false
+				board.update_board_state()
 				if Global.game_over: Global.can_restart = true
 				elif is_ai: player.is_turn = not player.is_turn
 			#endregion
@@ -320,14 +322,8 @@ func assign_initial_zone() -> void:
 	current_zone = initial_zone
 
 # Returns true if the piece can legally move to the given zone, otherwise false. [ABSTRACT]
-var is_neighbor: Callable
 func is_zone_valid(zone: Dropzone) -> bool:
 	if zone.piece and zone.piece.piece_color == self.piece_color: return false
-	
-	is_neighbor = func(direction: int):
-		if zone.get_neighbor.call(direction) == current_zone: return true
-		return false
-	
 	return true
 	
 # Returns the closest valid dropzone to the selected piece.
@@ -373,9 +369,9 @@ func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 			#endregion
 			
 			z_index = 1
-			current_zone_changed = true
 			current_zone = zone
 			nearest_zone = zone
+			current_zone_changed = true
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
@@ -424,5 +420,7 @@ func reset() -> void:
 	global_position = current_zone.global_position
 	visible = true
 
-# TODO: func possible_moves()
+# Returns all of the piece's possible moves. [ABSTRACT]
+func get_moves() -> Array[Dropzone]:
+	return []
 #endregion

@@ -51,6 +51,7 @@ var alpha: float = 0.25
 @onready var label_id = $Label_ID as Label
 var get_neighbor: Callable
 var coordinates: Vector2
+var char_ID: String
 var ID: String
 var piece: Piece
 #endregion

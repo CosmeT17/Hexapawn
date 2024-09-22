@@ -21,13 +21,7 @@ var num_pieces: int = -1 :
 		if not Engine.is_editor_hint() and num_pieces == 0:
 			if not Global.game_over:
 				Global.game_over = true
-				
-				set_variable(
-					null,
-					func(player: Player):
-						player.score_counter.game_won = true
-						player.score_counter.score += 1
-				)
+				set_variable(null, func(player: Player): player.game_won())
 
 var player_num : int = -1 : 
 	set(num):
@@ -173,6 +167,11 @@ func update_profile_pic() -> void:
 			else: score_counter.profile_pic = score_counter.BLACK_PLAYER
 		UNTEXTURED: 
 			score_counter.profile_pic = score_counter.NONE
+
+func game_won() -> void:
+	Global.game_over = true
+	score_counter.game_won = true
+	score_counter.score += 1
 
 func reset() -> void:
 	if piece_color == BLACK: is_turn = false

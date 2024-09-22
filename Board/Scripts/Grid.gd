@@ -86,12 +86,16 @@ func generate_zones() -> void:
 		var coordinates: Vector2 = Vector2.ZERO
 		var ascii_start_val: int = 'A'.to_ascii_buffer()[0]
 		var ascii_val: int = ascii_start_val
+		var char_id_val: int = ascii_val
 		
 		for i: int in range(dimensions ** 2):
 			var zone: Dropzone = DROPZONE.instantiate()
 			
 			zone.coordinates = coordinates
 			zone.name = String.chr(ascii_val) + str(coordinates.y + 1)
+			
+			zone.char_ID = String.chr(char_id_val)
+			char_id_val += 1
 			
 			if coordinates.x == 0: dropzones.append([])
 			dropzones[coordinates.y].append(zone)

@@ -51,8 +51,48 @@ const board_textures: Dictionary = {
 			if grid: grid.show_dropzones = show_dropzones
 #endregion
 
-@export_category("P")
-
+#region Variables
+var board_id: int = -1 :
+	set(val):
+		board_id = val
+		
+		if board_id != -1:
+			if board_id not in Global.avilable_moves:
+				Global.avilable_moves[board_id] = {} as Dictionary
+	
+var board_state: String :
+	set(val):
+		board_state = val
+		
+		var available_moves
+		if board_id in Global.avilable_moves: 
+			available_moves = Global.avilable_moves[board_id] as Dictionary
+		
+		#region Calculating Possible Moves
+		if available_moves != null:
+			if board_state not in available_moves:
+				if not Global.game_over:
+					available_moves[board_state] = []
+					
+					var player: Player = player_1 if player_1.is_turn else player_2
+					for piece: Piece in player.pieces.get_children():
+						var moves = piece.get_moves()
+						
+						for zone in moves:
+							available_moves[board_state].append([piece, zone])
+		#endregion
+		
+		#region Detecting Ties
+		if not Global.game_over:
+			if available_moves[board_state] == []:
+				if player_1.is_turn:
+					player_1.score_counter.is_turn = false
+					player_2.game_won()
+				else:
+					player_2.score_counter.is_turn = false
+					player_1.game_won()
+		#endregion
+#endregion
 #endregion
 
 func _ready():
@@ -62,21 +102,35 @@ func _ready():
 	grid.show_dropzones = show_dropzones
 	if not Engine.is_editor_hint():
 			Global.highlight_zone = false if show_dropzones else highlight_dropzones
+			Global.zones_generated.emit()
 	#endregion
 	
 	player_1.player_num = 1
 	player_2.player_num = 2
 	
-	if not Engine.is_editor_hint():
-		Global.zones_generated.emit()
+	#region Calculating Board_ID and Board_State
+	var string_id: String = ""
+	for piece: Piece in get_tree().get_nodes_in_group("Piece"):
+		string_id += str(piece.name)
+		
+	board_id = string_id.hash()
+	
+	update_board_state()
+	#endregion
 
 func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]
 	if grid: grid.dimensions = dimensions
 
 func _to_string():
-	var out: String = str(name) + ":\n"
+	var out: String = str(name) 
+	out += " (" + str(board_id) 
+	out += "::" + board_state
 	
+	if Global.game_over and board_state != "GAME_OVER":
+		out += " --> TIE"
+	
+	out += "):\n\n"
 	out += "\t* " + str(player_1) + "\n"
 	out += "\t* " + str(player_2) + "\n\n"
 	
@@ -87,14 +141,26 @@ func _to_string():
 	
 	return out
 
-var count = 0
+func update_board_state() -> void:
+	var state = player_1.piece_color if player_1.is_turn else player_2.piece_color
+	state = "W:" if state == Global.WHITE else "B:"
+	
+	if not Global.game_over:
+		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
+			if piece.current_zone: state += piece.current_zone.char_ID
+			else: state += "_"
+	else: state += "GAME_OVER"
+		
+	board_state = state
 
+var count = 0
 func _input(_event):
 	if Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
 		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
 			piece.reset()
 		player_1.reset()
 		Global.game_over = false
+		update_board_state()
 		Global.can_restart = false
 
 # ------------------------------------------------------------------------------
@@ -102,8 +168,14 @@ func _input(_event):
 	if Input.is_action_just_pressed("Test"):
 		player_1.is_turn = not player_1.is_turn
 	
-	elif Input.is_action_just_pressed("Test_Print"):
+	elif Input.is_action_just_pressed("Print_Moves"):
+		print(board_id, "::", board_state)
+		print(Global.avilable_moves_to_string())
+		print()
+	
+	elif Input.is_action_just_pressed("Print_Board"):
 		print(_to_string())
+		print()
 		
 		#print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
 		#for player: Player in [player_1, player_2]:
@@ -138,5 +210,6 @@ func _input(_event):
 			count += 1
 		
 		else: 
-			player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+			#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+			player_2.get_node("Pieces").get_children()[2].update_zone(grid.dropzones[1][2])
 			count = 0

@@ -9,6 +9,7 @@
 [node name="Board" parent="." instance=ExtResource("1_auy5j")]
 position = Vector2(324, 0)
 dimensions = 3
+highlight_dropzones = true
 show_zone_ID = true
 
 [node name="Sprite" parent="Board" index="0"]
@@ -23,7 +24,6 @@ piece_color = 0
 show_piece_ID = true
 
 [node name="Score_Counter" parent="Board/Players/Player_1" index="0"]
-position = Vector2(509, 212)
 profile_pic = 1
 
 [node name="WP0" parent="Board/Players/Player_1/Pieces" index="0" instance=ExtResource("3_fyjh5")]
@@ -43,7 +43,6 @@ piece_color = 1
 show_piece_ID = true
 
 [node name="Score_Counter" parent="Board/Players/Player_2" index="0"]
-position = Vector2(509, -212)
 profile_pic = 2
 
 [node name="BP0" parent="Board/Players/Player_2/Pieces" index="0" instance=ExtResource("3_fyjh5")]
