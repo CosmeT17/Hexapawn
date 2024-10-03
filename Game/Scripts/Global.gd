@@ -56,15 +56,19 @@ var update_cursor := false
 
 #region Game
 var can_restart: bool = false
+var can_switch_turns: bool = false
 var game_over: bool = false :
 	set(val):
 		if game_over != val:
 			game_over = val
 			
-			if game_over: 
+			if game_over:
+				num_pieces_mouse_on_area = 0
+				 
 				if Mouse.context != Mouse.CONTEXT.CURSOR:
 					Mouse.set_context(Mouse.CONTEXT.CURSOR)
 				
+				# TODO: Make Better
 				for piece: Piece in get_tree().get_nodes_in_group("Piece"):
 					piece.can_move = false
 #endregion

@@ -105,6 +105,7 @@ var piece_textures = {
 	[Global.BLACK, Global.RED]: null,
 	Global.UNTEXTURED: null
 } as Dictionary
+var can_update_board_state: bool = false
 
 #region Name RegEx
 var letter_ID: String
@@ -278,21 +279,38 @@ func _physics_process(delta):
 					global_position = current_zone.global_position
 					z_index = 0
 	#endregion
-			
-			#region Change Turns
+	
+	
 			elif current_zone_changed:
 				current_zone_changed = false
 				board.update_board_state()
 				if Global.game_over: Global.can_restart = true
-				elif is_ai: player.is_turn = not player.is_turn
+				#elif is_ai: can_switch_turns = true #TODO
+	
+	
+			
+			#region Zone Changed
+			#if current_zone_changed:
+				## Allow game restart.
+				#if global_position == current_zone.global_position:
+					#if Global.game_over: 
+						#Global.can_restart = true
+					#current_zone_changed = false
+				#
+				## Update board state and end AI turn.
+				#if can_update_board_state:
+					#if global_position.distance_to(current_zone.global_position) <= float(current_zone.radius)/4:
+						#board.update_board_state()
+						#if is_ai and not Global.game_over: player.is_turn = not player.is_turn
+						#can_update_board_state = false
 			#endregion
-		
-		#region AI Piece Capturing
-		if piece_to_capture:
-			if global_position.distance_to(current_zone.global_position) <= current_zone.radius:
-				piece_to_capture.visible = false
-				piece_to_capture = null
-		#endregion
+			
+			#region AI Piece Capturing
+			if piece_to_capture:
+				if global_position.distance_to(current_zone.global_position) <= current_zone.radius:
+					piece_to_capture.visible = false
+					piece_to_capture = null
+			#endregion
 
 # Stop dragging
 func _input(_event):
@@ -309,7 +327,8 @@ func _input(_event):
 				hovered_zone.invisible = true
 		update_zone()
 		if current_zone_changed and not Global.game_over: 
-			player.is_turn = not player.is_turn
+			#can_switch_turns = true #TODO
+			pass
 #endregion
 
 #region Zone Functions
@@ -372,6 +391,7 @@ func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 			current_zone = zone
 			nearest_zone = zone
 			current_zone_changed = true
+			can_update_board_state = true
 
 func _process(_delta):
 	if not Engine.is_editor_hint():

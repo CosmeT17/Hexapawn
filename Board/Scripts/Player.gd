@@ -45,9 +45,8 @@ var is_turn: bool = true :
 				)
 				if score_counter: score_counter.is_turn = is_turn
 				
-				#if not Engine.is_editor_hint() and is_turn:
-					#print("Turn: ", name)
-					#pass
+				if not Engine.is_editor_hint() and is_turn:
+					Global.can_switch_turns = false
 #endregion
 
 #region Export Variables

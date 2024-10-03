@@ -84,13 +84,18 @@ var board_state: String :
 		
 		#region Detecting Ties
 		if not Global.game_over:
+			var is_tie = false
+			
 			if available_moves[board_state] == []:
+				is_tie = true
 				if player_1.is_turn:
 					player_1.score_counter.is_turn = false
 					player_2.game_won()
 				else:
 					player_2.score_counter.is_turn = false
 					player_1.game_won()
+					
+			if not is_tie: Global.can_switch_turns = true
 		#endregion
 #endregion
 #endregion
@@ -155,10 +160,12 @@ func update_board_state() -> void:
 
 var count = 0
 func _input(_event):
+	# Restart Game
 	if Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
 		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
 			piece.reset()
 		player_1.reset()
+		Global.can_switch_turns = false
 		Global.game_over = false
 		update_board_state()
 		Global.can_restart = false
@@ -205,11 +212,14 @@ func _input(_event):
 		show_zone_ID = not show_zone_ID
 	
 	elif Input.is_action_just_pressed("Capture_Piece"):
-		if count == 0:
-			player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][0])
-			count += 1
+		#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][1])
 		
-		else: 
-			#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
-			player_2.get_node("Pieces").get_children()[2].update_zone(grid.dropzones[1][2])
-			count = 0
+		if player_2.is_turn:
+			if count == 0:
+				player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][0])
+				count += 1
+			
+			else: 
+				#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+				player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+				count = 0

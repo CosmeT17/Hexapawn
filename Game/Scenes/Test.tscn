@@ -9,6 +9,7 @@
 [node name="Board" parent="." instance=ExtResource("1_auy5j")]
 position = Vector2(324, 0)
 dimensions = 3
+highlight_dropzones = true
 show_zone_ID = true
 
 [node name="Sprite" parent="Board" index="0"]
