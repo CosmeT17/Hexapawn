@@ -54,6 +54,7 @@ const board_textures: Dictionary = {
 #region Variables
 signal tie_detection_complete
 var game_start: bool = true
+var is_tie: bool = false
 
 var board_id: int = -1 :
 	set(val):
@@ -89,6 +90,8 @@ var board_state: String :
 		#region Detecting Ties
 		if not Global.game_over:
 			if available_moves[board_state] == []:
+				is_tie = true
+				
 				if player_1.is_turn:
 					player_1.score_counter.is_turn = false
 					player_2.game_won()
@@ -96,11 +99,13 @@ var board_state: String :
 					player_2.score_counter.is_turn = false
 					player_1.game_won()
 			
-			await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3).timeout
+		
+		
 				
-			if not game_start:
-				print("\nEmit\n")
-				tie_detection_complete.emit()
+		if not game_start:
+			print("\nEmit\n")
+			tie_detection_complete.emit()
 			#endregion
 		game_start = false
 #endregion
@@ -154,9 +159,9 @@ func switch_turns() -> void:
 	
 	await tie_detection_complete
 	
-	#if not Global.game_over and not game_start:
-	player_1.is_turn = not player_1.is_turn
-	Global.can_move = true
+	if not Global.game_over and not game_start:
+		player_1.is_turn = not player_1.is_turn
+		Global.can_move = true
 
 func _to_string():
 	var out: String = str(name) 
@@ -181,17 +186,18 @@ var count = 0
 func _input(_event):
 	# Restart Game
 	if Global.game_over and Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
-		await tie_detection_complete
-		
+		print("Restart")
 		game_start = true
+		
+		await tie_detection_complete
 		
 		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
 			piece.reset()
 		player_1.reset()
 		
 		Global.game_over = false
+		is_tie = false
 		update_board_state()
-		Global.can_restart = false
 		Global.can_move = true
 
 # ------------------------------------------------------------------------------
