@@ -16,6 +16,7 @@ var num_pieces_mouse_on_area: int = 0 :
 
 var avilable_moves: Dictionary = {}
 var is_selected := false
+var can_move := true
 var snap_speed := 30 
 var drag_speed := 20
 var zone_speed := 10
@@ -56,19 +57,14 @@ var update_cursor := false
 
 #region Game
 var can_restart: bool = false
-var can_switch_turns: bool = false
 var game_over: bool = false :
 	set(val):
 		if game_over != val:
 			game_over = val
 			
 			if game_over:
+				can_move = false
 				num_pieces_mouse_on_area = 0
-				 
 				if Mouse.context != Mouse.CONTEXT.CURSOR:
 					Mouse.set_context(Mouse.CONTEXT.CURSOR)
-				
-				# TODO: Make Better
-				for piece: Piece in get_tree().get_nodes_in_group("Piece"):
-					piece.can_move = false
 #endregion

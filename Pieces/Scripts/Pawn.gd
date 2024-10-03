@@ -55,11 +55,7 @@ func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 		#region Hexapawn: Check Win Condition -> Reach End of Board
 		if mode == HEXAPAWN: 
 			if not Global.game_over:
-				#print(player)
 				player.game_won()
-				#Global.game_over = true
-				#player.score_counter.game_won = true
-				#player.score_counter.score += 1
 		#endregion
 		
 		else: pass # TODO: Chess pawn promotion

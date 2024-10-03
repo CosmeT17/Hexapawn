@@ -52,6 +52,9 @@ const board_textures: Dictionary = {
 #endregion
 
 #region Variables
+signal tie_detection_complete
+var game_start: bool = true
+
 var board_id: int = -1 :
 	set(val):
 		board_id = val
@@ -62,6 +65,7 @@ var board_id: int = -1 :
 	
 var board_state: String :
 	set(val):
+		print("Updating Board State")
 		board_state = val
 		
 		var available_moves
@@ -84,19 +88,21 @@ var board_state: String :
 		
 		#region Detecting Ties
 		if not Global.game_over:
-			var is_tie = false
-			
 			if available_moves[board_state] == []:
-				is_tie = true
 				if player_1.is_turn:
 					player_1.score_counter.is_turn = false
 					player_2.game_won()
 				else:
 					player_2.score_counter.is_turn = false
 					player_1.game_won()
-					
-			if not is_tie: Global.can_switch_turns = true
-		#endregion
+			
+			await get_tree().create_timer(3).timeout
+				
+			if not game_start:
+				print("\nEmit\n")
+				tie_detection_complete.emit()
+			#endregion
+		game_start = false
 #endregion
 #endregion
 
@@ -127,6 +133,31 @@ func update_board() -> void:
 	if sprite: sprite.texture = board_textures[dimensions]
 	if grid: grid.dimensions = dimensions
 
+func update_board_state() -> void:
+	var state = player_1.piece_color if player_1.is_turn else player_2.piece_color
+	state = "W:" if state == Global.WHITE else "B:"
+	
+	if not Global.game_over:
+		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
+			if piece.current_zone: state += piece.current_zone.char_ID
+			else: state += "_"
+	else: state += "GAME_OVER"
+		
+	board_state = state
+
+func switch_turns() -> void:
+	print("Switch Turns")
+	
+	if Mouse.context != Mouse.CONTEXT.CURSOR: Mouse.set_context(Mouse.CONTEXT.CURSOR)
+	Global.num_pieces_mouse_on_area = 0
+	Global.can_move = false
+	
+	await tie_detection_complete
+	
+	#if not Global.game_over and not game_start:
+	player_1.is_turn = not player_1.is_turn
+	Global.can_move = true
+
 func _to_string():
 	var out: String = str(name) 
 	out += " (" + str(board_id) 
@@ -146,29 +177,22 @@ func _to_string():
 	
 	return out
 
-func update_board_state() -> void:
-	var state = player_1.piece_color if player_1.is_turn else player_2.piece_color
-	state = "W:" if state == Global.WHITE else "B:"
-	
-	if not Global.game_over:
-		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
-			if piece.current_zone: state += piece.current_zone.char_ID
-			else: state += "_"
-	else: state += "GAME_OVER"
-		
-	board_state = state
-
 var count = 0
 func _input(_event):
 	# Restart Game
-	if Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
+	if Global.game_over and Global.can_restart and Input.is_action_just_pressed("Alt_Click"):
+		await tie_detection_complete
+		
+		game_start = true
+		
 		for piece: Piece in get_tree().get_nodes_in_group("Piece"):
 			piece.reset()
 		player_1.reset()
-		Global.can_switch_turns = false
+		
 		Global.game_over = false
 		update_board_state()
 		Global.can_restart = false
+		Global.can_move = true
 
 # ------------------------------------------------------------------------------
 	# TESTING
@@ -223,3 +247,12 @@ func _input(_event):
 				#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
 				player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
 				count = 0
+
+
+
+
+# ERASE
+#func _process(_delta):
+	#if not Engine.is_editor_hint():
+		#if game_start:
+			#print("true")

@@ -210,7 +210,7 @@ func update_name() -> void:
 func on_area_mouse_entered() -> void:
 	mouse_on_area = true
 	
-	if can_move:
+	if can_move and Global.can_move:
 		Global.num_pieces_mouse_on_area += 1
 		
 		if not is_selected and not Global.is_selected:
@@ -220,7 +220,7 @@ func on_area_mouse_entered() -> void:
 func on_area_mouse_exited() -> void:
 	mouse_on_area = false
 	
-	if can_move:
+	if can_move and Global.can_move:
 		Global.num_pieces_mouse_on_area -= 1
 		if is_selected: snap_complete = true
 		
@@ -230,7 +230,7 @@ func on_area_mouse_exited() -> void:
 					Mouse.set_context(Mouse.CONTEXT.CURSOR)
 	
 func on_area_input_event(_viewport, _event, _shape_idx) -> void:
-	if can_move:
+	if can_move and Global.can_move:
 		if Input.is_action_just_pressed("Click"):
 			Mouse.set_context(Mouse.CONTEXT.GRAB)
 			Mouse.set_mode(Mouse.MODE.CONFINED)
@@ -281,28 +281,27 @@ func _physics_process(delta):
 	#endregion
 	
 	
-			elif current_zone_changed:
-				current_zone_changed = false
-				board.update_board_state()
-				if Global.game_over: Global.can_restart = true
+			#elif current_zone_changed:
+				#current_zone_changed = false
+				#board.update_board_state()
+				#Global.can_restart = true
 				#elif is_ai: can_switch_turns = true #TODO
 	
 	
 			
 			#region Zone Changed
-			#if current_zone_changed:
-				## Allow game restart.
-				#if global_position == current_zone.global_position:
-					#if Global.game_over: 
-						#Global.can_restart = true
-					#current_zone_changed = false
-				#
-				## Update board state and end AI turn.
-				#if can_update_board_state:
-					#if global_position.distance_to(current_zone.global_position) <= float(current_zone.radius)/4:
-						#board.update_board_state()
+			if current_zone_changed:
+				# Allow game restart.
+				if global_position == current_zone.global_position:
+					Global.can_restart = true
+					current_zone_changed = false
+				
+				# Update board state and end AI turn.
+				if can_update_board_state:
+					if global_position.distance_to(current_zone.global_position) <= float(current_zone.radius)/4:
 						#if is_ai and not Global.game_over: player.is_turn = not player.is_turn
-						#can_update_board_state = false
+						board.update_board_state()
+						can_update_board_state = false
 			#endregion
 			
 			#region AI Piece Capturing
@@ -327,8 +326,8 @@ func _input(_event):
 				hovered_zone.invisible = true
 		update_zone()
 		if current_zone_changed and not Global.game_over: 
-			#can_switch_turns = true #TODO
-			pass
+			board.switch_turns()
+			can_update_board_state = true
 #endregion
 
 #region Zone Functions
@@ -391,7 +390,6 @@ func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 			current_zone = zone
 			nearest_zone = zone
 			current_zone_changed = true
-			can_update_board_state = true
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
@@ -406,7 +404,7 @@ func _process(_delta):
 		
 		#region Cursor Update When Switching Turns
 		if mouse_on_area and not Global.is_selected:
-			if can_move and Global.update_cursor:
+			if can_move and Global.can_move and Global.update_cursor:
 				if Mouse.context != Mouse.CONTEXT.SELECT:
 					Mouse.set_context(Mouse.CONTEXT.SELECT)
 					Global.num_pieces_mouse_on_area += 1

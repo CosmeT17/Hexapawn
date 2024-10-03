@@ -21,7 +21,7 @@ var num_pieces: int = -1 :
 		if not Engine.is_editor_hint() and num_pieces == 0:
 			if not Global.game_over:
 				Global.game_over = true
-				set_variable(null, func(player: Player): player.game_won())
+				set_variable(null, func(player: Player): player.game_won()) # All pieces captured.
 
 var player_num : int = -1 : 
 	set(num):
@@ -45,8 +45,8 @@ var is_turn: bool = true :
 				)
 				if score_counter: score_counter.is_turn = is_turn
 				
-				if not Engine.is_editor_hint() and is_turn:
-					Global.can_switch_turns = false
+				#if not Engine.is_editor_hint() and is_turn:
+					#Global.can_switch_turns = false
 #endregion
 
 #region Export Variables
