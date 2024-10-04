@@ -12,6 +12,7 @@ enum {BLUE, RED}
 var is_ready: bool = false
 var alter_other_player: bool = true
 
+@onready var board = get_parent().get_parent() as Board
 @onready var score_counter = $Score_Counter as ScoreCounter
 @onready var pieces = $Pieces as Node2D
 
@@ -44,9 +45,6 @@ var is_turn: bool = true :
 					func(player: Player): player.is_turn = not is_turn if piece_color != UNTEXTURED else true
 				)
 				if score_counter: score_counter.is_turn = is_turn
-				
-				#if not Engine.is_editor_hint() and is_turn:
-					#Global.can_switch_turns = false
 #endregion
 
 #region Export Variables
@@ -85,8 +83,6 @@ func set_variable(self_function, other_function, pre_run: bool = false) -> void:
 			
 			if piece_color == BLACK: is_turn = false
 			else: is_turn = true
-				#print("Turn: ", name)
-				#pass
 
 @export var show_piece_ID: bool = false :
 	set(val):
@@ -121,6 +117,19 @@ func set_variable(self_function, other_function, pre_run: bool = false) -> void:
 				true
 			)
 			if score_counter: update_profile_pic()
+
+@export_range(-0.25, 1) var delay: float = 0 :
+	set(val):
+		if is_ai:
+			if val < 0.0: delay = -0.25
+			elif val < 0.25: delay = 0.0
+			elif val < 0.5: delay = 0.25
+			elif val < 0.75: delay = 0.50
+			elif val < 1.0: delay = 0.75
+			elif val == 1.0: delay = 1.0
+#endregion
+#endregion
+#endregion
 
 func _ready():
 	player_num = 0
@@ -178,3 +187,26 @@ func reset() -> void:
 	for player: Player in get_parent().get_children():
 		player.score_counter.game_won = false
 		player.num_pieces = player.pieces.get_children().size()
+		
+var move: Array = []
+var wait_input: bool = false
+func ai_move_piece(start_of_game: bool = false) -> void:
+	if is_ai and not Global.game_over:
+		# Calculating Next Move
+		move = Global.available_moves[board.board_id][board.board_state].pick_random()
+		
+		# AI Delay --> Wait before moving.
+		if not start_of_game:
+			await Global.piece_finished_moving
+			await get_tree().create_timer(delay).timeout
+		else: await get_tree().create_timer(0.5).timeout
+		
+		# Move piece after delay.
+		if delay >= 0: move[0].update_zone(move[1])
+		else: wait_input = true
+
+func _input(_event):
+	if wait_input:
+		if Input.is_action_just_pressed("Alt_Click"):
+			move[0].update_zone(move[1])
+			wait_input = false

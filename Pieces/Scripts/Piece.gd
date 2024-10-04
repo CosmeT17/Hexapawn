@@ -265,6 +265,7 @@ func _physics_process(delta):
 	elif not Engine.is_editor_hint():
 		var speed: int = Global.ai_speed if is_ai else Global.zone_speed
 		
+		# Moving towards the zone's center.
 		if current_zone:
 			if global_position != current_zone.global_position:
 				global_position = lerp(
@@ -273,33 +274,28 @@ func _physics_process(delta):
 					speed * delta
 				)
 				
-				#Smooth-over movement
+				#region Smooth-over movement
 				var pos_diff: Vector2 = round(abs((global_position - current_zone.global_position)))
 				if pos_diff.x <= 0.1 and pos_diff.y <= 0.1:
 					global_position = current_zone.global_position
 					z_index = 0
+				#endregion
 	#endregion
-	
-	
-			#elif current_zone_changed:
-				#current_zone_changed = false
-				#board.update_board_state()
-				#Global.can_restart = true
-				#elif is_ai: can_switch_turns = true #TODO
-	
-	
 			
 			#region Zone Changed
 			if current_zone_changed:
-				# Allow game restart.
+				#region Can Restart -> Game Over and Piece At Zone
 				if global_position == current_zone.global_position:
-					Global.can_restart = true
-					current_zone_changed = false
+					if Global.game_over: Global.can_restart = true
+					if Global.is_tie_detection_complete: 
+						current_zone_changed = false
+						Global.piece_finished_moving.emit()
+				#endregion
 				
 				# Update board state and end AI turn.
 				if can_update_board_state:
-					if global_position.distance_to(current_zone.global_position) <= float(current_zone.radius)/4:
-						#if is_ai and not Global.game_over: player.is_turn = not player.is_turn
+					if global_position.distance_to(current_zone.global_position) <= current_zone.radius:
+						if is_ai and not Global.game_over: board.switch_turns()
 						board.update_board_state()
 						can_update_board_state = false
 			#endregion
@@ -390,6 +386,7 @@ func update_zone(zone: Dropzone = get_nearest_zone()) -> void:
 			current_zone = zone
 			nearest_zone = zone
 			current_zone_changed = true
+			if is_ai: can_update_board_state = true
 
 func _process(_delta):
 	if not Engine.is_editor_hint():
