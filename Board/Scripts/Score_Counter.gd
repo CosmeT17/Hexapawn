@@ -62,9 +62,10 @@ func _ready():
 	window_size = get_viewport().get_visible_rect().size
 
 func update_position() -> void:
-	var new_window_size = get_viewport().get_visible_rect().size
-	global_position.x += (new_window_size.x - window_size.x) / 2
-	window_size = new_window_size
+	if not Engine.is_editor_hint():
+		var new_window_size = get_viewport().get_visible_rect().size
+		global_position.x += (new_window_size.x - window_size.x) / 2
+		window_size = new_window_size
 
 func set_profile_pic() -> void:
 	if profile_pic_sprite: 

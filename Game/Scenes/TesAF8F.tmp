@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfm0ob6pokol5"]
+
+[ext_resource type="PackedScene" uid="uid://bam5fr3mw5mqm" path="res://Game_Boards/Scenes/Hexapawn_4x4.tscn" id="1_3l61f"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Hexapawn_4X4" parent="." instance=ExtResource("1_3l61f")]
+position = Vector2(324, 0)

@@ -242,23 +242,28 @@ func on_area_input_event(_viewport, _event, _shape_idx) -> void:
 func _physics_process(delta):
 	#region Dragging
 	if is_selected:
-		# Snap to cursor.
+		#region Snap To Cursor
 		if not snap_complete:
-			if abs(global_position - get_global_mouse_position()) != GRAB_CURSOR_OFFSET:
+			var pos_diff = abs(global_position - get_global_mouse_position())
+			pos_diff = abs(pos_diff - abs(GRAB_CURSOR_OFFSET))
+			
+			if not(pos_diff.x <= 5 and pos_diff.y <= 5):
 				global_position = lerp(
 					global_position,
 					get_global_mouse_position() + GRAB_CURSOR_OFFSET,
 					Global.snap_speed * delta
 				)
 			else: snap_complete = true
+		#endregion
 		
-		# Drag piece towards the cursor:
+		#region Dragging Piece Towards Cursor
 		else:
 			global_position = lerp(
 				global_position,
 				get_global_mouse_position() + GRAB_CURSOR_OFFSET,
 				Global.drag_speed * delta
 			)
+		#endregion
 	#endregion
 	
 	#region Move Towards Zone
