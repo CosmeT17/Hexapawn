@@ -224,10 +224,10 @@ func _input(_event):
 		#print(Global.available_moves_to_string())
 		#print()
 	
-	elif Input.is_action_just_pressed("Print_Board"):
-		print(_to_string())
-		print()
-		print()
+	#elif Input.is_action_just_pressed("Print_Board"):
+		#print(_to_string())
+		#print()
+		#print()
 		
 		#print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
 		#for player: Player in [player_1, player_2]:

@@ -1,4 +1,5 @@
 extends Node
+const DV = preload("res://Game/Scripts/Default_Values.gd")
 
 #region Enums
 enum {NORTH, EAST, SOUTH, WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST, NORTH_WEST}
@@ -17,10 +18,10 @@ var num_pieces_mouse_on_area: int = 0 :
 var available_moves: Dictionary = {}
 var is_selected := false
 var can_move := true
-var snap_speed := 30 
-var drag_speed := 20
-var zone_speed := 10
-var ai_speed := 7
+var snap_speed := DV.SNAP_SPEED[0] # Range: 20-35, 30
+var drag_speed := DV.DRAG_SPEED[0] # Range: 7-20, 20
+var zone_speed := DV.ZONE_SPEED[0] # Range: 7-20, 10
+var ai_speed := DV.AI_SPEED[0] # Range: 3-10, 7
 
 func available_moves_to_string() -> String:
 	var out = "{ "

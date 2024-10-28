@@ -4,6 +4,7 @@ class_name BoardController
 
 #region Variables and Constants
 const DV = preload("res://Game/Scripts/Default_Values.gd")
+enum {DEF, MIN, MAX}
 
 #region Children Variables
 @onready var board = get_children()[0] as Board
@@ -71,37 +72,41 @@ const DV = preload("res://Game/Scripts/Default_Values.gd")
 
 #region Speed Limits Export Variables
 @export_category("Speed Limits")
-@export_range(20, 35, 1) var snap_speed :int = 30 :
+# Range: 20-35, 30
+@export_range(DV.SNAP_SPEED[MIN], DV.SNAP_SPEED[MAX], 1) var snap_speed :int = DV.SNAP_SPEED[DEF] :
 	set(num):
-		if num < 20: snap_speed = 20
-		elif num > 35: snap_speed = 35
+		if num < DV.SNAP_SPEED[MIN]: snap_speed = DV.SNAP_SPEED[MIN]
+		elif num > DV.SNAP_SPEED[MAX]: snap_speed = DV.SNAP_SPEED[MAX]
 		else: snap_speed = num
 		
 		if not Engine.is_editor_hint(): 
 			Global.snap_speed = snap_speed
 
-@export_range(7, 20, 1) var drag_speed :int = 20 :
+# Range: 7-20, 20
+@export_range(DV.DRAG_SPEED[MIN], DV.DRAG_SPEED[MAX], 1) var drag_speed :int = DV.DRAG_SPEED[DEF] :
 	set(num):
-		if num < 7: drag_speed = 7
-		elif num > 20: drag_speed = 20
+		if num < DV.DRAG_SPEED[MIN]: drag_speed = DV.DRAG_SPEED[MIN]
+		elif num > DV.DRAG_SPEED[MAX]: drag_speed = DV.DRAG_SPEED[MAX]
 		else: drag_speed = num
 		
 		if not Engine.is_editor_hint(): 
 			Global.drag_speed = drag_speed
 
-@export_range(7, 20, 1) var zone_speed :int = 10 :
+# Range: 7-20, 10
+@export_range(DV.ZONE_SPEED[MIN], DV.ZONE_SPEED[MAX], 1) var zone_speed :int = DV.ZONE_SPEED[DEF] :
 	set(num):
-		if num < 7: zone_speed = 7
-		elif num > 20: zone_speed = 20
+		if num < DV.ZONE_SPEED[MIN]: zone_speed = DV.ZONE_SPEED[MIN]
+		elif num > DV.ZONE_SPEED[MAX]: zone_speed = DV.ZONE_SPEED[MAX]
 		else: zone_speed = num
 		
 		if not Engine.is_editor_hint(): 
 			Global.zone_speed = zone_speed
-			
-@export_range(3, 10, 1) var ai_speed :int = 7 :
+
+# Range: 3-10, 7
+@export_range(DV.AI_SPEED[MIN], DV.AI_SPEED[MAX], 1) var ai_speed :int = DV.AI_SPEED[DEF] :
 	set(num):
-		if num < 3: ai_speed = 3
-		elif num > 10: ai_speed = 10
+		if num < DV.AI_SPEED[MIN]: ai_speed = DV.AI_SPEED[MIN]
+		elif num > DV.AI_SPEED[MAX]: ai_speed = DV.AI_SPEED[MAX]
 		else: ai_speed = num
 		
 		if not Engine.is_editor_hint(): 
@@ -112,6 +117,13 @@ const DV = preload("res://Game/Scripts/Default_Values.gd")
 
 func _ready():
 	self.position = Vector2(324, 0)
+
+func _enter_tree():
+	if not Engine.is_editor_hint():
+		if Global.snap_speed != snap_speed: snap_speed = Global.snap_speed
+		if Global.drag_speed != drag_speed: drag_speed = Global.drag_speed
+		if Global.zone_speed != zone_speed: zone_speed = Global.zone_speed
+		if Global.ai_speed != ai_speed: ai_speed = Global.ai_speed
 
 # ------------------------------------------------------------------------------
 # TESTING
