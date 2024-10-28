@@ -6,3 +6,14 @@
 
 [node name="Hexapawn_3X3" parent="." instance=ExtResource("1_iuq7k")]
 position = Vector2(324, 0)
+
+[node name="Hexapawn_3X3" parent="Hexapawn_3X3" index="0"]
+show_zone_ID = true
+
+[node name="Grid" parent="Hexapawn_3X3/Hexapawn_3X3" index="1"]
+show_dropzone_ID = true
+
+[editable path="Hexapawn_3X3"]
+[editable path="Hexapawn_3X3/Hexapawn_3X3"]
+[editable path="Hexapawn_3X3/Hexapawn_3X3/Players/Player_1"]
+[editable path="Hexapawn_3X3/Hexapawn_3X3/Players/Player_2"]

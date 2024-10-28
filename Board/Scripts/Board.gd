@@ -216,13 +216,13 @@ func _input(_event):
 
 # ------------------------------------------------------------------------------
 	# TESTING
-	if Input.is_action_just_pressed("Test"):
-		player_1.is_turn = not player_1.is_turn
-	
-	elif Input.is_action_just_pressed("Print_Moves"):
-		print(board_id, "::", board_state)
-		print(Global.available_moves_to_string())
-		print()
+	#if Input.is_action_just_pressed("Test"):
+		#player_1.is_turn = not player_1.is_turn
+	#
+	#elif Input.is_action_just_pressed("Print_Moves"):
+		#print(board_id, "::", board_state)
+		#print(Global.available_moves_to_string())
+		#print()
 	
 	elif Input.is_action_just_pressed("Print_Board"):
 		print(_to_string())
@@ -241,30 +241,30 @@ func _input(_event):
 				#print("\t* ", pawn, ": ", zones)
 			#print()
 		
-	elif Input.is_action_just_pressed("Change_Piece_Color"):
-		if player_1.piece_color == Global.WHITE:
-			player_1.piece_color = Global.BLACK
-		else:
-			player_1.piece_color = Global.WHITE
-	
-	elif Input.is_action_just_pressed("Toggle_AI"):
-		player_2.is_ai = not player_2.is_ai
-	
-	elif Input.is_action_just_pressed("Toggle_Piece_ID"):
-		player_1.show_piece_ID = not player_1.show_piece_ID
-
-	elif Input.is_action_just_pressed("Toggle_Grid_ID"):
-		show_zone_ID = not show_zone_ID
-	
-	elif Input.is_action_just_pressed("Capture_Piece"):
-		#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][1])
-		
-		if player_2.is_turn:
-			if count == 0:
-				player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][0])
-				count += 1
-			
-			else: 
-				#player_2.get_node("Pieces").get_children()[2].update_zone(grid.dropzones[1][2])
-				player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
-				count = 0
+	#elif Input.is_action_just_pressed("Change_Piece_Color"):
+		#if player_1.piece_color == Global.WHITE:
+			#player_1.piece_color = Global.BLACK
+		#else:
+			#player_1.piece_color = Global.WHITE
+	#
+	#elif Input.is_action_just_pressed("Toggle_AI"):
+		#player_2.is_ai = not player_2.is_ai
+	#
+	#elif Input.is_action_just_pressed("Toggle_Piece_ID"):
+		#player_1.show_piece_ID = not player_1.show_piece_ID
+#
+	#elif Input.is_action_just_pressed("Toggle_Grid_ID"):
+		#show_zone_ID = not show_zone_ID
+	#
+	#elif Input.is_action_just_pressed("Capture_Piece"):
+		##player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][1])
+		#
+		#if player_2.is_turn:
+			#if count == 0:
+				#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[1][0])
+				#count += 1
+			#
+			#else: 
+				##player_2.get_node("Pieces").get_children()[2].update_zone(grid.dropzones[1][2])
+				#player_2.get_node("Pieces").get_children()[1].update_zone(grid.dropzones[0][1])
+				#count = 0

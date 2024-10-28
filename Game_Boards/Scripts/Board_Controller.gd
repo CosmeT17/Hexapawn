@@ -2,7 +2,9 @@
 extends Node
 class_name BoardController
 
-#region Variables
+#region Variables and Constants
+const DV = preload("res://Game/Scripts/Default_Values.gd")
+
 #region Children Variables
 @onready var board = get_children()[0] as Board
 @onready var grid = board.get_node("Grid") as Grid
@@ -71,22 +73,49 @@ class_name BoardController
 @export_category("Speed Limits")
 @export_range(20, 35, 1) var snap_speed :int = 30 :
 	set(num):
-		snap_speed = num
+		if num < 20: snap_speed = 20
+		elif num > 35: snap_speed = 35
+		else: snap_speed = num
+		
+		if not Engine.is_editor_hint(): 
+			Global.snap_speed = snap_speed
 
 @export_range(7, 20, 1) var drag_speed :int = 20 :
 	set(num):
-		drag_speed = num
+		if num < 7: drag_speed = 7
+		elif num > 20: drag_speed = 20
+		else: drag_speed = num
+		
+		if not Engine.is_editor_hint(): 
+			Global.drag_speed = drag_speed
 
 @export_range(7, 20, 1) var zone_speed :int = 10 :
 	set(num):
-		zone_speed = num
-
+		if num < 7: zone_speed = 7
+		elif num > 20: zone_speed = 20
+		else: zone_speed = num
+		
+		if not Engine.is_editor_hint(): 
+			Global.zone_speed = zone_speed
+			
 @export_range(3, 10, 1) var ai_speed :int = 7 :
 	set(num):
-		ai_speed = num
+		if num < 3: ai_speed = 3
+		elif num > 10: ai_speed = 10
+		else: ai_speed = num
+		
+		if not Engine.is_editor_hint(): 
+			Global.ai_speed = ai_speed
 #endregion
 #endregion
 #endregion
 
 func _ready():
 	self.position = Vector2(324, 0)
+
+# ------------------------------------------------------------------------------
+# TESTING
+# ------------------------------------------------------------------------------
+func _input(_event):
+	if Input.is_action_just_pressed("Test"):
+		print("TEST")
