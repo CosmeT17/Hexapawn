@@ -52,20 +52,16 @@ enum {DEF, MIN, MAX}
 @export var show_dropzones: bool = false :
 	set(val):
 		show_dropzones = val
-		if board: board.show_dropzones = show_dropzones
 
 @export var highlight_dropzones: bool = false :
 	set(val):
 		highlight_dropzones = val
-		if board: board.highlight_dropzones = highlight_dropzones
 #
 @export var show_zone_ID: bool = false :
 	set(val):
 		show_zone_ID = val
-		if board: board.show_zone_ID = show_zone_ID
 
-# Default Color: Color(Color.MEDIUM_SEA_GREEN, 0.25)
-@export var dropzone_color: Color = DV.DROPZONE_COLOR :
+@export var dropzone_color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
 	set(color):
 		dropzone_color = color
 
