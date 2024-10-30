@@ -204,8 +204,8 @@ func ai_move_piece(start_of_game: bool = false) -> void:
 			
 			# TODO: FIXXX
 			# Move piece after delay.
-			#if delay >= 0: move[0].update_zone(move[1])
-			#else: wait_input = true
+			if delay >= 0: move[0].update_zone(move[1])
+			else: wait_input = true
 
 func _input(_event):
 	if wait_input:

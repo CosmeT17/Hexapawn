@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Node2D
 class_name Game
 
@@ -25,7 +25,6 @@ const SCENE_HEXAPAWN_4X4 = preload("res://Game_Boards/Scenes/Hexapawn_4x4.tscn")
 					board_container.add_child(board)
 				else: # TEST
 					board_container.add_child(TEST.instantiate())
-				print(board_container.get_children())
 
 @onready var board_container = $Canvas/Board_Container as HBoxContainer
 var board: BoardController
@@ -59,7 +58,8 @@ func exit_to_main_menu() -> void:
 
 func _input(_event):
 	if Input.is_action_just_pressed("Test"): # Middle_Mouse_Button
-		print(board_container.get_children())
+		#print(board_container.get_children())
+		pass
 	
 	if Input.is_action_just_pressed("Print_Tree"): # T
 		print_tree_pretty()

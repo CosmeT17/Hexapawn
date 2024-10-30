@@ -70,23 +70,26 @@ enum {DEF, MIN, MAX}
 #
 @export var show_zone_ID: bool = DV.SHOW_ZONE_ID : # false
 	set(val):
-		show_zone_ID = val
-		if board: board.show_zone_ID = show_zone_ID
-		if not Engine.is_editor_hint(): Global.show_zone_ID = show_zone_ID
+		if val != show_zone_ID:
+			show_zone_ID = val
+			if board: board.show_zone_ID = show_zone_ID
+			if not Engine.is_editor_hint(): Global.show_zone_ID = show_zone_ID
 
 @export var dropzone_color: Color = DV.DROPZONE_COLOR : # Color(Color.MEDIUM_SEA_GREEN, 0.25)
 	set(color):
-		dropzone_color = color
-		if grid: grid.dropzone_color = dropzone_color
-		if not Engine.is_editor_hint(): Global.dropzone_color = dropzone_color
+		if color != dropzone_color:
+			dropzone_color = color
+			if grid: grid.dropzone_color = dropzone_color
+			if not Engine.is_editor_hint(): Global.dropzone_color = dropzone_color
 
 @export_range(0, 50) var area_offset: int = DV.DROPZONE_AREA_OFFSET : # 6
 	set(offset):
-		if offset < 0: area_offset = 0
-		elif offset > 50: area_offset = 50
-		else: area_offset = offset
-		if grid: grid.area_offset = area_offset
-		if not Engine.is_editor_hint(): Global.area_offset = area_offset
+		if offset != area_offset:
+			if offset < 0: area_offset = 0
+			elif offset > 50: area_offset = 50
+			else: area_offset = offset
+			if grid: grid.area_offset = area_offset
+			if not Engine.is_editor_hint(): Global.area_offset = area_offset
 #endregion
 
 #region Speed Limits Export Variables
@@ -137,6 +140,8 @@ func _ready():
 		show_dropzones = Global.show_dorpzones
 		highlight_dropzones = Global.highlight_dropzones
 		show_zone_ID = Global.show_zone_ID
+		dropzone_color = Global.dropzone_color
+		area_offset = Global.area_offset
 		
 		snap_speed = Global.snap_speed
 		drag_speed = Global.drag_speed
@@ -155,6 +160,26 @@ func _input(_event):
 	
 	if Input.is_action_just_pressed("Toggle_Grid_ID"): # G
 		show_zone_ID = not show_zone_ID
+	
+	if Input.is_action_just_pressed("Change_Dropzone_Color"): # Z
+		if dropzone_color == DV.DROPZONE_COLOR: dropzone_color = Color.DARK_RED
+		else: dropzone_color = DV.DROPZONE_COLOR
+	
+	if Input.is_action_just_pressed("Change_Area_Offset"):
+		if area_offset == DV.DROPZONE_AREA_OFFSET: area_offset = 100
+		else: area_offset = DV.DROPZONE_AREA_OFFSET
+	
+	if Input.is_action_just_pressed("Change_Piece_Speeds"): # A
+		if snap_speed == DV.SNAP_SPEED[DEF]:
+			snap_speed = 0
+			drag_speed = 0
+			zone_speed = 0
+			ai_speed = 0
+		else:
+			snap_speed = DV.SNAP_SPEED[DEF]
+			drag_speed = DV.DRAG_SPEED[DEF]
+			zone_speed = DV.ZONE_SPEED[DEF]
+			ai_speed = DV.AI_SPEED[DEF]
 	
 	if Input.is_action_just_pressed("Print"): # P
 		print("     Show Dropzones: ", Global.show_dorpzones, ":", show_dropzones)

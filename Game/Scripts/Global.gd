@@ -51,7 +51,7 @@ func available_moves_to_string() -> String:
 #endregion
 
 #region Dropzones
-var show_dorpzones: bool =  true #DV.SHOW_DROPZONES # false
+var show_dorpzones: bool =  DV.SHOW_DROPZONES # false
 var highlight_zone: bool = DV.HIGHLIGHT_DROPZONES # false
 var highlight_dropzones: bool = DV.HIGHLIGHT_DROPZONES # false : Remember Board_Controller Value
 var show_zone_ID: bool = DV.SHOW_ZONE_ID # false

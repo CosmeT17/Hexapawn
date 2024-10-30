@@ -238,18 +238,17 @@ func _input(_event):
 		print(Global.available_moves_to_string())
 		print()
 	
-	#if Input.is_action_just_pressed("Test"):
-		#player_1.is_turn = not player_1.is_turn
-	#
+	elif Input.is_action_just_pressed("Test"): # MIDDE_MOUSE_BUTTON
+		player_1.is_turn = not player_1.is_turn
+	
+	elif Input.is_action_just_pressed("Toggle_AI"): # I
+		player_2.is_ai = not player_2.is_ai
 	
 	#elif Input.is_action_just_pressed("Change_Piece_Color"):
 		#if player_1.piece_color == Global.WHITE:
 			#player_1.piece_color = Global.BLACK
 		#else:
 			#player_1.piece_color = Global.WHITE
-	#
-	#elif Input.is_action_just_pressed("Toggle_AI"):
-		#player_2.is_ai = not player_2.is_ai
 	#
 	#elif Input.is_action_just_pressed("Toggle_Piece_ID"):
 		#player_1.show_piece_ID = not player_1.show_piece_ID
