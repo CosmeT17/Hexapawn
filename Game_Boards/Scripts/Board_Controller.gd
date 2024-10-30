@@ -49,29 +49,44 @@ enum {DEF, MIN, MAX}
 
 #region Dropzones Export Variables
 @export_category("Dropzones")
-@export var show_dropzones: bool = false :
+@export var show_dropzones: bool = DV.SHOW_DROPZONES : # false
 	set(val):
-		show_dropzones = val
-		if board: board.show_dropzones = show_dropzones
+		if val != show_dropzones:
+			show_dropzones = val
+			if board: board.show_dropzones = show_dropzones
+			if not Engine.is_editor_hint(): 
+				Global.show_dorpzones = show_dropzones
+				
+				# Make sure that highlight_zones remains off when turning show_dorpzones off.
+				if not show_dropzones and not highlight_dropzones:
+					Global.highlight_zone = false
 
-@export var highlight_dropzones: bool = false :
+@export var highlight_dropzones: bool = DV.HIGHLIGHT_DROPZONES : # false
 	set(val):
-		highlight_dropzones = val
-		if board: board.highlight_dropzones = highlight_dropzones
+		if val != highlight_dropzones:
+			highlight_dropzones = val
+			if board: board.highlight_dropzones = highlight_dropzones
+			if not Engine.is_editor_hint(): Global.highlight_dropzones = highlight_dropzones
 #
-@export var show_zone_ID: bool = false :
+@export var show_zone_ID: bool = DV.SHOW_ZONE_ID : # false
 	set(val):
 		show_zone_ID = val
 		if board: board.show_zone_ID = show_zone_ID
+		if not Engine.is_editor_hint(): Global.show_zone_ID = show_zone_ID
 
-# Default Color: Color(Color.MEDIUM_SEA_GREEN, 0.25)
-@export var dropzone_color: Color = DV.DROPZONE_COLOR :
+@export var dropzone_color: Color = DV.DROPZONE_COLOR : # Color(Color.MEDIUM_SEA_GREEN, 0.25)
 	set(color):
 		dropzone_color = color
+		if grid: grid.dropzone_color = dropzone_color
+		if not Engine.is_editor_hint(): Global.dropzone_color = dropzone_color
 
-@export_range(0, 50) var area_offset: int = 0 :
+@export_range(0, 50) var area_offset: int = DV.DROPZONE_AREA_OFFSET : # 6
 	set(offset):
-		area_offset = offset
+		if offset < 0: area_offset = 0
+		elif offset > 50: area_offset = 50
+		else: area_offset = offset
+		if grid: grid.area_offset = area_offset
+		if not Engine.is_editor_hint(): Global.area_offset = area_offset
 #endregion
 
 #region Speed Limits Export Variables
@@ -79,59 +94,77 @@ enum {DEF, MIN, MAX}
 # Range: 20-35, 30
 @export_range(DV.SNAP_SPEED[MIN], DV.SNAP_SPEED[MAX], 1) var snap_speed :int = DV.SNAP_SPEED[DEF] :
 	set(num):
-		if num < DV.SNAP_SPEED[MIN]: snap_speed = DV.SNAP_SPEED[MIN]
-		elif num > DV.SNAP_SPEED[MAX]: snap_speed = DV.SNAP_SPEED[MAX]
-		else: snap_speed = num
-		
-		if not Engine.is_editor_hint(): 
-			Global.snap_speed = snap_speed
+		if num != snap_speed:
+			if num < DV.SNAP_SPEED[MIN]: snap_speed = DV.SNAP_SPEED[MIN]
+			elif num > DV.SNAP_SPEED[MAX]: snap_speed = DV.SNAP_SPEED[MAX]
+			else: snap_speed = num
+			if not Engine.is_editor_hint(): Global.snap_speed = snap_speed
 
 # Range: 7-20, 20
 @export_range(DV.DRAG_SPEED[MIN], DV.DRAG_SPEED[MAX], 1) var drag_speed :int = DV.DRAG_SPEED[DEF] :
 	set(num):
-		if num < DV.DRAG_SPEED[MIN]: drag_speed = DV.DRAG_SPEED[MIN]
-		elif num > DV.DRAG_SPEED[MAX]: drag_speed = DV.DRAG_SPEED[MAX]
-		else: drag_speed = num
-		
-		if not Engine.is_editor_hint(): 
-			Global.drag_speed = drag_speed
+		if num != drag_speed:
+			if num < DV.DRAG_SPEED[MIN]: drag_speed = DV.DRAG_SPEED[MIN]
+			elif num > DV.DRAG_SPEED[MAX]: drag_speed = DV.DRAG_SPEED[MAX]
+			else: drag_speed = num
+			if not Engine.is_editor_hint(): Global.drag_speed = drag_speed
 
 # Range: 7-20, 10
 @export_range(DV.ZONE_SPEED[MIN], DV.ZONE_SPEED[MAX], 1) var zone_speed :int = DV.ZONE_SPEED[DEF] :
 	set(num):
-		if num < DV.ZONE_SPEED[MIN]: zone_speed = DV.ZONE_SPEED[MIN]
-		elif num > DV.ZONE_SPEED[MAX]: zone_speed = DV.ZONE_SPEED[MAX]
-		else: zone_speed = num
-		
-		if not Engine.is_editor_hint(): 
-			Global.zone_speed = zone_speed
+		if num != zone_speed:
+			if num < DV.ZONE_SPEED[MIN]: zone_speed = DV.ZONE_SPEED[MIN]
+			elif num > DV.ZONE_SPEED[MAX]: zone_speed = DV.ZONE_SPEED[MAX]
+			else: zone_speed = num
+			if not Engine.is_editor_hint(): Global.zone_speed = zone_speed
 
 # Range: 3-10, 7
 @export_range(DV.AI_SPEED[MIN], DV.AI_SPEED[MAX], 1) var ai_speed :int = DV.AI_SPEED[DEF] :
 	set(num):
-		if num < DV.AI_SPEED[MIN]: ai_speed = DV.AI_SPEED[MIN]
-		elif num > DV.AI_SPEED[MAX]: ai_speed = DV.AI_SPEED[MAX]
-		else: ai_speed = num
-		
-		if not Engine.is_editor_hint(): 
-			Global.ai_speed = ai_speed
+		if num != ai_speed:
+			if num < DV.AI_SPEED[MIN]: ai_speed = DV.AI_SPEED[MIN]
+			elif num > DV.AI_SPEED[MAX]: ai_speed = DV.AI_SPEED[MAX]
+			else: ai_speed = num
+			if not Engine.is_editor_hint(): Global.ai_speed = ai_speed
 #endregion
 #endregion
 #endregion
 
 func _ready():
 	self.position = Vector2(324, 0)
-
-func _enter_tree():
+	
 	if not Engine.is_editor_hint():
-		if Global.snap_speed != snap_speed: snap_speed = Global.snap_speed
-		if Global.drag_speed != drag_speed: drag_speed = Global.drag_speed
-		if Global.zone_speed != zone_speed: zone_speed = Global.zone_speed
-		if Global.ai_speed != ai_speed: ai_speed = Global.ai_speed
+		show_dropzones = Global.show_dorpzones
+		highlight_dropzones = Global.highlight_dropzones
+		show_zone_ID = Global.show_zone_ID
+		
+		snap_speed = Global.snap_speed
+		drag_speed = Global.drag_speed
+		zone_speed = Global.zone_speed
+		ai_speed = Global.ai_speed
 
 # ------------------------------------------------------------------------------
 # TESTING
 # ------------------------------------------------------------------------------
 func _input(_event):
-	if Input.is_action_just_pressed("Test"):
-		print("TEST")
+	if Input.is_action_just_pressed("Show_Dropzones"): # S
+		show_dropzones = not show_dropzones
+	
+	if Input.is_action_just_pressed("Highlight_Dropzone"): # H
+		highlight_dropzones = not highlight_dropzones
+	
+	if Input.is_action_just_pressed("Toggle_Grid_ID"): # G
+		show_zone_ID = not show_zone_ID
+	
+	if Input.is_action_just_pressed("Print"): # P
+		print("     Show Dropzones: ", Global.show_dorpzones, ":", show_dropzones)
+		print("Highlight Dropzones: ", Global.highlight_zone, ":", Global.highlight_dropzones, ":", highlight_dropzones)
+		print("       Show Zone ID: ", Global.show_zone_ID, ":", show_zone_ID)
+		print("     Dropzone Color: ", Global.dropzone_color, ":", dropzone_color)
+		print("        Area Offset: ", Global.area_offset, ":", area_offset)
+		print()
+		print("Snap Speed: ", Global.snap_speed, ":", snap_speed)
+		print("Drag Speed: ", Global.drag_speed, ":", drag_speed)
+		print("Zone Speed: ", Global.zone_speed, ":", zone_speed)
+		print("  AI Speed: ", Global.ai_speed, ":", ai_speed)
+		print()

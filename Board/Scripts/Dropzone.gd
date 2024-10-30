@@ -70,7 +70,8 @@ func _to_string():
 	else: return ID + "[___]"
 
 func update_ID_position() -> void:
-	if ID_centered: 
-		label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
-	else: 
-		label_id.position = Vector2(-radius, -radius)
+	if label_id:
+		if ID_centered: 
+			label_id.position = Vector2(-label_id.size.x / 2, -label_id.size.y / 2)
+		else: 
+			label_id.position = Vector2(-radius, -radius)

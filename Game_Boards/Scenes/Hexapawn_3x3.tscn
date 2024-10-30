@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dvy22ih0o7cq6" path="res://Pieces/Scenes/Pawn.tscn" id="3_vtct4"]
 
 [node name="Hexapawn_3X3" type="Node2D"]
+position = Vector2(324, 0)
 script = ExtResource("1_amw6p")
 
 [node name="Hexapawn_3X3" parent="." instance=ExtResource("1_fp8dt")]

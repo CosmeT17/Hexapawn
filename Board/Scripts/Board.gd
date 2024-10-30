@@ -216,31 +216,32 @@ func _input(_event):
 
 # ------------------------------------------------------------------------------
 	# TESTING
+	if Input.is_action_just_pressed("Print_Pieces"): # Q
+		print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
+		for player: Player in [player_1, player_2]:
+			for pawn: Pawn in player.get_node("Pieces").get_children():
+				var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
+				
+				for i in range(zones.size()):
+					if zones[i]: zones[i] = zones[i].ID
+					else: zones[i] = "__"
+					
+				print("\t* ", pawn, ": ", zones)
+			print()
+	
+	elif Input.is_action_just_pressed("Print_Board"): # B
+		print(_to_string())
+		print()
+	
+	elif Input.is_action_just_pressed("Print_Moves"): # M
+		print(board_id, "::", board_state)
+		print(Global.available_moves_to_string())
+		print()
+	
 	#if Input.is_action_just_pressed("Test"):
 		#player_1.is_turn = not player_1.is_turn
 	#
-	#elif Input.is_action_just_pressed("Print_Moves"):
-		#print(board_id, "::", board_state)
-		#print(Global.available_moves_to_string())
-		#print()
 	
-	#elif Input.is_action_just_pressed("Print_Board"):
-		#print(_to_string())
-		#print()
-		#print()
-		
-		#print("\nPawn: initial_zone, current_zone, nearest_zone, hovered_zone")
-		#for player: Player in [player_1, player_2]:
-			#for pawn: Pawn in player.get_node("Pieces").get_children():
-				#var zones: Array = [pawn.initial_zone, pawn.current_zone, pawn.nearest_zone, pawn.hovered_zone]
-				#
-				#for i in range(zones.size()):
-					#if zones[i]: zones[i] = zones[i].ID
-					#else: zones[i] = "__"
-					#
-				#print("\t* ", pawn, ": ", zones)
-			#print()
-		
 	#elif Input.is_action_just_pressed("Change_Piece_Color"):
 		#if player_1.piece_color == Global.WHITE:
 			#player_1.piece_color = Global.BLACK

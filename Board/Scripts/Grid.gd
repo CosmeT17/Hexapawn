@@ -22,7 +22,9 @@ var dropzones: Array[Array]
 @export_range(300, 700) var size: int = 636 :
 	set(val):
 		if size != val:
-			size = val
+			if val < 300: size = 300
+			elif val > 700: size = 700
+			else: size = val
 			organize_zones()
 #endregion
 
@@ -31,7 +33,9 @@ var dropzones: Array[Array]
 @export_range(0, 50) var area_offset: int = 0 :
 	set(offset):
 		if area_offset != offset:
-			area_offset = offset
+			if offset < 0: area_offset = 0
+			elif offset > 50: area_offset = 50
+			else: area_offset = offset
 			update_zone_offset()
 
 @export var dropzone_color: Color = Color(Color.MEDIUM_SEA_GREEN, 0.25) :
@@ -224,3 +228,9 @@ func _to_string():
 			else: out += " | "
 		if row != 0: out += "\n"
 	return out
+
+func _on_tree_exiting():
+	for zone: Dropzone in get_children():
+		zone.free()
+	if not Engine.is_editor_hint():
+		Global.zones_destroyed.emit()

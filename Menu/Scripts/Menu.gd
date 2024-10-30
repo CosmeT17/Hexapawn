@@ -4,7 +4,7 @@ extends Control
 @onready var main_menu = $Main_Menu as MainMenu
 @onready var play_menu = $Play_Menu as PlayMenu
 @onready var options_menu = $Options_Menu as OptionsMenu
-@onready var game = preload("res://Game/Scenes/Main.tscn").instantiate()
+@onready var game = preload("res://Game/Scenes/Game.tscn").instantiate() as Game
 
 func _ready():
 	main_menu.enter_menu()

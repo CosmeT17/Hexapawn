@@ -9,15 +9,12 @@
 [node name="Board" parent="." instance=ExtResource("1_q6uqg")]
 position = Vector2(324, 0)
 dimensions = 3
-highlight_dropzones = true
-show_zone_ID = true
 
 [node name="Sprite" parent="Board" index="0"]
 texture = ExtResource("2_wnd3v")
 
 [node name="Grid" parent="Board" index="1"]
 dimensions = 3
-show_dropzone_ID = true
 
 [node name="Player_1" parent="Board/Players" index="0"]
 piece_color = 0
