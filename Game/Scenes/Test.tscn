@@ -5,6 +5,10 @@
 [node name="Test" type="Node2D"]
 
 [node name="Hexapawn_3X3" parent="." instance=ExtResource("1_iuq7k")]
+highlight_dropzones = true
+
+[node name="Hexapawn_3X3" parent="Hexapawn_3X3" index="0"]
+highlight_dropzones = true
 
 [editable path="Hexapawn_3X3"]
 [editable path="Hexapawn_3X3/Hexapawn_3X3"]
