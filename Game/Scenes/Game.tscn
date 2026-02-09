@@ -1,14 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://brxhwi1eev20i"]
+[gd_scene format=3 uid="uid://brxhwi1eev20i"]
 
-[ext_resource type="Script" path="res://Game/Scripts/Game.gd" id="1_sswfy"]
+[ext_resource type="Script" uid="uid://bk0co8f0gvgw1" path="res://Game/Scripts/Game.gd" id="1_sswfy"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=1223759758]
 script = ExtResource("1_sswfy")
-game_mode = 2
 
-[node name="Canvas" type="CanvasLayer" parent="."]
+[node name="Canvas" type="CanvasLayer" parent="." unique_id=667492354]
 
-[node name="Board_Container" type="HBoxContainer" parent="Canvas"]
+[node name="Board_Container" type="HBoxContainer" parent="Canvas" unique_id=1192244141]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://lh4s2o7v3pf"]
+[gd_resource type="Theme" format=3 uid="uid://lh4s2o7v3pf"]
 
 [sub_resource type="SystemFont" id="SystemFont_w0awv"]
 font_names = PackedStringArray("Consolas")
